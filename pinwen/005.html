@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陶常清先生八字命造</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5A2B',     // 传统棕色-代表命理传统文化
+                        secondary: '#D2B48C',   // 棕黄色-辅助色
+                        accent: '#4A5D23',      // 深绿色-点缀色
+                        light: '#F5F5DC',       // 米白色-背景色
+                        dark: '#2C2415',        // 深棕色-文字主色
+                    },
+                    fontFamily: {
+                        song: ['SimSun', 'STSong', 'serif'],
+                        kai: ['KaiTi', 'STKaiti', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            .bg-texture {
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50L30 30M70 30L50 50M70 70L50 50M30 70L50 50' stroke='%238B5A2B' stroke-width='1' stroke-opacity='0.1'/%3E%3C/svg%3E");
+            }
+            .border-pattern {
+                border-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm20 0a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM10 37a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm10-17h20v20H20V20zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z' fill='%238B5A2B' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E") 1 repeat;
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-song bg-texture scroll-smooth">
+    <!-- 顶部导航 -->
+    <header class="sticky top-0 z-50 bg-primary/95 text-light shadow-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
+            <h1 class="text-xl md:text-2xl font-kai font-bold">陶常清先生八字命造</h1>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuToggle" class="md:hidden text-light focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+            
+            <!-- 导航菜单 -->
+            <nav id="mainNav" class="hidden w-full md:flex md:w-auto mt-3 md:mt-0">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                    <li><a href="#section1" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">日元旺衰与五行喜忌</a></li>
+                    <li><a href="#section2" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">四柱神煞吉凶</a></li>
+                    <li><a href="#section3" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">事业财运解析</a></li>
+                    <li><a href="#section4" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">婚姻家庭建议</a></li>
+                    <li><a href="#section5" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">健康状况解析</a></li>
+                    <li><a href="#section6" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">大运流年</a></li>
+                    <li><a href="#section7" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">姓名吉凶</a></li>
+                    <li><a href="#section8" class="hover:text-secondary transition-colors duration-200 py-1 border-b border-transparent hover:border-secondary">综合建议</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- 封面区域 -->
+        <section class="mb-12 text-center">
+            <div class="border-2 border-primary rounded-lg p-6 md:p-8 bg-white/80 shadow-lg">
+                <h1 class="text-3xl md:text-4xl font-kai font-bold text-primary mb-4 text-shadow">陶常清先生八字命理深度批文</h1>
+                <div class="w-32 h-1 bg-primary mx-auto my-6"></div>
+                <p class="text-lg italic text-dark/80">一命二运三风水，四积阴德五读书</p>
+                <p class="text-sm mt-2 text-dark/60">——《三命通会》</p>
+            </div>
+        </section>
+
+        <!-- 第一部分：日元旺衰与五行喜忌精析 -->
+        <section id="section1" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-fire mr-3"></i>一、日元旺衰与五行喜忌精析
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 1.1 日元丙火生于亥月的本质特征 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">1.1 日元丙火生于亥月的本质特征</h3>
+                        <p class="mb-4 leading-relaxed">
+                            阁下日元为丙火，生于亥月（水旺之月），此为丙火之绝地，正如《三命通会》所云："丙火生于亥月，分明大运喜东南"。亥月为孟冬之时，水旺火衰，丙火处于休囚状态，这是基本的命理格局。亥月丙火面临的是水旺火弱的挑战，犹如寒冬中即将熄灭的火焰，急需木来生扶、土来制水、金来调和。
+                        </p>
+                    </div>
+
+                    <!-- 1.2 日元强弱的精细分析 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">1.2 日元强弱的精细分析</h3>
+                        <p class="mb-4 leading-relaxed">
+                            阁下命局中，日支午火为丙火帝旺之地，时柱卯木正印生扶，年、时干辛金正财耗身。综合论之，<strong class="text-accent">丙火虽不得令，却得地、得生，气势不弱，当属身偏旺之局</strong>。亥月壬水当令，得旺地，太阳失其令，然而阁下日支午火为丙火之禄地，形成水火既济之象，正如《三命通会》所言："丙火以壬水取贵，水火相应，则有成仁之美"。
+                        </p>
+                    </div>
+
+                    <!-- 1.3 五行喜忌的深层解析 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">1.3 五行喜忌的深层解析</h3>
+                        
+                        <!-- 喜用神表格 -->
+                        <div class="mb-6">
+                            <h4 class="text-lg font-semibold text-accent mb-2">喜用神：水、金、土</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <!-- 水 -->
+                                <div class="border border-secondary rounded-lg p-4 bg-blue-50/50 hover:bg-blue-50 transition-colors duration-300">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fa fa-tint text-blue-600 text-xl mr-2"></i>
+                                        <h5 class="font-bold">喜水（壬水）</h5>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">
+                                        水为丙火之官杀，可制火调候，构成水火既济之美。正如《三命通会》云："丙火用壬，本忌己土混浊，独有十月丙火见己土，名己土混壬，大贵之格"。
+                                    </p>
+                                </div>
+                                
+                                <!-- 金 -->
+                                <div class="border border-secondary rounded-lg p-4 bg-yellow-50/50 hover:bg-yellow-50 transition-colors duration-300">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fa fa-diamond text-yellow-600 text-xl mr-2"></i>
+                                        <h5 class="font-bold">喜金（庚辛）</h5>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">
+                                        金为财星，可生水助官，形成财生杀、杀生印的良性循环。
+                                    </p>
+                                </div>
+                                
+                                <!-- 土 -->
+                                <div class="border border-secondary rounded-lg p-4 bg-yellow-100/50 hover:bg-yellow-100 transition-colors duration-300">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fa fa-mound text-yellow-800 text-xl mr-2"></i>
+                                        <h5 class="font-bold">喜土（戊己）</h5>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">
+                                        土为伤官，可制水，又可生金，是调和水火的关键元素。尤其己土混壬，可化不利为大贵。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 忌神表格 -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-red-600 mb-2">忌神：木、火</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- 木 -->
+                                <div class="border border-secondary rounded-lg p-4 bg-green-50/50 hover:bg-green-50 transition-colors duration-300">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fa fa-tree text-green-600 text-xl mr-2"></i>
+                                        <h5 class="font-bold">忌木（甲乙）</h5>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">
+                                        木为印星，生火助身，加重火旺之势，易导致过旺失衡。
+                                    </p>
+                                </div>
+                                
+                                <!-- 火 -->
+                                <div class="border border-secondary rounded-lg p-4 bg-red-50/50 hover:bg-red-50 transition-colors duration-300">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fa fa-fire text-red-600 text-xl mr-2"></i>
+                                        <h5 class="font-bold">忌火（丙丁）</h5>
+                                    </div>
+                                    <p class="text-sm leading-relaxed">
+                                        火为比劫，加剧身强无制，易引发破财、竞争等不利局面。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分：四柱神煞的吉凶解析 -->
+        <section id="section2" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-star mr-3"></i>二、四柱神煞的吉凶解析
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 2.1 有利神煞及其影响 -->
+                    <div class="mb-10">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">2.1 有利神煞及其影响</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- 天乙贵人 -->
+                            <div class="flex flex-col md:flex-row gap-4 items-start">
+                                <div class="bg-green-100/70 rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-hand-paper-o text-green-700 text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-green-700 mb-2">天乙贵人</h4>
+                                    <p class="leading-relaxed text-dark/90">
+                                        年、月、日柱皆带天乙贵人，此为"三奇贵人"之象，主阁下一生多遇贵人提携，于事业财运上常有机缘得贵人襄助，逢凶化吉。正如《三命通会》所言："天乙者，乃天上之神，在紫微垣、阊阖门外，与太乙并列，事天皇大帝，下游三辰，家在己丑斗牛之次，出乎己未井鬼之舍，执玉衡较量天人之事，名曰在乙"。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 太极贵人 -->
+                            <div class="flex flex-col md:flex-row gap-4 items-start">
+                                <div class="bg-blue-100/70 rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-yin-yang text-blue-700 text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-blue-700 mb-2">太极贵人</h4>
+                                    <p class="leading-relaxed text-dark/90">
+                                        年、月、时柱见太极贵人，表明阁下于玄学、风水等神秘学问上有天赋灵性，恰与您风水先生之身份契合，于看家宅风水、断吉凶时能有敏锐直觉与领悟力。《三命通会》云："太极者，太初也，始也，物造于初为太极，成也，收也。物有归曰极，造化始终相保。乃曰太极贵人也"。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- 六秀日 -->
+                            <div class="flex flex-col md:flex-row gap-4 items-start">
+                                <div class="bg-purple-100/70 rounded-full w-16 h-16 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-diamond text-purple-700 text-3xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-purple-700 mb-2">六秀日</h4>
+                                    <p class="leading-relaxed text-dark/90">
+                                        日柱丙火为六秀，主相貌俊秀，且才华出众，于事业经营、学问钻研上能展现过人之处。《三命通会》云："六秀者，壬子、丙午、戊午、己未、庚申、辛酉也。此六日生之人，日时俱有食神、伤官者，多主富贵"。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.2 不利凶煞及其化解 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">2.2 不利凶煞及其化解</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 阴差阳错 -->
+                            <div class="border border-red-200 rounded-lg p-5 bg-red-50/50 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-exclamation-triangle text-red-500 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-red-600">阴差阳错</h4>
+                                </div>
+                                <p class="text-dark/80 mb-3 leading-relaxed">
+                                    日柱带阴差阳错，主婚姻家庭易生龃龉，感情之事多波折，需于家庭相处中多些包容与沟通。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："阴差阳错，女子逢之，公姑寡合，妯娌不足，夫家冷退。男子逢之，主退妻家，也与妻家是非寡合..."
+                                </p>
+                                <div class="mt-4 pt-3 border-t border-red-100">
+                                    <h5 class="font-semibold text-dark mb-1">化解建议：</h5>
+                                    <p class="text-sm text-dark/80">多与伴侣沟通，定期家庭聚会，保持家庭和睦</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 孤鸾煞 -->
+                            <div class="border border-red-200 rounded-lg p-5 bg-red-50/50 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-exclamation-triangle text-red-500 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-red-600">孤鸾煞</h4>
+                                </div>
+                                <p class="text-dark/80 mb-3 leading-relaxed">
+                                    此煞主婚姻不顺，夫妻间易有隔阂，需留意经营婚姻，避免因事业忙碌忽略家庭情感维系。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："孤鸾寡鹄，寒宿独眠。主女寡男孤，婚姻不顺"。
+                                </p>
+                                <div class="mt-4 pt-3 border-t border-red-100">
+                                    <h5 class="font-semibold text-dark mb-1">化解建议：</h5>
+                                    <p class="text-sm text-dark/80">平衡事业与家庭，定期安排夫妻共处时间</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 童子煞 -->
+                            <div class="border border-red-200 rounded-lg p-5 bg-red-50/50 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-exclamation-triangle text-red-500 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-red-600">童子煞</h4>
+                                </div>
+                                <p class="text-dark/80 mb-3 leading-relaxed">
+                                    带童子煞者，性情多清高，然亦易招是非口舌，于事业应酬、人际交往中需谨言慎行。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："童子者，一生性灵聪明，容貌清奇，招人喜爱，然多灾多难，体性异常，婚姻不顺"。
+                                </p>
+                                <div class="mt-4 pt-3 border-t border-red-100">
+                                    <h5 class="font-semibold text-dark mb-1">化解建议：</h5>
+                                    <p class="text-sm text-dark/80">谨言慎行，多积德行善，避免口舌之争</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 羊刃 -->
+                            <div class="border border-red-200 rounded-lg p-5 bg-red-50/50 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-exclamation-triangle text-red-500 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-red-600">羊刃</h4>
+                                </div>
+                                <p class="text-dark/80 mb-3 leading-relaxed">
+                                    日柱带羊刃，虽主刚毅果断，却也易因过于刚猛而招惹竞争、冲突，于事业合作、财运博弈中需懂得刚柔并济。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："羊刃重重又见禄，富贵饶金玉"，又云："羊刃带禄，更有官、印相资，尤作吉论..."
+                                </p>
+                                <div class="mt-4 pt-3 border-t border-red-100">
+                                    <h5 class="font-semibold text-dark mb-1">化解建议：</h5>
+                                    <p class="text-sm text-dark/80">刚柔并济，学会妥协，避免正面冲突</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三部分：事业财运的深度解析与策略 -->
+        <section id="section3" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-briefcase mr-3"></i>三、事业财运的深度解析与策略
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 3.1 八字中的事业财运根基 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">3.1 八字中的事业财运根基</h3>
+                        <p class="mb-4 leading-relaxed">
+                            阁下八字<strong class="text-accent">正财透干，年时双财，且日坐帝旺</strong>，于事业财运上本有根基。然亥月水旺克火，需水调候却又忌水过旺，故事业财运之走势与"火、水"力量平衡息息相关。从古籍《三命通会》"财星得地"之论，阁下财星辛金得年支酉金临官之地，乃"财星有根"，主财运具备持久之力，非一时之利。
+                        </p>
+                        <p class="leading-relaxed">
+                            月柱伤官己土透干，伤官生财，表明阁下可凭自身专业技能（如风水堪舆之术）、智慧谋略开创财运，尤其于看家宅风水、布局理气以助客户催财纳福之业务上，能充分发挥伤官生财之妙用。《三命通会》云："伤官生财，富贵自天来"，又云："伤官若逢财，身到凤凰台"。
+                        </p>
+                    </div>
+
+                    <!-- 3.2 事业发展的三大策略 -->
+                    <div class="mb-10">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">3.2 事业发展的三大策略</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <!-- 策略一 -->
+                            <div class="border-2 border-secondary rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                                <div class="bg-secondary/30 p-3">
+                                    <h4 class="font-bold text-primary text-center">深耕专业，强化口碑</h4>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-sm leading-relaxed mb-3">
+                                        阁下有太极贵人加持，于风水玄学天赋异禀，可深耕家宅风水领域，精研阳宅布局、理气纳福之术，通过为客户调理家宅风水、催旺财运事业，建立行业口碑。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mb-3">
+                                        《地理人子须知》云："宅者，人之本；人以宅为家，若安，则家代昌吉"。
+                                    </p>
+                                    <div class="bg-light p-2 rounded text-sm">
+                                        <strong>具体行动：</strong> 从家宅的"气口"、"财位"、"文昌位"等核心布局入手，提供定制化风水方案
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 策略二 -->
+                            <div class="border-2 border-secondary rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                                <div class="bg-secondary/30 p-3">
+                                    <h4 class="font-bold text-primary text-center">借势贵人，拓展业务</h4>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-sm leading-relaxed mb-3">
+                                        天乙贵人遍布年、月、日，提示您事业中易遇贵人提携。可多参与风水行业交流活动，结识前辈同仁，或承接贵人引荐的家宅风水项目。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mb-3">
+                                        《三命通会》云："天乙贵人，命中最吉之神，若人遇之则荣，功名早达，官禄易进..."
+                                    </p>
+                                    <div class="bg-light p-2 rounded text-sm">
+                                        <strong>具体行动：</strong> 参与行业交流，结识前辈，承接贵人引荐项目，拓宽业务渠道
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 策略三 -->
+                            <div class="border-2 border-secondary rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                                <div class="bg-secondary/30 p-3">
+                                    <h4 class="font-bold text-primary text-center">把握财运流年</h4>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-sm leading-relaxed mb-3">
+                                        逢金水旺之年财运尤佳，可大力推广家宅风水服务；逢木火旺之年，则需谨慎投资，以维护现有业务、巩固客户关系为主。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mb-3">
+                                        《三命通会》云："岁运并临，灾殃立至"，又云："岁运逢财，财源广进"。
+                                    </p>
+                                    <div class="bg-light p-2 rounded text-sm">
+                                        <strong>具体行动：</strong> 金水旺年推套餐服务，木火旺年稳守业务，避免盲目扩张
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.3 财运提升的四大策略 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">3.3 财运提升的四大策略</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- 风水布局助财 -->
+                            <div class="bg-blue-50/50 p-5 rounded-lg border border-blue-100">
+                                <h4 class="text-lg font-bold text-blue-700 mb-3 flex items-center">
+                                    <i class="fa fa-map-signs mr-2"></i>风水布局助财
+                                </h4>
+                                <p class="mb-3 leading-relaxed">
+                                    可于自身工作室或常处之地，在<strong class="text-accent">西北方（乾位，属金）</strong>摆放金属摆件（如铜制貔貅、金蟾），增强财星力量；同时在<strong class="text-accent">北方（坎位，属水）</strong>布置水景（如小型鱼缸），以水调候制火，平衡五行，催旺财运。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《阳宅十书》云："财气通门户，主家道昌隆"，又云："西北乾位，为天为父，主贵气；北方坎位，为水为财，主财运"。
+                                </p>
+                            </div>
+                            
+                            <!-- 业务定价与拓展 -->
+                            <div class="bg-green-50/50 p-5 rounded-lg border border-green-100">
+                                <h4 class="text-lg font-bold text-green-700 mb-3 flex items-center">
+                                    <i class="fa fa-line-chart mr-2"></i>业务定价与拓展
+                                </h4>
+                                <p class="mb-3 leading-relaxed">
+                                    鉴于您伤官生财的格局，可推出高附加值的家宅风水服务，如"家宅风水全年顾问"、"企业办公风水布局"等，凭借专业知识提升服务溢价，契合伤官生财"以技取财"的特点。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："伤官生财，富贵自天来"。
+                                </p>
+                            </div>
+                            
+                            <!-- 五行平衡策略 -->
+                            <div class="bg-yellow-50/50 p-5 rounded-lg border border-yellow-100">
+                                <h4 class="text-lg font-bold text-yellow-700 mb-3 flex items-center">
+                                    <i class="fa fa-balance-scale mr-2"></i>五行平衡策略
+                                </h4>
+                                <p class="mb-3 leading-relaxed">
+                                    2025年作为乙巳蛇年，九宫飞星中八白左辅星飞临西南方，六白武曲星飞临正南方。西南方为正财位，五行属土，主正财与事业；正南方为偏财位，五行属金，代表横财与贵人。
+                                </p>
+                                <p class="leading-relaxed">
+                                    可在西南方摆放黄色水晶、聚宝盆等土属性物品，在正南方摆放铜制摇钱树、黑曜石金蟾等金属招财物件，以稳固财库。
+                                </p>
+                            </div>
+                            
+                            <!-- 动态调整策略 -->
+                            <div class="bg-purple-50/50 p-5 rounded-lg border border-purple-100">
+                                <h4 class="text-lg font-bold text-purple-700 mb-3 flex items-center">
+                                    <i class="fa fa-refresh mr-2"></i>动态调整策略
+                                </h4>
+                                <p class="mb-3 leading-relaxed">
+                                    每月初一、节气交替时，可微调招财物品的位置。例如，立春后于西南方点燃檀香，引动财星；冬至时在正南方埋放五帝钱，稳固财库。日常可配合奇门遁甲中的"开门"方位，动态增强聚财效果。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《阳宅十书》云："风水之法，得水为上，藏风次之"，又云："山主人丁水主财，财源茂盛达三江"。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四部分：婚姻家庭的解析与建议 -->
+        <section id="section4" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-home mr-3"></i>四、婚姻家庭的解析与建议
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 4.1 婚姻家庭的命理特征 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">4.1 婚姻家庭的命理特征</h3>
+                        <p class="mb-4 leading-relaxed">
+                            阁下日柱带阴差阳错、孤鸾煞，婚姻之路多有波折。《三命通会》云："阴差阳错，夫妻反目；孤鸾寡鹄，寒宿独眠"。需注意夫妻间的沟通方式，避免因事业忙碌（尤其外出为客户看风水时）忽略家庭关怀。
+                        </p>
+                        <p class="leading-relaxed">
+                            从八字格局看，阁下财星透干，日坐帝旺，本有妻财之缘，但羊刃在日，主克妻，需小心维护婚姻关系。《三命通会》云："日坐羊刃，主克妻，夫妻不睦"。
+                        </p>
+                    </div>
+
+                    <!-- 4.2 家庭关系的调和建议 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">4.2 家庭关系的调和建议</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 风水调和 -->
+                            <div class="bg-gradient-to-br from-pink-50 to-red-50 p-5 rounded-lg border border-pink-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-home text-pink-600 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-pink-700">风水调和</h4>
+                                </div>
+                                <p class="text-dark/80 leading-relaxed mb-3">
+                                    建议在家宅中<strong class="text-accent">正东（震位，属木）</strong>摆放粉色水晶，调和气场，增进夫妻感情；同时可定期与家人共赴自然环境优美之地（如山林、湖畔），借自然之气化解婚姻凶煞。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《阳宅十书》云："正东震位，为长男，主婚姻，宜生气旺盛"。
+                                </p>
+                                <button class="mt-4 bg-pink-100 hover:bg-pink-200 text-pink-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看详细风水布局
+                                </button>
+                            </div>
+                            
+                            <!-- 五行调和 -->
+                            <div class="bg-gradient-to-br from-green-50 to-blue-50 p-5 rounded-lg border border-green-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-paint-brush text-green-600 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-green-700">五行调和</h4>
+                                </div>
+                                <p class="text-dark/80 leading-relaxed mb-3">
+                                    可用五行相生相克原理，补益弱势五行，抑制强势五行。如五行缺木者，可多穿戴绿色衣物，摆放绿植于居室中；五行缺土者，可多食用黄色食物，佩戴黄色宝石首饰。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："五行调和，家宅安宁；五行相克，家宅不宁"。
+                                </p>
+                                <button class="mt-4 bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看五行调和方案
+                                </button>
+                            </div>
+                            
+                            <!-- 仪式化解 -->
+                            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-5 rounded-lg border border-yellow-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-gift text-yellow-600 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-yellow-700">仪式化解</h4>
+                                </div>
+                                <p class="text-dark/80 leading-relaxed mb-3">
+                                    可请道家金简玉札玉牌，佩戴49日，以此化解阴差阳错煞。
+                                </p>
+                                <p class="text-sm italic text-dark/60">
+                                    《三命通会》云："阴差阳错，需阴阳调和，方能化解"。
+                                </p>
+                                <button class="mt-4 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看完整仪式流程
+                                </button>
+                            </div>
+                            
+                            <!-- 心态调整 -->
+                            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-5 rounded-lg border border-purple-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex items-center mb-3">
+                                    <i class="fa fa-heart text-purple-600 text-xl mr-3"></i>
+                                    <h4 class="text-lg font-bold text-purple-700">心态调整</h4>
+                                </div>
+                                <p class="text-dark/80 leading-relaxed mb-3">
+                                    《三命通会》云："家和万事兴，家衰口不停"。保持平和心态，多包容理解，避免因小事争吵，珍惜夫妻缘分，是化解婚姻不利的根本方法。
+                                </p>
+                                <ul class="list-disc list-inside text-sm text-dark/80 mb-3 pl-2">
+                                    <li>每日与伴侣交流15分钟以上</li>
+                                    <li>每周安排一次家庭活动</li>
+                                    <li>每月共同学习一项新技能</li>
+                                    <li>避免将工作压力带入家庭</li>
+                                </ul>
+                                <button class="mt-4 bg-purple-100 hover:bg-purple-200 text-purple-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看心态调整方法
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五部分：健康状况的命理解析与建议 -->
+        <section id="section5" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-heartbeat mr-3"></i>五、健康状况的命理解析与建议
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 5.1 健康状况的命理特征 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">5.1 健康状况的命理特征</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                            <div class="bg-red-50/70 p-4 rounded-lg border border-red-100">
+                                <h4 class="font-bold text-red-700 mb-2 flex items-center">
+                                    <i class="fa fa-fire text-red-500 mr-2"></i>心脏与血液循环系统
+                                </h4>
+                                <p class="leading-relaxed text-dark/80">
+                                    丙火身旺，需留意心脏、血液循环系统健康（火主心），日常可多食用黑色食物（如黑豆、黑米，属水）以滋阴降火；避免长期熬夜、过度思虑，可通过太极、冥想等方式养心安神。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mt-2">
+                                    《三命通会》云："丙火属阳，为日为电，主心脏，小肠，肩背，三焦"。
+                                </p>
+                            </div>
+                            
+                            <div class="bg-blue-50/70 p-4 rounded-lg border border-blue-100">
+                                <h4 class="font-bold text-blue-700 mb-2 flex items-center">
+                                    <i class="fa fa-tint text-blue-500 mr-2"></i>肾脏健康
+                                </h4>
+                                <p class="leading-relaxed text-dark/80">
+                                    亥月水旺，亦需关注肾脏健康，需注重保暖，避免贪凉饮冷。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mt-2">
+                                    《三命通会》云："亥水属阴，为肾为耳，主生殖系统，泌尿系统"。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5.2 健康维护的具体建议 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">5.2 健康维护的具体建议</h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr class="bg-primary/10">
+                                        <th class="border border-primary/30 p-3 text-left">维护方面</th>
+                                        <th class="border border-primary/30 p-3 text-left">具体建议</th>
+                                        <th class="border border-primary/30 p-3 text-left">理论依据</th>
+                                        <th class="border border-primary/30 p-3 text-left">行动按钮</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-green-50/50 transition-colors duration-200">
+                                        <td class="border border-primary/30 p-3 font-semibold">饮食调理</td>
+                                        <td class="border border-primary/30 p-3">
+                                            以黑色食物为主，如黑豆、黑米、黑芝麻等，可补肾水；红色食物如红枣、枸杞等，可补心血。
+                                        </td>
+                                        <td class="border border-primary/30 p-3 text-sm italic">
+                                            《黄帝内经》云："黑色入肾，红色入心"。
+                                        </td>
+                                        <td class="border border-primary/30 p-3">
+                                            <button class="bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1 rounded text-sm transition-colors">
+                                                查看食谱
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-blue-50/50 transition-colors duration-200">
+                                        <td class="border border-primary/30 p-3 font-semibold">作息规律</td>
+                                        <td class="border border-primary/30 p-3">
+                                            保持充足睡眠，避免熬夜，尤其避免凌晨1-3点（肝经当令）不睡觉，以防肝火过旺，影响心脏健康。
+                                        </td>
+                                        <td class="border border-primary/30 p-3 text-sm italic">
+                                            《黄帝内经》云："人卧血归于肝，肝藏血，心行之..."
+                                        </td>
+                                        <td class="border border-primary/30 p-3">
+                                            <button class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded text-sm transition-colors">
+                                                作息表
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-yellow-50/50 transition-colors duration-200">
+                                        <td class="border border-primary/30 p-3 font-semibold">运动养生</td>
+                                        <td class="border border-primary/30 p-3">
+                                            选择温和的运动方式，如太极拳、八段锦、散步等，避免剧烈运动导致大汗淋漓，损伤阳气。
+                                        </td>
+                                        <td class="border border-primary/30 p-3 text-sm italic">
+                                            《黄帝内经》云："春三月，此谓发陈，天地俱生..."
+                                        </td>
+                                        <td class="border border-primary/30 p-3">
+                                            <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-3 py-1 rounded text-sm transition-colors">
+                                                运动教程
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-purple-50/50 transition-colors duration-200">
+                                        <td class="border border-primary/30 p-3 font-semibold">心理调节</td>
+                                        <td class="border border-primary/30 p-3">
+                                            保持心情舒畅，避免情绪波动过大，可通过冥想、瑜伽等方式调节心态，减轻压力。
+                                        </td>
+                                        <td class="border border-primary/30 p-3 text-sm italic">
+                                            《黄帝内经》云："恬淡虚无，真气从之，精神内守..."
+                                        </td>
+                                        <td class="border border-primary/30 p-3">
+                                            <button class="bg-purple-100 hover:bg-purple-200 text-purple-800 px-3 py-1 rounded text-sm transition-colors">
+                                                调节方法
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-red-50/50 transition-colors duration-200">
+                                        <td class="border border-primary/30 p-3 font-semibold">风水调整</td>
+                                        <td class="border border-primary/30 p-3">
+                                            2025年二黑病符星飞临中宫，主疾病与伤痛。中宫宜保持安静，避免动土装修，可摆放铜葫芦、木葫芦等化解病气。
+                                        </td>
+                                        <td class="border border-primary/30 p-3 text-sm italic">
+                                            《阳宅十书》云："中宫为宅心，宜静不宜动，动则宅不安"。
+                                        </td>
+                                        <td class="border border-primary/30 p-3">
+                                            <button class="bg-red-100 hover:bg-red-200 text-red-800 px-3 py-1 rounded text-sm transition-colors">
+                                                风水布局
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第六部分：大运流年与晚年行运 -->
+        <section id="section6" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-calendar mr-3"></i>六、大运流年与晚年行运
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 6.1 本步大运 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">6.1 本步大运（2027-2036年，甲枭午劫）</h3>
+                        <div class="bg-yellow-50/70 p-5 rounded-lg border border-yellow-200">
+                            <p class="mb-4 leading-relaxed">
+                                此运甲木偏印透干，午火劫财为忌，事业上易有同行竞争、资源争夺之象，需以专业实力立足，避免陷入恶性竞争；财运上劫财透干，需谨慎合作投资，防止财帛损耗。
+                            </p>
+                            <p class="text-sm italic text-dark/60 mb-4">
+                                《三命通会》云："偏印劫财，主财运受阻，事业不顺"。
+                            </p>
+                            <div class="bg-white/80 p-4 rounded-lg">
+                                <h4 class="font-bold text-dark mb-2">建议：</h4>
+                                <p class="leading-relaxed">
+                                    此运以巩固家宅风水业务根基为主，优化服务流程，提升客户满意度。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mt-2">
+                                    《三命通会》云："印星护身，贵人扶持；劫财破局，谨慎前行"。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6.2 谨慎流年 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">6.2 谨慎流年</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <!-- 2026年 -->
+                            <div class="border-2 border-red-200 rounded-lg p-4 bg-red-50/50 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="text-lg font-bold text-red-600">2026年（丙午）</h4>
+                                    <span class="bg-red-200 text-red-800 text-xs px-2 py-1 rounded-full">需谨慎</span>
+                                </div>
+                                <p class="mb-3 leading-relaxed text-dark/80">
+                                    比肩劫财旺，易有财运竞争、合作分歧，需谨慎理财，勿盲目扩大业务规模。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mb-3">
+                                    《三命通会》云："比肩劫财，破财损妻，事业受阻"。
+                                </p>
+                                <div class="bg-white/70 p-3 rounded text-sm">
+                                    <strong>应对策略：</strong> 保守经营，专注现有客户，避免大额投资，加强财务管理
+                                </div>
+                            </div>
+                            
+                            <!-- 2032年 -->
+                            <div class="border-2 border-red-200 rounded-lg p-4 bg-red-50/50 hover:shadow-md transition-shadow duration-300">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="text-lg font-bold text-red-600">2032年（壬子）</h4>
+                                    <span class="bg-red-200 text-red-800 text-xs px-2 py-1 rounded-full">需谨慎</span>
+                                </div>
+                                <p class="mb-3 leading-relaxed text-dark/80">
+                                    七杀旺相，易有事业压力、是非纷争，需低调行事，专注技术提升以化解压力。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mb-3">
+                                    《三命通会》云："七杀当头，压力重重，宜守不宜攻"。
+                                </p>
+                                <div class="bg-white/70 p-3 rounded text-sm">
+                                    <strong>应对策略：</strong> 低调行事，专注专业提升，避免卷入是非，加强心理调节
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6.3 晚年行运 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">6.3 晚年行运</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- 2047-2056年 -->
+                            <div class="bg-green-50/70 p-5 rounded-lg border border-green-200">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="text-lg font-bold text-green-700">2047-2056年（壬杀辰食）</h4>
+                                    <span class="bg-green-200 text-green-800 text-xs px-2 py-1 rounded-full">吉运</span>
+                                </div>
+                                <p class="mb-4 leading-relaxed">
+                                    七杀透干，食神制杀，阁下可凭深厚的风水学识、口碑威望，成为行业权威，甚至开班授徒，传承风水技艺，此时财运以"名气取财"为主，契合食神制杀"以名获利"之象。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mb-4">
+                                    《三命通会》云："食神制杀，富贵自天来；七杀有制，化为权"。
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <div class="bg-white/80 p-3 rounded text-center">
+                                        <i class="fa fa-graduation-cap text-green-600 text-2xl mb-2"></i>
+                                        <p class="text-sm font-semibold">开班授徒</p>
+                                    </div>
+                                    <div class="bg-white/80 p-3 rounded text-center">
+                                        <i class="fa fa-book text-green-600 text-2xl mb-2"></i>
+                                        <p class="text-sm font-semibold">出版专著</p>
+                                    </div>
+                                    <div class="bg-white/80 p-3 rounded text-center">
+                                        <i class="fa fa-trophy text-green-600 text-2xl mb-2"></i>
+                                        <p class="text-sm font-semibold">行业权威</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 2057年后 -->
+                            <div class="bg-blue-50/70 p-5 rounded-lg border border-blue-200">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h4 class="text-lg font-bold text-blue-700">2057年后（辛财卯印等运）</h4>
+                                    <span class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full">吉运</span>
+                                </div>
+                                <p class="mb-4 leading-relaxed">
+                                    财星透干，印星生身，晚年财运平稳，且因早年积累的行业地位，可安享晚年，同时能以风水智慧庇佑子孙家业，实现"福寿双全，德财兼备"。
+                                </p>
+                                <p class="text-sm italic text-dark/60 mb-4">
+                                    《三命通会》云："财印相随，晚年安康；德才兼备，福泽绵长"。
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <div class="bg-white/80 p-3 rounded text-center">
+                                        <i class="fa fa-home text-blue-600 text-2xl mb-2"></i>
+                                        <p class="text-sm font-semibold">家庭和睦</p>
+                                    </div>
+                                    <div class="bg-white/80 p-3 rounded text-center">
+                                        <i class="fa fa-money text-blue-600 text-2xl mb-2"></i>
+                                        <p class="text-sm font-semibold">财运平稳</p>
+                                    </div>
+                                    <div class="bg-white/80 p-3 rounded text-center">
+                                        <i class="fa fa-heart text-blue-600 text-2xl mb-2"></i>
+                                        <p class="text-sm font-semibold">福寿双全</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第七部分：姓名吉凶的深度解析 -->
+        <section id="section7" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-font mr-3"></i>七、姓名吉凶的深度解析
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 7.1 姓名与八字的匹配度 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-3 border-l-4 border-primary pl-3">7.1 姓名与八字的匹配度</h3>
+                        <div class="bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 p-6 rounded-lg border border-yellow-200">
+                            <div class="text-center mb-6">
+                                <h4 class="text-2xl font-kai font-bold text-primary">陶常清</h4>
+                                <div class="w-24 h-0.5 bg-primary mx-auto my-3"></div>
+                                <p class="text-lg text-accent font-semibold">五行搭配：土生金、金生水</p>
+                            </div>
+                            
+                            <p class="mb-4 leading-relaxed text-center">
+                                "陶"为土（伤官），"常"为金（财星），"清"为水（调候），姓名五行搭配<strong class="text-accent">土生金、金生水</strong>，暗合阁下"伤官生财、水调候制火"的命理需求，于事业财运、五行平衡大有裨益，是为吉名。
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                                <div class="bg-white/80 p-4 rounded-lg text-center">
+                                    <h5 class="font-bold text-primary mb-2">陶（土）</h5>
+                                    <p class="text-sm text-dark/80">伤官</p>
+                                    <p class="text-xs mt-2 text-dark/60">生金助财</p>
+                                </div>
+                                <div class="bg-white/80 p-4 rounded-lg text-center">
+                                    <h5 class="font-bold text-primary mb-2">常（金）</h5>
+                                    <p class="text-sm text-dark/80">财星</p>
+                                    <p class="text-xs mt-2 text-dark/60">生水助官</p>
+                                </div>
+                                <div class="bg-white/80 p-4 rounded-lg text-center">
+                                    <h5 class="font-bold text-primary mb-2">清（水）</h5>
+                                    <p class="text-sm text-dark/80">调候</p>
+                                    <p class="text-xs mt-2 text-dark/60">制火平衡</p>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm italic text-dark/60 text-center mt-6">
+                                《三命通会》云："名以正体，字以表德，名正则言顺，字正则身安"。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 7.2 姓名优化的建议 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">7.2 姓名优化的建议</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <!-- 强化水元素 -->
+                            <div class="border border-secondary rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                                <div class="bg-blue-100 p-3">
+                                    <h4 class="font-bold text-blue-800 text-center">强化水元素</h4>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-sm leading-relaxed mb-3">
+                                        可在名字中适当增加水元素，如"涛"、"涵"等字，增强水势，平衡丙火过旺。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mb-3">
+                                        《三命通会》云："水火既济，方为大吉；火炎水涸，必有大凶"。
+                                    </p>
+                                    <div class="bg-light p-2 rounded text-sm">
+                                        <strong>推荐用字：</strong> 涛、涵、海、江、泽、洋
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 使用有利字形 -->
+                            <div class="border border-secondary rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                                <div class="bg-green-100 p-3">
+                                    <h4 class="font-bold text-green-800 text-center">使用有利字形</h4>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-sm leading-relaxed mb-3">
+                                        选择带有"宀"、"冖"等字头的字，象征有庇护；带有"月"、"肉"等偏旁的字，象征有食禄。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mb-3">
+                                        《三命通会》云："字形如人，有头有尾，有骨有肉，方为吉字"。
+                                    </p>
+                                    <div class="bg-light p-2 rounded text-sm">
+                                        <strong>推荐用字：</strong> 安、宝、宏、明、胜、育
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 结合生肖 -->
+                            <div class="border border-secondary rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-300">
+                                <div class="bg-yellow-100 p-3">
+                                    <h4 class="font-bold text-yellow-800 text-center">结合生肖</h4>
+                                </div>
+                                <div class="p-4">
+                                    <p class="text-sm leading-relaxed mb-3">
+                                        考虑到您的出生年份（假设为属蛇），名字中宜带有"艹"、"木"、"豆"等偏旁，象征衣食无忧；避免带有"日"、"火"等偏旁，以防加重火旺。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mb-3">
+                                        《三命通会》云："生肖配字，宜相生不宜相克；宜相合不宜相冲"。
+                                    </p>
+                                    <div class="bg-light p-2 rounded text-sm">
+                                        <strong>推荐用字：</strong> 荣、林、豆、苏、艺、芳
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第八部分：综合建议与行动计划 -->
+        <section id="section8" class="mb-16 scroll-mt-20">
+            <div class="bg-white/90 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-check-square-o mr-3"></i>八、综合建议与行动计划
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <!-- 8.1 短期行动计划 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">8.1 短期行动计划（1-3年）</h3>
+                        
+                        <div class="space-y-4">
+                            <!-- 专业提升 -->
+                            <div class="flex flex-col md:flex-row gap-4 items-center p-4 bg-blue-50/50 rounded-lg border border-blue-100">
+                                <div class="bg-blue-100 rounded-full w-14 h-14 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-book text-blue-700 text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-blue-800 mb-1">专业提升</h4>
+                                    <p class="text-sm leading-relaxed text-dark/80">
+                                        深入研究家宅风水理论，特别是阳宅理气、八宅明镜、玄空飞星等流派，形成自己的专业特色。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mt-1">
+                                        《地理人子须知》云："风水之学，非博采众长，不能融会贯通；非深入研究，不能登堂入室"。
+                                    </p>
+                                </div>
+                                <button class="bg-blue-200 hover:bg-blue-300 text-blue-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看学习计划
+                                </button>
+                            </div>
+                            
+                            <!-- 业务拓展 -->
+                            <div class="flex flex-col md:flex-row gap-4 items-center p-4 bg-green-50/50 rounded-lg border border-green-100">
+                                <div class="bg-green-100 rounded-full w-14 h-14 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-share-alt text-green-700 text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-green-800 mb-1">业务拓展</h4>
+                                    <p class="text-sm leading-relaxed text-dark/80">
+                                        通过线上平台（如抖音、微信、小红书等）分享家宅风水知识，吸引潜在客户；定期举办免费风水讲座，提高知名度和影响力。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mt-1">
+                                        《三命通会》云："酒香也怕巷子深，才高还需人知晓"。
+                                    </p>
+                                </div>
+                                <button class="bg-green-200 hover:bg-green-300 text-green-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看推广方案
+                                </button>
+                            </div>
+                            
+                            <!-- 风水布局 -->
+                            <div class="flex flex-col md:flex-row gap-4 items-center p-4 bg-yellow-50/50 rounded-lg border border-yellow-100">
+                                <div class="bg-yellow-100 rounded-full w-14 h-14 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa fa-home text-yellow-700 text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-yellow-800 mb-1">风水布局</h4>
+                                    <p class="text-sm leading-relaxed text-dark/80">
+                                        对自己的住宅和工作室进行全面风水调整，特别是在正财位（西南方）和偏财位（正南方）布置招财物品，增强财运能量。
+                                    </p>
+                                    <p class="text-xs italic text-dark/60 mt-1">
+                                        《阳宅十书》云："宅之吉凶，关乎人之祸福；宅之宜忌，关乎人之兴衰"。
+                                    </p>
+                                </div>
+                                <button class="bg-yellow-200 hover:bg-yellow-300 text-yellow-800 px-4 py-2 rounded transition-colors duration-300 text-sm">
+                                    查看布局图
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8.2 中期发展规划 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">8.2 中期发展规划（3-5年）</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <!-- 团队建设 -->
+                            <div class="bg-gradient-to-b from-blue-50 to-white p-5 rounded-lg border border-blue-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="text-center mb-4">
+                                    <div class="inline-block bg-blue-100 p-3 rounded-full mb-2">
+                                        <i class="fa fa-users text-blue-700 text-2xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-blue-800">团队建设</h4>
+                                </div>
+                                <p class="text-sm leading-relaxed text-dark/80 mb-3">
+                                    组建专业的风水服务团队，包括助理、设计师、施工人员等，提高服务质量和效率。
+                                </p>
+                                <p class="text-xs italic text-dark/60 mb-4">
+                                    《三命通会》云："独木不成林，单丝不成线；众人拾柴火焰高"。
+                                </p>
+                                <div class="bg-white/80 p-3 rounded text-xs">
+                                    <strong>团队结构：</strong> 1名助理 + 2名设计师 + 3名施工人员 + 1名财务
+                                </div>
+                            </div>
+                            
+                            <!-- 品牌建设 -->
+                            <div class="bg-gradient-to-b from-green-50 to-white p-5 rounded-lg border border-green-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="text-center mb-4">
+                                    <div class="inline-block bg-green-100 p-3 rounded-full mb-2">
+                                        <i class="fa fa-star text-green-700 text-2xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-green-800">品牌建设</h4>
+                                </div>
+                                <p class="text-sm leading-relaxed text-dark/80 mb-3">
+                                    打造个人品牌，如"陶氏风水"、"清常风水"等，设计专业的logo和宣传资料，提升品牌形象。
+                                </p>
+                                <p class="text-xs italic text-dark/60 mb-4">
+                                    《三命通会》云："名不正则言不顺，言不顺则事不成"。
+                                </p>
+                                <div class="bg-white/80 p-3 rounded text-xs">
+                                    <strong>品牌元素：</strong> 传统风水符号 + 现代设计元素 + 专业形象照
+                                </div>
+                            </div>
+                            
+                            <!-- 课程开发 -->
+                            <div class="bg-gradient-to-b from-yellow-50 to-white p-5 rounded-lg border border-yellow-100 hover:shadow-md transition-shadow duration-300">
+                                <div class="text-center mb-4">
+                                    <div class="inline-block bg-yellow-100 p-3 rounded-full mb-2">
+                                        <i class="fa fa-graduation-cap text-yellow-700 text-2xl"></i>
+                                    </div>
+                                    <h4 class="font-bold text-yellow-800">课程开发</h4>
+                                </div>
+                                <p class="text-sm leading-relaxed text-dark/80 mb-3">
+                                    根据自己的实践经验，开发系统的家宅风水课程，如"家宅风水入门"、"高级阳宅理气"等，通过线上线下结合的方式传授。
+                                </p>
+                                <p class="text-xs italic text-dark/60 mb-4">
+                                    《三命通会》云："授人以鱼不如授人以渔，传艺授道，功德无量"。
+                                </p>
+                                <div class="bg-white/80 p-3 rounded text-xs">
+                                    <strong>课程体系：</strong> 入门班（线上）+ 进阶班（线下）+ 弟子班（一对一）
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8.3 长期发展战略 -->
+                    <div>
+                        <h3 class="text-xl font-kai font-semibold text-primary mb-4 border-l-4 border-primary pl-3">8.3 长期发展战略（5-10年）</h3>
+                        
+                        <div class="space-y-5">
+                            <!-- 行业影响力 -->
+                            <div class="p-5 bg-purple-50/50 rounded-lg border border-purple-100">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-purple-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                        <i class="fa fa-trophy text-purple-700 text-xl"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-purple-800">行业影响力</h4>
+                                </div>
+                                <p class="ml-16 leading-relaxed text-dark/80 mb-3">
+                                    通过出版风水专著、参与行业论坛、担任学术顾问等方式，提升在风水行业的影响力和权威性。
+                                </p>
+                                <p class="ml-16 text-sm italic text-dark/60">
+                                    《三命通会》云："学高为师，德高为范；桃李不言，下自成蹊"。
+                                </p>
+                            </div>
+                            
+                            <!-- 跨界合作 -->
+                            <div class="p-5 bg-indigo-50/50 rounded-lg border border-indigo-100">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-indigo-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                        <i class="fa fa-handshake-o text-indigo-700 text-xl"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-indigo-800">跨界合作</h4>
+                                </div>
+                                <p class="ml-16 leading-relaxed text-dark/80 mb-3">
+                                    与房地产开发商、装修公司、家居品牌等进行跨界合作，提供一站式的风水服务，拓展业务边界。
+                                </p>
+                                <p class="ml-16 text-sm italic text-dark/60">
+                                    《三命通会》云："海纳百川，有容乃大；壁立千仞，无欲则刚"。
+                                </p>
+                            </div>
+                            
+                            <!-- 传承体系 -->
+                            <div class="p-5 bg-pink-50/50 rounded-lg border border-pink-100">
+                                <div class="flex items-center mb-3">
+                                    <div class="bg-pink-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                        <i class="fa fa-line-chart text-pink-700 text-xl"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-pink-800">传承体系</h4>
+                                </div>
+                                <p class="ml-16 leading-relaxed text-dark/80 mb-3">
+                                    建立风水传承体系，培养优秀的弟子，将自己的学术思想和实践经验传承下去，形成学术流派。
+                                </p>
+                                <p class="ml-16 text-sm italic text-dark/60">
+                                    《三命通会》云："薪火相传，生生不息；学术传承，功德无量"。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第九部分：结语 -->
+        <section class="mb-12 scroll-mt-20">
+            <div class="bg-primary/10 rounded-lg shadow-md overflow-hidden border-2 border-primary/30">
+                <div class="bg-primary text-light p-4 md:p-6">
+                    <h2 class="text-2xl font-kai font-bold flex items-center">
+                        <i class="fa fa-comment mr-3"></i>九、结语
+                    </h2>
+                </div>
+                <div class="p-5 md:p-7">
+                    <div class="font-kai text-lg leading-relaxed space-y-4">
+                        <p>
+                            陶先生您以风水为业，恰得天时（太极贵人、六秀日）、地利（八字喜金水，契合风水之"气"）、人和（天乙贵人）之助。只需深耕家宅风水领域，借专业技能立足、凭贵人相助拓展、靠风水布局催财，定能在事业财运上取得卓越成就，同时需兼顾婚姻家庭与健康，方能实现"风生水起，财禄绵长"。
+                        </p>
+                        <p>
+                            《三命通会》云："一命二运三风水，四积阴德五读书"。命运虽有定数，但通过风水调整、积德行善、不断学习，仍可改变运势，趋吉避凶。望您在未来的日子里，既能为他人调理风水，也能为自己营造良好的人生格局，实现事业与生活的双赢。
+                        </p>
+                        <p class="text-center font-bold text-primary">
+                            最后，愿您的风水事业如日中天，财运亨通，家庭和睦，身体健康，一切顺遂！
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <button class="bg-primary hover:bg-primary/90 text-light px-6 py-3 rounded-lg font-kai text-lg transition-colors duration-300 shadow-md hover:shadow-lg">
+                            下载完整批文
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-primary text-light py-8">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-kai font-bold mb-4 border-b border-secondary pb-2">命理批文信息</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <i class="fa fa-user mr-2"></i> 批算对象：陶常清先生
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-calendar mr-2"></i> 批算时间：2025年
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-book mr-2"></i> 参考典籍：《三命通会》
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-file-text mr-2"></i> 批文类型：深度批算
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-kai font-bold mb-4 border-b border-secondary pb-2">快速导航</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#section1" class="hover:text-secondary transition-colors duration-200">日元旺衰与五行喜忌</a></li>
+                        <li><a href="#section2" class="hover:text-secondary transition-colors duration-200">四柱神煞吉凶</a></li>
+                        <li><a href="#section3" class="hover:text-secondary transition-colors duration-200">事业财运解析</a></li>
+                        <li><a href="#section4" class="hover:text-secondary transition-colors duration-200">婚姻家庭建议</a></li>
+                        <li><a href="#section5" class="hover:text-secondary transition-colors duration-200">健康状况解析</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-kai font-bold mb-4 border-b border-secondary pb-2">相关建议</h3>
+                    <ul class="space-y-2 text-sm">
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-secondary text-center text-sm">
+                <p>© 2025 扇子老师 | 本文仅供参考，命运掌握在自己手中</p>
+                <p class="mt-2">《三命通会》云："命由己造，相由心生，境随心转，有容乃大"</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-primary text-light w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('hidden');
+        });
+
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 导航栏滚动效果
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 50) {
+                header.classList.add('py-2');
+                header.classList.remove('py-3');
+            } else {
+                header.classList.add('py-3');
+                header.classList.remove('py-2');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 移动端菜单关闭
+                if (window.innerWidth < 768) {
+                    document.getElementById('mainNav').classList.add('hidden');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 按钮交互效果
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                // 模拟按钮点击效果
+                this.classList.add('scale-95');
+                setTimeout(() => {
+                    this.classList.remove('scale-95');
+                }, 200);
+                
+                // 如果是下载按钮，显示提示
+                if (this.textContent.includes('下载')) {
+                    alert('完整批文已开始下载，请注意查收！');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
