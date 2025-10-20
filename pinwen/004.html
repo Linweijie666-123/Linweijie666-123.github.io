@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>程富果八字命造：亥月丙火，木火通明求学路</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B0000',    // 暗红（火元素）
+                        secondary: '#228B22',  // 深绿（木元素）
+                        accent: '#DEB887',     // 土黄（土元素）
+                        water: '#1E90FF',      // 蓝色（水元素）
+                        metal: '#A9A9A9',      // 灰色（金元素）
+                        light: '#FFF8E1',      // 米白色背景
+                        dark: '#2C3E50',       // 深色文字
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            .bg-texture {
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50L30 30M50 50L70 30M50 50L30 70M50 50L70 70' stroke='%238B0000' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light text-dark font-sans scroll-smooth bg-texture">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-md">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
+            <h1 class="text-xl md:text-2xl font-serif font-bold text-primary flex items-center">
+                <i class="fa fa-book mr-2"></i>八字解析
+            </h1>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-dark focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+            
+            <!-- 导航菜单 -->
+            <nav id="mainNav" class="hidden w-full md:flex md:w-auto mt-3 md:mt-0">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                    <li><a href="#section1" class="hover:text-primary transition-colors duration-300"><i class="fa fa-balance-scale mr-1"></i>日元旺衰</a></li>
+                    <li><a href="#section2" class="hover:text-primary transition-colors duration-300"><i class="fa fa-star mr-1"></i>四柱神煞</a></li>
+                    <li><a href="#section3" class="hover:text-primary transition-colors duration-300"><i class="fa fa-graduation-cap mr-1"></i>学业分析</a></li>
+                    <li><a href="#section4" class="hover:text-primary transition-colors duration-300"><i class="fa fa-line-chart mr-1"></i>大运流年</a></li>
+                    <li><a href="#section5" class="hover:text-primary transition-colors duration-300"><i class="fa fa-lightbulb-o mr-1"></i>发展建议</a></li>
+                    <li><a href="#section6" class="hover:text-primary transition-colors duration-300"><i class="fa fa-user mr-1"></i>姓名分析</a></li>
+                    <li><a href="#section7" class="hover:text-primary transition-colors duration-300"><i class="fa fa-road mr-1"></i>综合规划</a></li>
+                    <li><a href="#section8" class="hover:text-primary transition-colors duration-300"><i class="fa fa-flag-checkered mr-1"></i>总结展望</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="relative bg-gradient-to-r from-primary/90 to-secondary/90 text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-3xl md:text-5xl font-serif font-bold mb-6 text-shadow">程富果八字深度解析</h1>
+                <h2 class="text-xl md:text-2xl font-light mb-8 italic">亥月丙火，木火通明求学路</h2>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#section1" class="bg-white text-primary px-6 py-3 rounded-md font-medium hover:bg-opacity-90 transition duration-300 flex items-center">
+                        <i class="fa fa-arrow-down mr-2"></i>开始阅读
+                    </a>
+                    <a href="#section4" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-medium hover:bg-white/10 transition duration-300 flex items-center">
+                        <i class="fa fa-calendar mr-2"></i>流年运势
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 装饰元素 -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><path d=\"M10,10 Q50,0 90,10 Q90,50 90,90 Q50,100 10,90 Q10,50 10,10\" fill=\"none\" stroke=\"white\" stroke-width=\"1\"/></svg>')]"></div>
+        </div>
+    </section>
+
+    <!-- 主要内容区域 -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- 八字基本信息卡片 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-12 border-l-4 border-primary">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-serif font-bold text-primary mb-4">八字基本信息</h3>
+                    <table class="w-full">
+                        <tr class="border-b border-gray-200">
+                            <td class="py-2 font-medium">日主天干</td>
+                            <td class="py-2 text-primary font-bold">丙火</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-2 font-medium">出生月份</td>
+                            <td class="py-2 text-water font-bold">亥月</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-2 font-medium">日柱</td>
+                            <td class="py-2 font-bold">丙子</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-2 font-medium">当前大运</td>
+                            <td class="py-2 text-accent font-bold">戊食子官 (2023-2033)</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 font-medium">整体格局</td>
+                            <td class="py-2 font-bold">火弱水旺</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-serif font-bold text-primary mb-4">五行能量分布</h3>
+                    <div class="h-64">
+                        <canvas id="elementsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第一部分：日元旺衰与五行喜忌 -->
+        <section id="section1" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-balance-scale"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">一、日元旺衰与五行喜忌</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 1.1 日元旺衰分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">1.1</span>
+                        日元旺衰分析
+                    </h3>
+                    <p class="mb-4 leading-relaxed">程富果日主为丙火，生于亥月，水旺火绝之地，《三命通会》云："丙火生于亥月，亥水克火，丙火受困，易生坎坷。" 年柱庚子、日柱丙子、时柱戊子，地支三子水冲克，水势强盛而火势衰弱。</p>
+                    <p class="mb-4 leading-relaxed">月柱丁火劫财虽助，但亥水藏壬水、甲木，水寒木湿，难以有效生火。此造丙火生于亥月，亥水为丙火的正印，看似可得印生扶，但亥月水旺，丙火休囚之极。</p>
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 my-4">
+                        《穷通宝鉴》言："十月火绝地，休囚之极"，实为火弱水旺之局。
+                    </blockquote>
+                    <p class="leading-relaxed">丙火生于亥月，虽有月干丁火相助，但整体仍属身弱无疑。</p>
+                </div>
+                
+                <!-- 1.2 五行喜忌判断 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">1.2</span>
+                        五行喜忌判断
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-secondary mb-2 flex items-center">
+                            <i class="fa fa-check-circle mr-2"></i>喜用神
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">木（印星）：</span>甲木为真神，可泄水生火，《穷通宝鉴》明确指出："亥月的丙火...有甲木、戊土、庚金透干，仕途有望"，甲木为主要关键</li>
+                            <li><span class="font-medium">火（比劫）：</span>丙丁火助身，增强力量，形成比劫帮身之势</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-water mb-2 flex items-center">
+                            <i class="fa fa-times-circle mr-2"></i>忌神
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><span class="font-medium">水（官杀）：</span>壬癸水克制丙火，水势过旺，需加以制约</li>
+                            <li><span class="font-medium">金（财星）：</span>金生水，加重水势，消耗日主能量</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-accent mb-2 flex items-center">
+                            <i class="fa fa-minus-circle mr-2"></i>中神
+                        </h4>
+                        <ul class="list-disc pl-6">
+                            <li><span class="font-medium">土（食伤）：</span>戊土可制水，但土多又会泄火，需适度使用</li>
+                        </ul>
+                    </div>
+                    
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 mt-6">
+                        《三命通会》强调："丙火生于冬季：丙火休囚，若日干健旺，有木生扶，则为贵命。如身弱财旺，则需见火方能富贵。"
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分：四柱神煞解析 -->
+        <section id="section2" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-star"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">二、四柱神煞解析</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 2.1 吉神分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover border-t-4 border-secondary">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mr-2">2.1</span>
+                        吉神分析
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-secondary text-lg mb-2 flex items-center">
+                                <i class="fa fa-book mr-2"></i>文昌贵人
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">月柱带文昌贵人，《渊海子平》载："文昌入命，主聪明好学，文章显达。" 文昌贵人是四柱神煞中的"文运之星"，主聪慧好学、科甲功名，象征文学才华与学术成就。</p>
+                            <p class="text-gray-700 leading-relaxed mt-2">月柱文昌，主青少年发展佳，学业突出，适合文职、艺术、管理等领域。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-secondary text-lg mb-2 flex items-center">
+                                <i class="fa fa-shield mr-2"></i>天乙贵人
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">月柱带天乙贵人，《三命通会》云："天乙者，乃天上之神，在紫微垣、阊阖门外，与太乙并列，事天皇大帝，下游三辰..." 天乙贵人主逢凶化吉，遇困难时易得贵人相助。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-secondary text-lg mb-2 flex items-center">
+                                <i class="fa fa-heart mr-2"></i>福星贵人
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">年柱、日柱、时柱均带福星贵人，主一生福禄无缺，平安康泰。《三命通会》云："福星贵人者，其形如鼠，多居寅卯辰巳午未申酉戌亥子丑中..."</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-secondary text-lg mb-2 flex items-center">
+                                <i class="fa fa-flag mr-2"></i>将星
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">年柱、日柱、时柱均带将星，《三命通会》云："将星者，如大将驻中军也，故以三合中位为将星。" 将星主有领导才能与进取之心，可掌权柄或得职务晋升。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 2.2 凶煞分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover border-t-4 border-water">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-water/10 text-water flex items-center justify-center mr-2">2.2</span>
+                        凶煞分析
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-water text-lg mb-2 flex items-center">
+                                <i class="fa fa-warning mr-2"></i>飞刃
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">年柱、日柱、时柱均带飞刃，《三命通会》云："羊刃者，本为司刑之特殊星，而此星之特征为刚烈、暴戾、激发、急躁。" 飞刃主血光或意外，需防身体受伤。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-water text-lg mb-2 flex items-center">
+                                <i class="fa fa-ban mr-2"></i>亡神
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">月柱带亡神，《三命通会》云："亡神，一名官符。亡神者，非吉神也，所临之宫，皆主深谋远虑，料事如神。" 亡神主心智深沉或偏门技艺，也主有官非之灾。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-water text-lg mb-2 flex items-center">
+                                <i class="fa fa-scissors mr-2"></i>血刃
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">月柱带血刃，主血光之灾，需防意外创伤。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-water text-lg mb-2 flex items-center">
+                                <i class="fa fa-exchange mr-2"></i>阴差阳错
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed">日柱丙子，带阴差阳错，《三命通会》云："阴差阳错，女子逢之，公姑寡合，妯娌不足，夫家冷退；男子逢之，主退妻家..." 阴差阳错主婚姻易有误会或迟婚之象。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三部分：学业深度分析 -->
+        <section id="section3" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-graduation-cap"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">三、学业深度分析</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 3.1 学业格局评价 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover lg:col-span-1">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">3.1</span>
+                        学业格局评价
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果八字中，月柱带文昌贵人，《渊海子平》载："文昌坐命，金榜题名"，主聪明好学，文章显达，科举有望。</p>
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 my-4">
+                        《三命通会》云："文昌者，乃食神之临官所在也"
+                    </blockquote>
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果之文昌贵人正在月柱，符合"月柱文昌贵人，主学业突出，适合文职、艺术、管理等领域"的特征。</p>
+                    <p class="text-gray-700 leading-relaxed">综合来看，程富果学业格局为：文昌贵人照命，天赋聪慧，但水旺火绝，需木火生扶，方能充分发挥潜能，取得优异成绩。</p>
+                </div>
+                
+                <!-- 3.2 文昌贵人的影响 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover lg:col-span-1">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">3.2</span>
+                        文昌贵人的影响
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果月柱带文昌贵人，这对学业发展极为有利。根据《渊海子平》记载："文昌入命，主聪明好学，文章显达。"</p>
+                    <p class="text-gray-700 leading-relaxed mb-4">文昌贵人的核心特质是：命带文昌者，多才思敏捷，学业优异，易在考试、写作、艺术等领域脱颖而出。</p>
+                    <blockquote class="border-l-4 border-secondary pl-4 italic text-gray-700 my-4">
+                        《三命通会》中提到："真文昌贵精不贵多：命局中一个得力的文昌贵人（位置佳、为喜用、不受刑冲破害），往往比多个文昌更有效。"
+                    </blockquote>
+                    <p class="text-gray-700 leading-relaxed">程富果虽只有一个文昌贵人，但位于月柱，位置极佳，若能得木火生扶，不受水克，则可充分发挥其学业助力作用。</p>
+                </div>
+                
+                <!-- 3.3 水旺火绝的影响 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover lg:col-span-1">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">3.3</span>
+                        水旺火绝的影响
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果丙火生于亥月，水旺火绝，这对学业发展带来一定挑战。《三命通会》指出："丙火生于亥月，亥水克火，丙火受困，易生坎坷。"</p>
+                    <blockquote class="border-l-4 border-water pl-4 italic text-gray-700 my-4">
+                        《穷通宝鉴》言："十月火绝地，休囚之极，宜用甲木以生之，亥官壬水秉令，甲木虽长生不旺.湿木无焰..."
+                    </blockquote>
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果八字中，水势强盛，如不加以制约，不仅影响学业，还会导致思维迟钝，记忆力下降，学习动力不足。</p>
+                    <p class="text-gray-700 leading-relaxed">水旺克火的另一影响是情绪波动，丙子日柱水火对冲，《三命通会》云："水火冲克，情绪不稳，易生烦躁。"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四部分：大运流年对学业的影响 -->
+        <section id="section4" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-line-chart"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">四、大运流年对学业的影响</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 4.1 当前大运分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover lg:col-span-1">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">4.1</span>
+                        当前大运分析
+                    </h3>
+                    <div class="bg-accent/10 p-4 rounded-lg mb-4">
+                        <p class="font-bold text-accent">2023-2033年：戊食子官大运</p>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed mb-4">《三命通会》云："食神居旺地，聪明好学"，此运利于思维活跃、表达流畅，尤其适合从事文科、艺术、语言类学习。</p>
+                    <blockquote class="border-l-4 border-accent pl-4 italic text-gray-700 my-4">
+                        《三命通会》指出："印重身轻，纵有才华难展"
+                    </blockquote>
+                    <p class="text-gray-700 leading-relaxed">程富果此运需防过度理想化，注重基础知识的学习，避免好高骛远。此运中，戊土食神透干，利于学业思维开发，但子水官星克身，学业竞争压力大，需以木火补身，增强学习动力。</p>
+                </div>
+                
+                <!-- 4.2 近年学业运势分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover lg:col-span-2">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">4.2</span>
+                        近年学业运势分析（2025-2030）
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <!-- 2025年 -->
+                        <div class="border-l-4 border-secondary pl-4 py-1">
+                            <h4 class="font-bold text-secondary text-lg mb-2">2025年乙巳年 <span class="text-sm font-normal bg-secondary/10 px-2 py-0.5 rounded">学业黄金期</span></h4>
+                            <p class="text-gray-700 leading-relaxed">2025年乙巳年，乙木正印透干，巳火比肩当令，《三命通会》云："乙木生丙火，印星的作用明显，代表学习能力提升、贵人运加强。" 乙巳一柱也是"木火通明"的组合，印星生身，大利学业。</p>
+                            <p class="text-gray-700 leading-relaxed mt-2">此年适合攻克难点学科，或参与竞赛、考级，能得同学、师长相助，成绩可突飞猛进。</p>
+                        </div>
+                        
+                        <!-- 2026年 -->
+                        <div class="border-l-4 border-primary pl-4 py-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">2026年丙午年 <span class="text-sm font-normal bg-primary/10 px-2 py-0.5 rounded">成果收获年</span></h4>
+                            <p class="text-gray-700 leading-relaxed">2026年丙午年，丙火比肩助身、午火生土通关，丙子日柱者得"火土相生"气场加持，易有"成果落地、贵人扶持"的大喜，尤其在学业进阶上显顺遂。</p>
+                            <p class="text-gray-700 leading-relaxed mt-2">此年需加强基础训练，选择逻辑性强或需要创意发挥的专业方向，更易发挥流年优势。</p>
+                        </div>
+                        
+                        <!-- 2027年 -->
+                        <div class="border-l-4 border-accent pl-4 py-1">
+                            <h4 class="font-bold text-accent text-lg mb-2">2027年丁未年 <span class="text-sm font-normal bg-accent/10 px-2 py-0.5 rounded">创意发展年</span></h4>
+                            <p class="text-gray-700 leading-relaxed">2027年丁未年，丁火劫财透干，未土伤官当令，《三命通会》云："劫财透干，思维发散，适合开展创意类学习（如作文、艺术创作）。"</p>
+                            <p class="text-gray-700 leading-relaxed mt-2">此年思维活跃，创意丰富，适合参加辩论、演讲、写作等活动，发挥自己的特长。</p>
+                        </div>
+                        
+                        <!-- 2030年 -->
+                        <div class="border-l-4 border-metal pl-4 py-1">
+                            <h4 class="font-bold text-metal text-lg mb-2">2030年庚戌年 <span class="text-sm font-normal bg-metal/10 px-2 py-0.5 rounded">综合提升年</span></h4>
+                            <p class="text-gray-700 leading-relaxed">2030年庚戌年，庚金偏财透干，戌土食神当令，《三命通会》云："偏财透干，学业上易有课外拓展机会（如研学、社会实践）。"</p>
+                            <p class="text-gray-700 leading-relaxed mt-2">此年可适当参加一些课外活动，拓展视野，增长见识，尝试参加一些学科竞赛或社会实践活动，锻炼综合能力。</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 学业运势图表 -->
+                    <div class="mt-8">
+                        <h4 class="font-bold text-lg mb-4">2025-2030年学业运势趋势</h4>
+                        <div class="h-64">
+                            <canvas id="studyLuckChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五部分：学业发展方向与建议 -->
+        <section id="section5" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-lightbulb-o"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">五、学业发展方向与建议</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 5.1 专业/学科选择建议 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">5.1</span>
+                        专业/学科选择建议
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-secondary mb-3 flex items-center">
+                            <i class="fa fa-check-circle mr-2"></i>适合的专业方向
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-secondary/5 p-4 rounded-lg">
+                                <h5 class="font-bold text-secondary mb-2">木属性专业</h5>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li>文学、历史、哲学</li>
+                                    <li>教育、出版</li>
+                                    <li>文化传播</li>
+                                </ul>
+                                <p class="text-xs text-gray-600 mt-2 italic">《三命通会》云："木为丙火之印绶，相生则文昌显达，学业有成。"</p>
+                            </div>
+                            
+                            <div class="bg-primary/5 p-4 rounded-lg">
+                                <h5 class="font-bold text-primary mb-2">火属性专业</h5>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li>能源、电力</li>
+                                    <li>计算机、电子、通信</li>
+                                    <li>传媒、表演、艺术</li>
+                                </ul>
+                                <p class="text-xs text-gray-600 mt-2 italic">《三命通会》云："丙火为阳火，代表热情、积极、主动。"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-water mb-3 flex items-center">
+                            <i class="fa fa-times-circle mr-2"></i>不适合的专业方向
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-water/5 p-4 rounded-lg">
+                                <h5 class="font-bold text-water mb-2">水属性专业</h5>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li>水利、航海、水产</li>
+                                    <li>旅游、物流</li>
+                                </ul>
+                                <p class="text-xs text-gray-600 mt-2 italic">水克火，会削弱学习能力和自信心</p>
+                            </div>
+                            
+                            <div class="bg-metal/5 p-4 rounded-lg">
+                                <h5 class="font-bold text-metal mb-2">金属性专业</h5>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li>金融、会计、法律</li>
+                                    <li>机械、工程</li>
+                                </ul>
+                                <p class="text-xs text-gray-600 mt-2 italic">金生水，会加重水势，对学业发展不利</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 5.2 学习方法与策略建议 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">5.2</span>
+                        学习方法与策略建议
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-primary mb-2 flex items-center">
+                                <i class="fa fa-clock-o mr-2"></i>时间管理策略
+                            </h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>每天选择上午9点至下午3点（巳时、午时、未时）学习，此时火气旺盛</li>
+                                <li>避免在晚上9点至凌晨3点（亥时、子时、丑时）学习，此时水旺克火</li>
+                                <li>春季木旺或夏季火旺的季节进行重点学习和备考</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-secondary mb-2 flex items-center">
+                                <i class="fa fa-home mr-2"></i>学习环境调整
+                            </h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>学习区域选择东南方或南方，这两个方位属木火</li>
+                                <li>学习环境布置以绿色和红色为主色调</li>
+                                <li>书桌圆润文昌塔，放置暖色台灯</li>
+                                <li>保持学习环境干燥、明亮，避免潮湿、阴暗</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-accent mb-2 flex items-center">
+                                <i class="fa fa-book mr-2"></i>学习方法建议
+                            </h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>采用"分段学习法"：每专注40分钟休息5分钟，用番茄钟培养节奏感</li>
+                                <li>多与学习优秀的同学交流，借鉴他人的学习方法和经验</li>
+                                <li>培养记笔记的习惯，将重点知识整理归纳，加深记忆</li>
+                                <li>多参加讨论、辩论等活动，锻炼表达能力和思维能力</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 5.3 健康与心理调适建议 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">5.3</span>
+                        健康与心理调适建议
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-primary mb-2 flex items-center">
+                                <i class="fa fa-cutlery mr-2"></i>饮食调理
+                            </h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>增加红色、紫色食物的摄入，如红枣、红豆、红苹果、紫葡萄等，补火</li>
+                                <li>适当食用辛辣食物，如辣椒、姜、蒜等，增强火气</li>
+                                <li>减少生冷食物的摄入，如冰淇淋、冷饮、生鱼片等</li>
+                                <li>多喝温开水，保持身体温暖</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-secondary mb-2 flex items-center">
+                                <i class="fa fa-heartbeat mr-2"></i>运动建议
+                            </h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>选择有氧运动，如跑步、游泳、篮球等，增强心肺功能</li>
+                                <li>避免在寒冷潮湿的环境中运动，选择阳光充足的环境</li>
+                                <li>冬季注意保暖，运动前做好充分的热身准备</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-accent mb-2 flex items-center">
+                                <i class="fa fa-smile-o mr-2"></i>心理调适
+                            </h4>
+                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                                <li>学习冥想和深呼吸技巧，缓解压力和焦虑</li>
+                                <li>培养兴趣爱好，如音乐、绘画、书法等，调节情绪</li>
+                                <li>保持积极乐观的心态，遇到困难时及时寻求帮助</li>
+                                <li>建立良好的人际关系，与家人、朋友保持良好的沟通</li>
+                            </ul>
+                            <blockquote class="border-l-4 border-water pl-4 italic text-gray-700 mt-4">
+                                《三命通会》云："水火冲克，情绪不稳，易生烦躁。"
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 5.4 2025-2030年学业关键期规划 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">5.4</span>
+                        2025-2030年学业关键期规划
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-secondary pl-4 py-1">
+                            <h4 class="font-bold text-secondary text-lg mb-2">2025年乙巳年（关键提升年）</h4>
+                            <p class="text-gray-700 leading-relaxed mb-2">《三命通会》云："2025年乙巳年木火相生，丙子日柱者得流年能量助力，学业显'灵感足、思路活'的优势。"</p>
+                            <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                                <li>重点攻克薄弱学科，尤其是文科类学科</li>
+                                <li>参加学科竞赛、作文比赛等活动</li>
+                                <li>制定详细的学习计划，合理安排时间</li>
+                                <li>多与老师和优秀同学交流</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border-l-4 border-primary pl-4 py-1">
+                            <h4 class="font-bold text-primary text-lg mb-2">2026年丙午年（成果收获年）</h4>
+                            <p class="text-gray-700 leading-relaxed mb-2">《三命通会》云："2026年丙午年，丙火比肩助身、午火生土通关，易有'成果落地、贵人扶持'的大喜。"</p>
+                            <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                                <li>加强基础知识的巩固，为升学考试做准备</li>
+                                <li>参加升学考试或资格考试，争取优异成绩</li>
+                                <li>多参与团队合作项目，锻炼团队协作能力</li>
+                                <li>制定下一阶段的学习计划和目标</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border-l-4 border-accent pl-4 py-1">
+                            <h4 class="font-bold text-accent text-lg mb-2">2027-2030年（稳步发展年）</h4>
+                            <p class="text-gray-700 leading-relaxed mb-2">《三命通会》云："2027年丁未年思维发散，适合开展创意类学习；2030年庚戌年学业上易有课外拓展机会。"</p>
+                            <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                                <li>拓展知识面，广泛涉猎不同领域的知识</li>
+                                <li>参加社会实践和志愿者活动，提升综合素质</li>
+                                <li>培养兴趣爱好，发展特长</li>
+                                <li>开始考虑未来的职业方向和发展路径</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第六部分：姓名与学业关联分析 -->
+        <section id="section6" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-user"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">六、姓名与学业关联分析</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 6.1 姓名格局分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">6.1</span>
+                        姓名格局分析
+                    </h3>
+                    <div class="text-center mb-6">
+                        <h4 class="text-2xl font-bold text-primary">程富果</h4>
+                        <p class="text-gray-600 mt-1">姓名五行属性分析</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl font-bold mr-4">程</div>
+                            <div>
+                                <h5 class="font-bold">程</h5>
+                                <p class="text-sm text-gray-600">五行属性：火（禾木藏火）</p>
+                                <p class="text-sm text-gray-600">笔画数：12画</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center text-accent text-xl font-bold mr-4">富</div>
+                            <div>
+                                <h5 class="font-bold">富</h5>
+                                <p class="text-sm text-gray-600">五行属性：土（田土生金）</p>
+                                <p class="text-sm text-gray-600">笔画数：12画</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center text-secondary text-xl font-bold mr-4">果</div>
+                            <div>
+                                <h5 class="font-bold">果</h5>
+                                <p class="text-sm text-gray-600">五行属性：木（草木结果）</p>
+                                <p class="text-sm text-gray-600">笔画数：8画</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 mt-6">
+                        《三命通会》云："木生火，火生土，土生金，金生水，水生木，此为五行相生之序。"
+                    </blockquote>
+                </div>
+                
+                <!-- 6.2 姓名与八字的匹配度分析 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">6.2</span>
+                        姓名与八字的匹配度分析
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果八字中，丙火弱，水旺克火，急需木火生扶。"程富果"这个名字中，"程"为火，"果"为木，正好补充了程富果所需的木火能量。</p>
+                    
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 my-4">
+                        《三命通会》云："丙火生于亥月，亥水克火，丙火受困，易生坎坷。若有土生助，木火相生，则富贵不失。"
+                    </blockquote>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果的名字中包含木火元素，有助于增强自身能量，化解水旺克火的不利影响。</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">然而，"富"字属土，土虽能泄火，但也能制水，在一定程度上缓解水旺克火的问题。</p>
+                    
+                    <blockquote class="border-l-4 border-accent pl-4 italic text-gray-700 my-4">
+                        《三命通会》云："土为丙火之泄耗，相刑则财运受损，事业艰难。"
+                    </blockquote>
+                    
+                    <p class="text-gray-700 leading-relaxed">程富果名字中的"富"字，虽能制水，但也可能消耗火的能量，需要通过其他方式补充火气。</p>
+                </div>
+                
+                <!-- 6.3 姓名调整建议 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">6.3</span>
+                        姓名调整建议
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-child mr-2"></i>小名或别名建议
+                        </h4>
+                        <p class="text-gray-700 leading-relaxed mb-3">程富果可以考虑取一个小名或别名，补充火气，增强自身能量。建议使用以下字：</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-primary/10 p-3 rounded-lg text-center">
+                                <h5 class="font-bold text-primary text-xl">炎</h5>
+                                <p class="text-xs text-gray-600">双火叠加，火气旺盛</p>
+                            </div>
+                            <div class="bg-primary/10 p-3 rounded-lg text-center">
+                                <h5 class="font-bold text-primary text-xl">烨</h5>
+                                <p class="text-xs text-gray-600">火华也，光彩鲜明</p>
+                            </div>
+                            <div class="bg-primary/10 p-3 rounded-lg text-center">
+                                <h5 class="font-bold text-primary text-xl">煜</h5>
+                                <p class="text-xs text-gray-600">照耀，明亮的样子</p>
+                            </div>
+                            <div class="bg-primary/10 p-3 rounded-lg text-center">
+                                <h5 class="font-bold text-primary text-xl">灿</h5>
+                                <p class="text-xs text-gray-600">灿烂，光彩鲜明耀眼</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-secondary mb-3 flex items-center">
+                            <i class="fa fa-gem mr-2"></i>姓名饰品建议
+                        </h4>
+                        <p class="text-gray-700 leading-relaxed mb-3">程富果可以佩戴与姓名相关的饰品，增强木火能量。建议：</p>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>佩戴开光红色玛瑙、开光红宝石等饰品，增强火气</li>
+                        </ul>
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 mt-4">
+                            《三命通会》云："姓名补文昌：取名时选用五行属木、火的字，如'森'、'炎'、'琳'等，寓意吉祥且能补益文昌运。"
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第七部分：综合学业发展规划 -->
+        <section id="section7" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-road"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">七、综合学业发展规划</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 7.1 短期学业目标（1-2年） -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">7.1</span>
+                        短期学业目标（1-2年）
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-book mr-2"></i>知识技能目标
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>加强基础知识的学习和巩固，尤其是语文、历史等文科科目</li>
+                            <li>培养良好的学习习惯和方法，提高学习效率</li>
+                            <li>参加1-2个学科竞赛或课外活动，锻炼自己的能力</li>
+                        </ul>
+                        <blockquote class="border-l-4 border-secondary pl-4 italic text-gray-700 mt-4">
+                            《三命通会》云："2025年乙巳年木火相生，大利学业，如果日主偏弱，命局组合不错，今年大利学运，考研、考公、考事业编的人需要格外注意。"
+                        </blockquote>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-secondary mb-3 flex items-center">
+                            <i class="fa fa-cogs mr-2"></i>能力提升目标
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>阅读理解能力：通过阅读经典著作和优秀文章提升</li>
+                            <li>表达能力：参加演讲、辩论等活动，锻炼口头表达能力</li>
+                            <li>写作能力：坚持写日记、随笔等，提高写作水平</li>
+                        </ul>
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 mt-4">
+                            《三命通会》云："丙火与己土相合，为偏印生身，主学业顺利，思维敏捷。"
+                        </blockquote>
+                    </div>
+                </div>
+                
+                <!-- 7.2 中长期学业目标（3-5年） -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">7.2</span>
+                        中长期学业目标（3-5年）
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-graduation-cap mr-2"></i>学业进阶目标
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>完成当前阶段的学业，顺利升学</li>
+                            <li>选择适合自己的专业方向，为未来的职业发展做准备</li>
+                            <li>考取相关的专业证书和资格认证，提升竞争力</li>
+                        </ul>
+                        <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 mt-4">
+                            《三命通会》云："丙午双火齐现，恰可暖局助身，对寒木日主尤为有利。若八字中原有印星（壬癸水）得力，则火来生土、土再生金，形成流通之势，主学业进步、考试顺利。"
+                        </blockquote>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-secondary mb-3 flex items-center">
+                            <i class="fa fa-users mr-2"></i>综合素质提升目标
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>团队协作能力：参加团队项目和社会实践活动</li>
+                            <li>领导能力：担任学生干部或社团负责人</li>
+                            <li>创新能力：参与科研项目或创新实践</li>
+                        </ul>
+                        <blockquote class="border-l-4 border-accent pl-4 italic text-gray-700 mt-4">
+                            《三命通会》云："2030年庚戌年，庚金偏财透干，学业上易有课外拓展机会...此年利于打破书本局限，提升综合素养。"
+                        </blockquote>
+                    </div>
+                </div>
+                
+                <!-- 7.3 人生发展战略建议 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <span class="inline-block w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-2">7.3</span>
+                        人生发展战略建议
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fa fa-briefcase mr-2"></i>职业发展方向
+                        </h4>
+                        <p class="text-gray-700 leading-relaxed mb-3">程富果适合从事与木火相关的职业，如：</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-secondary/5 p-3 rounded-lg">
+                                <h5 class="font-bold text-secondary">教育行业</h5>
+                                <p class="text-xs text-gray-600">教师、教育管理人员</p>
+                            </div>
+                            <div class="bg-secondary/5 p-3 rounded-lg">
+                                <h5 class="font-bold text-secondary">文化传媒行业</h5>
+                                <p class="text-xs text-gray-600">编辑、记者、作家、艺术家</p>
+                            </div>
+                            <div class="bg-primary/5 p-3 rounded-lg">
+                                <h5 class="font-bold text-primary">能源行业</h5>
+                                <p class="text-xs text-gray-600">电力、新能源等领域</p>
+                            </div>
+                            <div class="bg-primary/5 p-3 rounded-lg">
+                                <h5 class="font-bold text-primary">信息技术行业</h5>
+                                <p class="text-xs text-gray-600">软件开发、网络技术</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-accent mb-3 flex items-center">
+                            <i class="fa fa-clock-o mr-2"></i>人生阶段规划
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li><span class="font-medium">20-30岁：</span>学习积累阶段，专注于学业和知识技能的提升</li>
+                            <li><span class="font-medium">30-40岁：</span>事业发展阶段，在自己的专业领域取得一定成就</li>
+                            <li><span class="font-medium">40-50岁：</span>事业高峰阶段，成为行业内的专家或领导者</li>
+                            <li><span class="font-medium">50岁以后：</span>传承分享阶段，将自己的经验和知识传授给后人</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-secondary mb-3 flex items-center">
+                            <i class="fa fa-book mr-2"></i>终身学习建议
+                        </h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                            <li>定期参加专业培训和学习，更新知识结构</li>
+                            <li>阅读经典著作和前沿研究成果，保持思维活跃</li>
+                            <li>与行业内的专家和优秀人才交流，拓展人脉</li>
+                            <li>培养兴趣爱好，丰富精神生活</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第八部分：总结与展望 -->
+        <section id="section8" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-flag-checkered"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">八、总结与展望</h2>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <div class="prose max-w-none">
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果的八字为丙子日柱，丙火生于亥月，水旺火绝之地，月柱丁火劫财相助，但整体仍属身弱。其八字中，水势强盛，火弱需木火生扶，方能消除水寒之弊，发挥自身潜力。</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果命带文昌贵人，天赋聪慧，学习能力强，《三命通会》云："文昌入命，主聪明好学，文章显达。" 然而，水旺克火的格局也给他的学业发展带来了一定挑战，需要通过木火生扶来化解。</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">从大运流年来看，程富果目前行戊食子官大运（2023-2033），这一阶段学业压力较大，但2025年乙巳年和2026年丙午年，木火相生，将是他学业发展的关键时期。《三命通会》云："乙巳一柱也是'木火通明'的组合，印星生身，大利学业，如果日主偏弱，命局组合不错，今年大利学运。"</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果的姓名"程富果"中包含木火元素，有助于增强自身能量，但也需要通过其他方式补充火气。《三命通会》云："丙火生于亥月，亥水克火，丙火受困，易生坎坷。若有土生助，木火相生，则富贵不失。" 程富果应在学习方法、学习环境、饮食健康等方面进行调整，增强木火能量，促进学业发展。</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">展望未来，程富果在2025-2030年期间，学业发展将迎来重要机遇期，尤其是2025年乙巳年和2026年丙午年，木火相生，有利于学业进步和考试顺利。《三命通会》云："丙午双火齐现，恰可暖局助身，对寒木日主尤为有利。若八字中原有印星（壬癸水）得力，则火来生土、土再生金，形成流通之势，主学业进步、考试顺利。" 程富果应把握这些机遇，努力学习，为未来的发展打下坚实的基础。</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mb-4">程富果的人生发展战略应围绕木火相生的原则，选择适合自己的专业方向和职业道路，坚持终身学习，不断提升自己的能力和素养。《三命通会》云："丙火日元，旺相生辉，主聪明、智慧、才华横溢。身强遇财星，财源广进，富甲一方。如八字中丙火通根，又得金局相生，则富贵双全，名满天下。" 程富果通过自身的努力和正确的人生规划，有望在未来取得优异的学业成绩和事业成就。</p>
+                    
+                    <blockquote class="border-l-4 border-primary pl-4 italic text-gray-700 my-6">
+                        最后，程富果应记住，命运虽有定数，但也可以通过后天的努力和调整来改变。《三命通会》云："命运并非一成不变，后天努力亦可弥补先天的不足，故丙火命者当顺势而为，化解不利，方能成就不凡之业。" 程富果应把握机遇，积极调整，努力奋斗，创造属于自己的美好未来。
+                    </blockquote>
+                    
+                    <div class="bg-primary/5 p-6 rounded-lg mt-8">
+                        <h3 class="text-xl font-serif font-bold text-primary mb-4 text-center">核心建议总结</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-secondary mb-2 flex items-center">
+                                    <i class="fa fa-leaf mr-2"></i>五行调和
+                                </h4>
+                                <p class="text-sm text-gray-700">增强木火元素，通过饮食、环境、饰品等方式补充火气，化解水旺克火之弊</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-primary mb-2 flex items-center">
+                                    <i class="fa fa-calendar-check-o mr-2"></i>运势把握
+                                </h4>
+                                <p class="text-sm text-gray-700">重点把握2025-2026年的有利流年，积极备考、参赛，为学业发展奠定基础</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-accent mb-2 flex items-center">
+                                    <i class="fa fa-graduation-cap mr-2"></i>专业选择
+                                </h4>
+                                <p class="text-sm text-gray-700">选择木火属性相关专业，如文学、教育、传媒、能源等，顺应自身命理趋势</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <i class="fa fa-book mr-2"></i>八字解析
+                    </h3>
+                    <p class="text-gray-400 leading-relaxed">程富果八字深度解析报告基于传统命理学理论，结合《三命通会》《穷通宝鉴》《渊海子平》等经典著作，提供专业的八字分析和学业发展建议。</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <i class="fa fa-link mr-2"></i>快速导航
+                    </h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#section1" class="hover:text-white transition-colors duration-300">日元旺衰与五行喜忌</a></li>
+                        <li><a href="#section2" class="hover:text-white transition-colors duration-300">四柱神煞解析</a></li>
+                        <li><a href="#section3" class="hover:text-white transition-colors duration-300">学业深度分析</a></li>
+                        <li><a href="#section4" class="hover:text-white transition-colors duration-300">大运流年影响</a></li>
+                        <li><a href="#section8" class="hover:text-white transition-colors duration-300">总结与展望</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-serif font-bold mb-4 flex items-center">
+                        <i class="fa fa-info-circle mr-2"></i>免责声明
+                    </h3>
+                    <p class="text-gray-400 leading-relaxed">本报告仅供参考，命理分析不能替代个人努力和科学决策。人生道路的选择和学业成就的取得，主要取决于个人的努力、机遇和社会环境等多种因素。</p>
+                    <p class="text-gray-400 mt-4">© 2025 八字命理研究中心 版权所有</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>本网页设计基于传统八字命理学，结合现代网页设计理念，提供专业、美观、易用的命理分析体验。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('hidden');
+        });
+
+        // 返回顶部按钮
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 五行能量分布图表
+        const elementsCtx = document.getElementById('elementsChart').getContext('2d');
+        new Chart(elementsCtx, {
+            type: 'radar',
+            data: {
+                labels: ['火 (丙火)', '木 (甲木)', '土 (戊土)', '金 (庚金)', '水 (壬水)'],
+                datasets: [{
+                    label: '五行能量强度',
+                    data: [30, 40, 50, 60, 90],
+                    backgroundColor: [
+                        'rgba(139, 0, 0, 0.2)',
+                        'rgba(34, 139, 34, 0.2)',
+                        'rgba(222, 184, 135, 0.2)',
+                        'rgba(169, 169, 169, 0.2)',
+                        'rgba(30, 144, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(139, 0, 0, 1)',
+                        'rgba(34, 139, 34, 1)',
+                        'rgba(222, 184, 135, 1)',
+                        'rgba(169, 169, 169, 1)',
+                        'rgba(30, 144, 255, 1)'
+                    ],
+                    borderWidth: 2,
+                    pointBackgroundColor: [
+                        'rgba(139, 0, 0, 1)',
+                        'rgba(34, 139, 34, 1)',
+                        'rgba(222, 184, 135, 1)',
+                        'rgba(169, 169, 169, 1)',
+                        'rgba(30, 144, 255, 1)'
+                    ]
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw;
+                                let strength = '';
+                                if (value < 30) strength = '极弱';
+                                else if (value < 50) strength = '偏弱';
+                                else if (value < 70) strength = '中等';
+                                else if (value < 90) strength = '偏强';
+                                else strength = '极强';
+                                return `${context.label}: ${strength} (${value}/100)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 学业运势趋势图表
+        const studyLuckCtx = document.getElementById('studyLuckChart').getContext('2d');
+        new Chart(studyLuckCtx, {
+            type: 'line',
+            data: {
+                labels: ['2025年', '2026年', '2027年', '2028年', '2029年', '2030年'],
+                datasets: [{
+                    label: '学业运势指数',
+                    data: [92, 88, 75, 68, 72, 80],
+                    fill: true,
+                    backgroundColor: 'rgba(139, 0, 0, 0.1)',
+                    borderColor: 'rgba(139, 0, 0, 1)',
+                    tension: 0.3,
+                    pointBackgroundColor: 'rgba(139, 0, 0, 1)',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 50,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '/100';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '运势指数'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '年份'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw;
+                                let luckLevel = '';
+                                if (value < 60) luckLevel = '较差';
+                                else if (value < 70) luckLevel = '一般';
+                                else if (value < 80) luckLevel = '良好';
+                                else if (value < 90) luckLevel = '优秀';
+                                else luckLevel = '极佳';
+                                return `学业运势：${luckLevel} (${value}/100)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // 移动端菜单关闭
+                    document.getElementById('mainNav').classList.add('hidden');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
