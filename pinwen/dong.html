@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>董冠军先生宅邸风水勘察总结</title>
+    
+    <!-- 引入字体文件（思源字体） -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fengshui-red': '#c60',
+                        'fengshui-wood': '#090',
+                        'fengshui-fire': '#c00',
+                        'fengshui-earth': '#f60',
+                        'fengshui-metal': '#666',
+                        'fengshui-water': '#00c',
+                        'fengshui-bg': '#f5f3ed',
+                        'fengshui-light': '#f9f6f2',
+                    },
+                    fontFamily: {
+                        'noto-serif': ['"Noto Serif SC"', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-indent-8 {
+                text-indent: 2rem;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+            .no-page-break {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+    
+    <!-- 核心打印样式 -->
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background-color: #fff;
+            color: #333;
+            font-size: 12pt;
+            line-height: 1.6;
+        }
+        
+        /* 打印核心配置 */
+        @media print {
+            @page {
+                size: A4;
+                margin: 1.5cm; /* A4标准打印边距 */
+                
+                /* 页眉页脚设置 */
+                @top-center {
+                    content: "董冠军先生宅邸风水勘察总结";
+                    font-family: 'Noto Serif SC', serif;
+                    font-size: 10pt;
+                    color: #c60;
+                    margin-bottom: 0.5cm;
+                }
+                @bottom-center {
+                    content: "第 " counter(page) " 页";
+                    font-family: 'Noto Serif SC', serif;
+                    font-size: 9pt;
+                    color: #666;
+                    margin-top: 0.5cm;
+                }
+            }
+            
+            /* 隐藏非打印元素 */
+            .bagua, .back-to-top, .navigation, .no-print {
+                display: none !important;
+            }
+            
+            /* 容器样式优化 */
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                background: #fff !important;
+            }
+            
+            /* 章节样式调整 */
+            .chapter {
+                font-size: 16pt !important;
+                margin-top: 0.8cm !important;
+                margin-bottom: 0.5cm !important;
+                padding-bottom: 0.2cm !important;
+            }
+            
+            /* 段落样式优化 */
+            p {
+                margin-bottom: 0.3cm !important;
+                page-break-inside: avoid;
+            }
+            
+            /* 列表间距调整 */
+            ol, ul {
+                margin-left: 0.8cm !important;
+                margin-bottom: 0.3cm !important;
+            }
+            
+            /* 表格/卡片样式重置 */
+            .fengshui-item {
+                border: 1px solid #ddd !important;
+                padding: 0.5cm !important;
+                margin-bottom: 0.5cm !important;
+                page-break-inside: avoid;
+            }
+            
+            /* 引用样式优化 */
+            .quote {
+                border-left: 3px solid #c60 !important;
+                padding: 0.3cm !important;
+                margin: 0.4cm 0 !important;
+            }
+        }
+        
+        /* 屏幕预览样式（非打印时） */
+        .container {
+            max-width: 21cm; /* A4宽度 */
+            margin: 2cm auto;
+            padding: 1.5cm;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        /* 隐藏八卦装饰、回到顶部按钮（屏幕预览也无需显示） */
+        .bagua, .back-to-top {
+            display: none;
+        }
+        
+        /* 导航栏仅屏幕预览显示，打印隐藏 */
+        .navigation {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            display: flex;
+            flex-wrap: gap-2;
+            z-index: 10;
+        }
+        
+        .nav-item {
+            padding: 0.3rem 0.8rem;
+            background: #f9f6f2;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        
+        .nav-item:hover {
+            background: #f0ebe4;
+        }
+        
+        /* 章节标题样式 */
+        .chapter {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        /* 内容卡片样式 */
+        .fengshui-item {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #fff;
+        }
+        
+        /* 引用样式 */
+        .quote {
+            border-left: 4px solid #c60;
+            background: #f9f6f2;
+            padding: 0.8rem;
+            font-style: italic;
+            color: #666;
+            margin: 1rem 0;
+        }
+        
+        /* 标题样式 */
+        h1 {
+            font-size: 1.8rem;
+            color: #c60;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 1.2rem 0 0.8rem;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            color: #c60;
+            margin: 1rem 0 0.6rem;
+        }
+        
+        /* 段落缩进 */
+        .text-indent-8 {
+            text-indent: 2rem;
+        }
+        
+        /* 打印按钮样式 */
+        .print-btn {
+            display: block;
+            margin: 1.5rem auto;
+            padding: 0.6rem 1.2rem;
+            background: #c60;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Noto Serif SC', serif;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .print-btn:hover {
+            background: #b05000;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏（仅屏幕预览显示） -->
+    <div class="navigation">
+        <button class="nav-item" onclick="document.getElementById('chapter1').scrollIntoView({behavior: 'smooth'})">核心症结</button>
+        <button class="nav-item" onclick="document.getElementById('chapter2').scrollIntoView({behavior: 'smooth'})">宫位分析</button>
+        <button class="nav-item" onclick="document.getElementById('chapter3').scrollIntoView({behavior: 'smooth'})">调理纲要</button>
+        <button class="nav-item" onclick="document.getElementById('chapter4').scrollIntoView({behavior: 'smooth'})">注意事项</button>
+        <button class="nav-item" onclick="document.getElementById('chapter5').scrollIntoView({behavior: 'smooth'})">结语</button>
+        <button class="nav-item" onclick="window.print()">打印报告</button>
+    </div>
+    
+    <div class="container">
+        <!-- 标题部分 -->
+        <header class="text-center mb-2cm no-page-break">
+            <h1>董冠军先生宅邸风水勘察总结</h1>
+            <p class="text-lg text-gray-600 mb-0.3cm">八运丙山壬向 · 河南焦作</p>
+            <p class="text-lg text-gray-600">勘察日期：2025年10月23日</p>
+            <div class="w-1/4 h-0.5 bg-fengshui-red mx-auto mt-0.5cm"></div>
+        </header>
+        
+        <!-- 第一章：核心症结 -->
+        <div id="chapter1" class="mb-1.5cm no-page-break">
+            <h2 class="chapter">一、核心症结：形煞与理气的恶性循环</h2>
+            
+            <p class="text-indent-8">经远程风水勘察，贵宅为<strong>八运丙山壬向</strong>格局，综合飞星盘与实地布局研判，此宅呈现"<strong>吉气受阻，凶煞频动</strong>"之局。核心问题在于严重的形煞引动了盘中的凶星，形成恶性循环，导致家宅不宁、财运困顿及家人健康受损。</p>
+            
+            <p class="text-indent-8">宅邸户型为两层结构，一层核心区域含大门（南向）、客厅（中部）、厨房（东向）、厕所（东北向）；二层主要为居住区域，含主卧（南向）、次卧（北向）、女儿房（东向）及卫生间（东北向）。外部环境包含院门（南向）、杂物区（北向）、楼梯（西向）与空地（东向），部分区域杂物堆积，已形成明显形煞。</p>
+            
+            <p class="text-indent-8">八运丙山壬向飞星盘核心特征为：东北艮宫聚五黄灾煞与二黑病符（双土叠加）、北方坎宫临八白财星与三碧是非（木土相克）、东南巽宫遇七赤破军与六白武曲（双金比劫），其余宫位亦存在不同程度的理气失衡，需针对性调理。</p>
+            
+            <blockquote class="quote">
+                《玄空秘旨》云："山向星与形峦配合者，吉凶立应；若形峦与理气相悖，则凶祸难免。" 贵宅之病，正在于此。
+            </blockquote>
+        </div>
+        
+        <!-- 第二章：关键宫位分析 -->
+        <div id="chapter2" class="mb-1.5cm page-break">
+            <h2 class="chapter">二、关键宫位分析</h2>
+            
+            <!-- 东北方分析 -->
+            <div class="fengshui-item no-page-break">
+                <h3>（一）东北方（艮宫）：五黄二黑汇聚，灾祸之源</h3>
+                
+                <p class="text-indent-8">此方位飞星组合为<strong class="text-fengshui-fire">山星五黄灾煞</strong>（土）与<strong class="text-fengshui-fire">向星二黑病符</strong>（土）汇聚，是盘中最凶之位。更严重者，此处恰为家中厕所所在地，且堆满杂物，形成"污秽煞"与"堆积煞"双重形煞。</p>
+                
+                <p class="text-indent-8">厕所的污秽之水（<span class="text-fengshui-water font-bold">水</span>）与杂物的停滞之土（<span class="text-fengshui-earth font-bold">土</span>），构成"土水相战"的混乱气场。此形煞如同开关，彻底激活五黄二黑的凶性，导致气场紊乱、病气弥漫。</p>
+                
+                <p class="text-fengshui-fire font-bold text-lg">此乃导致女儿病情反复、家人健康堪忧的风水根源！</p>
+                
+                <blockquote class="quote">
+                    《沈氏玄空学》载："五黄二黑叠至，非病即灾；若逢形煞助虐，其祸必烈。"
+                </blockquote>
+                
+                <div class="mt-0.5cm p-0.3cm bg-fengshui-light rounded-md">
+                    <h4 class="font-bold mb-0.2cm">风水警示</h4>
+                    <p class="text-sm text-gray-700">五黄煞主意外灾祸，二黑煞主疾病伤痛，双煞叠加且遇形煞催动，易导致家人健康出现严重问题，尤其对家中女性影响最大。</p>
+                </div>
+            </div>
+            
+            <!-- 北方分析 -->
+            <div class="fengshui-item no-page-break">
+                <h3>（二）北方（坎宫）：财星受污，财运困顿</h3>
+                
+                <p class="text-indent-8">北方坎宫为<strong class="text-fengshui-earth">向星八白财星</strong>（土），本为八运当旺之星，主财源广进、物质丰裕。然此处实际布局为杂物堆积区，且长期晾晒衣物，形成"杂乱煞"与"湿气煞"，导致"财星受污、气路不通"。</p>
+                
+                <p class="text-indent-8">更有山星三碧是非星（木）克入，形成"<strong>斗牛煞</strong>"（木克土）。财星受克则财路阻塞，是非星动则家庭失和，二者叠加导致求财艰难、口角频发。</p>
+                
+                <p class="text-fengshui-fire font-bold text-lg">此即"财不入乱门"之象，直接造成家庭经济压力增大、成员关系紧张。</p>
+                
+                <blockquote class="quote">
+                    《飞星断》云："旺星落陷，反吉为凶；财星受污，富屋贫人。"
+                </blockquote>
+                
+                <div class="mt-0.5cm p-0.3cm bg-fengshui-light rounded-md">
+                    <h4 class="font-bold mb-0.2cm">财运分析</h4>
+                    <p class="text-sm text-gray-700">八白财星为八运当旺之星，本应催旺财运，但受三碧木气克制且环境杂乱，导致财气无法聚集，反而引发是非争执，影响家庭和谐与财富积累。</p>
+                </div>
+            </div>
+            
+            <!-- 其他宫位分析 -->
+            <div class="fengshui-item no-page-break">
+                <h3>（三）其他关键宫位</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-0.5cm">
+                    <div class="p-0.3cm bg-fengshui-light rounded-md">
+                        <h4 class="font-bold mb-0.2cm text-fengshui-wood">东南方（巽宫）</h4>
+                        <p class="text-sm">飞星组合：山星七赤（金）+ 向星六白（金）</p>
+                        <p class="text-fengshui-fire font-bold mt-0.2cm">比劫争财，不利财运</p>
+                        <p class="text-xs text-gray-600 mt-0.2cm">双星会向，金气过旺，易出现竞争激烈、破财耗财之象，投资需谨慎，避免与人合伙经营。</p>
+                    </div>
+                    
+                    <div class="p-0.3cm bg-fengshui-light rounded-md">
+                        <h4 class="font-bold mb-0.2cm text-fengshui-fire">西南方（坤宫）</h4>
+                        <p class="text-sm">飞星组合：山星九紫（火）+ 向星二黑（土）</p>
+                        <p class="text-fengshui-fire font-bold mt-0
