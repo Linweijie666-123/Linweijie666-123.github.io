@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>钟女士宅邸风水批文 - 玄空飞星分析报告</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -22,9 +23,6 @@
                     fontFamily: {
                         song: ['SimSun', 'STSong', 'serif'],
                         kai: ['KaiTi', 'STKaiti', 'cursive']
-                    },
-                    backgroundImage: {
-                        'paper-texture': "linear-gradient(rgba(245, 240, 225, 0.95), rgba(245, 240, 225, 1))"
                     }
                 }
             }
@@ -32,181 +30,223 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .text-shadow {
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            .page-break {
+                page-break-after: always;
             }
-            .ink-border {
-                border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><path fill="%230A0A0A" d="M0,0h4v4H0z"/></svg>') 1 repeat;
+            .no-page-break {
+                page-break-inside: avoid;
             }
-            .bagua-pattern {
-                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23D4AF3730" stroke-width="1"/><circle cx="50" cy="30" r="10" fill="%23D4AF3720"/><circle cx="50" cy="70" r="10" fill="%230A0A0A20"/><path d="M50,5 L50,95 M5,50 L95,50 M20,20 L80,80 M20,80 L80,20" stroke="%230A0A0A20" stroke-width="1"/></svg>');
+            .content-height {
+                min-height: calc(100vh - 12rem);
             }
         }
-
-        /* 打印样式优化 */
+        
         @media print {
             @page {
                 size: A4;
-                margin: 15mm 10mm; /* A4打印边距，避免内容裁切 */
+                margin: 1.5cm;
+                
+                @top-center {
+                    content: "钟女士宅邸风水批文";
+                    font-family: 'KaiTi', 'STKaiti', cursive;
+                    font-size: 14pt;
+                    color: #C41E3A;
+                }
+                
+                @bottom-center {
+                    content: "第 " counter(page) " 页";
+                    font-family: 'SimSun', 'STSong', serif;
+                    font-size: 10pt;
+                }
             }
+            
+            header, footer, #back-to-top {
+                display: none !important;
+            }
+            
             body {
-                print-color-adjust: exact; /* 确保颜色精准打印 */
-                -webkit-print-color-adjust: exact;
+                background: white !important;
+                color: #0A0A0A !important;
+                font-size: 12pt !important;
             }
+            
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
             section {
-                page-break-inside: avoid; /* 避免章节内分页 */
-                margin-bottom: 15mm !important; /* 章节间打印间距 */
+                border: none !important;
+                box-shadow: none !important;
+                background: white !important;
+                margin-bottom: 1rem !important;
+                padding: 0 !important;
             }
-            table {
-                page-break-inside: avoid; /* 避免表格跨页 */
-            }
-            .no-print {
-                display: none !important; /* 隐藏打印无关元素 */
+            
+            a {
+                text-decoration: none !important;
+                color: inherit !important;
             }
         }
     </style>
 </head>
-<body class="bg-fengshui-paper text-fengshui-ink font-song bg-paper-texture w-[210mm] mx-auto">
-    <!-- 封面区域 -->
-    <section id="cover" class="border-2 border-fengshui-black rounded-lg p-8 bg-white/90 relative overflow-hidden">
-        <div class="absolute bottom-0 right-0 w-40 h-40 bagua-pattern opacity-20"></div>
-        
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-kai text-fengshui-red font-bold mb-4 text-shadow">钟女士宅邸风水批文</h1>
-            <p class="text-2xl font-kai text-fengshui-black mt-6">丁山癸向玄空飞星分析报告</p>
-            <div class="w-40 h-1 bg-fengshui-gold mx-auto my-8"></div>
-        </div>
-        
-        <div class="flex justify-end">
-            <div class="text-right font-kai space-y-2 border-l-2 border-fengshui-gold pl-4">
-                <p><span class="font-bold">宅邸地址：</span>北京大兴区翰林庭院1号楼1单元601宅</p>
-                <p><span class="font-bold">坐向：</span>丁山癸向（坐山丁位，朝向癸位）</p>
-                <p><span class="font-bold">建造时间：</span>2007年</p>
-                <p><span class="font-bold">入宅时间：</span>2025年乙巳年</p>
-                <p><span class="font-bold">分析日期：</span>2025年10月21日</p>
+<body class="bg-fengshui-paper text-fengshui-ink font-song">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-fengshui-black text-fengshui-paper shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-compass text-fengshui-gold text-xl"></i>
+                <h1 class="text-lg md:text-xl font-kai font-bold">钟女士宅邸风水批文</h1>
             </div>
-        </div>
-        
-        <div class="absolute bottom-4 left-4 text-sm text-fengshui-black/60">
-            <p>文档类型：风水批文（玄空飞星分析报告）</p>
-            <p>页面规格：A4标准尺寸（210×297毫米）</p>
-        </div>
-    </section>
+            <button id="menu-toggle" class="md:hidden text-fengshui-paper focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+            <div id="nav-menu" class="hidden w-full md:flex md:w-auto mt-3 md:mt-0">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                    <li><a href="#cover" class="hover:text-fengshui-gold transition-colors duration-300">封面</a></li>
+                    <li><a href="#toc" class="hover:text-fengshui-gold transition-colors duration-300">目录</a></li>
+                    <li><a href="#basic-info" class="hover:text-fengshui-gold transition-colors duration-300">基础信息</a></li>
+                    <li><a href="#nine-palaces" class="hover:text-fengshui-gold transition-colors duration-300">九宫解析</a></li>
+                    <li><a href="#conclusion" class="hover:text-fengshui-gold transition-colors duration-300">总结建议</a></li>
+                    <li><a href="#appendix" class="hover:text-fengshui-gold transition-colors duration-300">附录</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-    <!-- 目录区域 -->
-    <section id="toc" class="border-2 border-fengshui-black rounded-lg p-8 bg-white/90">
-        <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">目录</h2>
-        
-        <div class="grid grid-cols-2 gap-4 font-kai">
-            <div class="space-y-3">
-                <div class="flex justify-between">
-                    <span>1. 基础信息与理论前提</span>
-                    <span class="opacity-70">1</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>2. 九宫飞星与户型联动解析</span>
-                    <span class="opacity-70">3</span>
-                </div>
-                <div class="pl-6 space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <span>2.1 坎宫（正北）</span>
-                        <span class="opacity-70">3</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.2 坤宫（西南）</span>
-                        <span class="opacity-70">5</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.3 震宫（正东）</span>
-                        <span class="opacity-70">7</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.4 巽宫（东南）</span>
-                        <span class="opacity-70">9</span>
-                    </div>
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 封面区域 -->
+        <section id="cover" class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md page-break no-page-break">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl font-kai text-fengshui-red font-bold mb-6">钟女士宅邸风水批文</h1>
+                <p class="text-2xl font-kai text-fengshui-black mt-8">丁山癸向玄空飞星分析报告</p>
+                <div class="w-40 h-0.5 bg-fengshui-gold mx-auto my-10"></div>
+            </div>
+            
+            <div class="flex justify-end">
+                <div class="text-right font-kai space-y-3 border-l-2 border-fengshui-gold pl-4">
+                    <p><span class="font-bold">宅邸地址：</span>北京大兴区翰林庭院1号楼1单元601宅</p>
+                    <p><span class="font-bold">坐向：</span>丁山癸向（坐山丁位，朝向癸位）</p>
+                    <p><span class="font-bold">建造时间：</span>2007年</p>
+                    <p><span class="font-bold">入宅时间：</span>2025年乙巳年</p>
+                    <p><span class="font-bold">分析日期：</span>2025年10月21日</p>
                 </div>
             </div>
             
-            <div class="space-y-3">
-                <div class="pl-6 space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <span>2.5 乾宫（西北）</span>
-                        <span class="opacity-70">11</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.6 兑宫（正西）</span>
-                        <span class="opacity-70">13</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.7 艮宫（东北）</span>
-                        <span class="opacity-70">15</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.8 离宫（正南）</span>
-                        <span class="opacity-70">17</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>2.9 中宫（户型中心）</span>
-                        <span class="opacity-70">19</span>
-                    </div>
-                </div>
-                <div class="flex justify-between">
-                    <span>3. 总结与建议</span>
-                    <span class="opacity-70">21</span>
-                </div>
-                <div class="flex justify-between">
-                    <span>4. 附录</span>
-                    <span class="opacity-70">22</span>
-                </div>
+            <div class="absolute bottom-6 left-6 text-sm text-fengshui-black/60">
+                <p>文档类型：风水批文（玄空飞星分析报告）</p>
+                <p>页面规格：A4标准尺寸（210×297毫米）</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 基础信息与理论前提 -->
-    <section id="basic-info" class="border-2 border-fengshui-black rounded-lg p-8 bg-white/90">
-        <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">基础信息与理论前提</h2>
-        
-        <!-- 3.1 宅邸基础信息 -->
-        <div class="mb-10">
-            <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">3.1 宅邸基础信息</h3>
+        <!-- 目录区域 -->
+        <section id="toc" class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md page-break no-page-break">
+            <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">目录</h2>
             
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <h4 class="text-xl font-kai font-bold mb-3 text-fengshui-accent">宅邸基本情况</h4>
-                    <ul class="space-y-2 pl-5 list-disc">
-                        <li><span class="font-bold">地址：</span>北京大兴区翰林庭院1号楼1单元601宅</li>
-                        <li><span class="font-bold">坐向：</span>丁山癸向（坐山丁位，朝向癸位）</li>
-                        <li><span class="font-bold">建造时间：</span>2007年</li>
-                        <li><span class="font-bold">入宅时间：</span>2025年乙巳年</li>
-                    </ul>
-                    
-                    <h4 class="text-xl font-kai font-bold mt-6 mb-3 text-fengshui-accent">玄空飞星基础参数</h4>
-                    <ul class="space-y-2 pl-5 list-disc">
-                        <li><span class="font-bold">建造运星：</span>八运（2004-2023年）</li>
-                        <li><span class="font-bold">当前运星：</span>九运（2024-2043年）</li>
-                        <li><span class="font-bold">流年飞星：</span>2025年乙巳年</li>
-                    </ul>
+            <div class="grid md:grid-cols-2 gap-4 font-kai">
+                <div class="space-y-3">
+                    <a href="#basic-info" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300">
+                        <span>1. 基础信息与理论前提</span>
+                        <span class="opacity-70 group-hover:opacity-100">1</span>
+                    </a>
+                    <a href="#nine-palaces" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300">
+                        <span>2. 九宫飞星与户型联动解析</span>
+                        <span class="opacity-70 group-hover:opacity-100">3</span>
+                    </a>
+                    <div class="pl-6 space-y-2">
+                        <a href="#palace-1" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.1 坎宫（正北）</span>
+                            <span class="opacity-70 group-hover:opacity-100">3</span>
+                        </a>
+                        <a href="#palace-2" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.2 坤宫（西南）</span>
+                            <span class="opacity-70 group-hover:opacity-100">5</span>
+                        </a>
+                        <a href="#palace-3" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.3 震宫（正东）</span>
+                            <span class="opacity-70 group-hover:opacity-100">7</span>
+                        </a>
+                        <a href="#palace-4" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.4 巽宫（东南）</span>
+                            <span class="opacity-70 group-hover:opacity-100">9</span>
+                        </a>
+                    </div>
                 </div>
                 
-                <div>
-                    <h4 class="text-xl font-kai font-bold mb-3 text-fengshui-accent">户型图说明</h4>
-                    <div class="border-2 border-fengshui-black rounded-lg p-4 bg-fengshui-paper/50 mb-6">
-                        <div class="aspect-square border border-fengshui-black relative">
-                            <!-- 九宫格示意 -->
-                            <div class="absolute inset-0 grid grid-cols-3 grid-rows-3">
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">艮宫<br>(东北)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">坎宫<br>(正北)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">乾宫<br>(西北)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">震宫<br>(正东)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs font-bold">中宫<br>(中心)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">兑宫<br>(正西)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">巽宫<br>(东南)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">离宫<br>(正南)</div>
-                                <div class="border border-fengshui-black/30 flex items-center justify-center text-xs">坤宫<br>(西南)</div>
-                            </div>
-                            <div class="absolute -bottom-8 left-0 right-0 text-center text-sm font-bold">图1：户型九宫格划分示意图</div>
-                        </div>
-                        <p class="text-sm italic">采用九宫格划分方法，将户型图按照上北下南、左西右东的原则，划分为九个相等的正方形区域。</p>
+                <div class="space-y-3">
+                    <div class="pl-6 space-y-2">
+                        <a href="#palace-5" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.5 乾宫（西北）</span>
+                            <span class="opacity-70 group-hover:opacity-100">11</span>
+                        </a>
+                        <a href="#palace-6" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.6 兑宫（正西）</span>
+                            <span class="opacity-70 group-hover:opacity-100">13</span>
+                        </a>
+                        <a href="#palace-7" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.7 艮宫（东北）</span>
+                            <span class="opacity-70 group-hover:opacity-100">15</span>
+                        </a>
+                        <a href="#palace-8" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.8 离宫（正南）</span>
+                            <span class="opacity-70 group-hover:opacity-100">17</span>
+                        </a>
+                        <a href="#palace-9" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300 text-sm">
+                            <span>2.9 中宫（户型中心）</span>
+                            <span class="opacity-70 group-hover:opacity-100">19</span>
+                        </a>
+                    </div>
+                    <a href="#conclusion" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300">
+                        <span>3. 总结与建议</span>
+                        <span class="opacity-70 group-hover:opacity-100">21</span>
+                    </a>
+                    <a href="#appendix" class="flex justify-between group hover:text-fengshui-red transition-colors duration-300">
+                        <span>4. 附录</span>
+                        <span class="opacity-70 group-hover:opacity-100">22</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 基础信息与理论前提 -->
+        <section id="basic-info" class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md no-page-break">
+            <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">基础信息与理论前提</h2>
+            
+            <!-- 3.1 宅邸基础信息 -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">3.1 宅邸基础信息</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-3 text-fengshui-accent">宅邸基本情况</h4>
+                        <ul class="space-y-2 pl-5 list-disc">
+                            <li><span class="font-bold">地址：</span>北京大兴区翰林庭院1号楼1单元601宅</li>
+                            <li><span class="font-bold">坐向：</span>丁山癸向（坐山丁位，朝向癸位）</li>
+                            <li><span class="font-bold">建造时间：</span>2007年</li>
+                            <li><span class="font-bold">入宅时间：</span>2025年乙巳年</li>
+                        </ul>
+                        
+                        <h4 class="text-xl font-kai font-bold mt-6 mb-3 text-fengshui-accent">玄空飞星基础参数</h4>
+                        <ul class="space-y-2 pl-5 list-disc">
+                            <li><span class="font-bold">建造运星：</span>八运（2004-2023年）</li>
+                            <li><span class="font-bold">当前运星：</span>九运（2024-2043年）</li>
+                            <li><span class="font-bold">流年飞星：</span>2025年乙巳年</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-3 text-fengshui-accent">户型九宫格划分说明</h4>
+                        <p class="mb-3">采用传统九宫格划分方法，将户型按照上北下南、左西右东的原则，划分为九个相等的区域：</p>
+                        <ol class="space-y-1 pl-5 list-decimal mb-3">
+                            <li>坎宫（正北）、离宫（正南）</li>
+                            <li>震宫（正东）、兑宫（正西）</li>
+                            <li>艮宫（东北）、坤宫（西南）</li>
+                            <li>巽宫（东南）、乾宫（西北）</li>
+                            <li>中宫（户型中心区域）</li>
+                        </ol>
+                        <p class="text-sm italic">九宫格以房屋中心点为基准，每个宫位代表不同方位与家庭成员的对应关系。</p>
                     </div>
                 </div>
             </div>
@@ -231,26 +271,706 @@
                 </div>
                 
                 <div>
-                    <h4 class="text-xl font-kai font-bold mb-3 text-fengshui-accent">飞星图说明</h4>
+                    <h4 class="text-xl font-kai font-bold mb-3 text-fengshui-accent">飞星组合说明</h4>
+                    <p class="mb-3">每个宫位包含四种飞星组合，分别影响不同方面：</p>
+                    <ul class="space-y-2 pl-5 list-disc">
+                        <li><span class="font-bold">山星：</span>主健康、人丁兴旺，与居住者身体状况相关</li>
+                        <li><span class="font-bold">向星：</span>主财运、事业发展，与家庭经济状况相关</li>
+                        <li><span class="font-bold">运星：</span>主时代运势，与当前大运（20年周期）相关</li>
+                        <li><span class="font-bold">流年星：</span>主当年吉凶，与具体年份（每年变化）相关</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 九宫飞星与户型联动解析 -->
+        <section id="nine-palaces" class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md">
+            <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">九宫飞星与户型联动解析</h2>
+            
+            <!-- 4.1 坎宫（正北）分析 -->
+            <div id="palace-1" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.1 坎宫（正北）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">飞星组合</h4>
+                            <p>山星7、向星9、运星4、流年星2</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">五行生克</h4>
+                            <p>7赤金生9紫火（吉），但2黑土耗9紫火（凶），需平衡"火旺生财"与"土耗损气"的关系</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                            <p>此为次卧区域，若家庭成员命理喜火（如属蛇、马），可强化吉气；若忌土（如属牛、龙），需化解病煞。</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                            <p>该宫位对应宅邸正北区域，为次卧空间，主要供家人休息使用，关联家庭成员的健康与贵人运。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                            <ol class="space-y-1 pl-5 list-decimal">
+                                <li>摆放铜制马形摆件（金生火旺）</li>
+                                <li>在角落放置白色鹅卵石（土色补耗，避免火过旺）</li>
+                                <li>墙面可悬挂红色装饰画，增强火元素能量</li>
+                            </ol>
+                            
+                            <h4 class="text-xl font-kai font-bold mt-4 mb-2 text-fengshui-accent">五行色彩应用</h4>
+                            <p>该宫位属水，宜用黑色、蓝色等水元素颜色强化气场。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.2 坤宫（西南）分析 -->
+            <div id="palace-2" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.2 坤宫（西南）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">飞星组合</h4>
+                            <p>山星6、向星1、运星5、流年星8</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">五行生克</h4>
+                            <p>6白金生1白水（吉），5黄土虽泄1白水（小凶），但8白土生6白金（大吉），整体为"财星相生+旺运加持"格局</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                            <p>主卧为居住核心，关联夫妻感情与财运根基。6白金生水主智慧，1白水为财星，8白土为当运旺星，三者相生，主财运亨通、家庭和睦。</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-4">
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                            <p>该宫位对应宅邸西南区域，为主卧空间，是家庭运势的核心区域，直接影响夫妻关系与整体财运。</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                            <ol class="space-y-1 pl-5 list-decimal">
+                                <li>悬挂五帝古钱（金生水，催旺1白财星）</li>
+                                <li>床头柜摆放黄玉貔貅（土生金，借8白旺运聚财）</li>
+                                <li>床上用品可选用白色或金色，增强金气</li>
+                            </ol>
+                            <p class="mt-3 text-fengshui-red font-bold">流年影响：2025年8白财星临坤宫，主财运旺盛，可在此方位放置聚宝盆等招财物品。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.3 震宫（正东）分析 -->
+            <div id="palace-3" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.3 震宫（正东）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星5、向星2、运星6、流年星4</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>5黄土克2黑土（凶，双土相战易生是非病灾），但4绿木克5黄土（吉，木泄土煞）</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p class="mb-3">若为孩子书桌区域，4绿文曲星为文昌吉气，需强化；5黄煞需压制。双土相战易引发健康问题和学习压力。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位对应宅邸正东区域，为孩子书桌或次卧空间，主要关联子女学业与健康运势。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal mb-3">
+                            <li>摆放绿色植物（木旺文昌）</li>
+                            <li>在墙角放置铜葫芦（金克土，化解双土煞）</li>
+                            <li>书桌朝向宜坐北朝南，避免直冲</li>
+                            <li>墙面可悬挂"文昌帝君"画像或"魁星点斗"图</li>
+                        </ol>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">文昌位强化</h4>
+                        <p>4绿文曲星主学业，可在此方位放置文昌塔、毛笔架等文具，增强学习运势。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.4 巽宫（东南）分析 -->
+            <div id="palace-4" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.4 巽宫（东南）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星4、向星3、运星7、流年星3</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>4绿木生3碧木（吉，木气旺盛主贵人缘），但7赤金克4绿木（小凶，金克木损人脉）</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p class="mb-3">客厅为社交与运势枢纽，关联事业贵人与家庭和睦。木气旺盛主贵人运强，但金克木需化解，避免贵人缘受损。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位对应宅邸东南区域，为客厅及阳台空间，是家庭气场的主要活动区域，关联人际关系与贵人运势。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>放置绿色植物增强木气（如发财树、富贵竹）</li>
+                            <li>减少金属物品（金克木）</li>
+                            <li>阳台保持整洁通透，利于气场流通</li>
+                            <li>可摆放红色装饰，形成木生火、火耗金的良性循环</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.5 乾宫（西北）分析 -->
+            <div id="palace-5" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 page-break no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.5 乾宫（西北）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星2、向星5、运星9、流年星1</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>2黑土克5黄土（凶，土气过旺主病灾），但1白水泄2黑土（吉，水耗土煞）</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p>若为书房，1白文昌星可催旺学业；若为次卧，需防范2黑病煞。土气过旺易引发健康问题，特别是脾胃方面。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位对应宅邸西北区域，为次卧或书房空间，关联男主人运势与贵人运。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>放置小型水景或鱼缸（增强水气，化解土煞）</li>
+                            <li>避免堆放杂物，保持整洁</li>
+                            <li>使用金属色装饰（金生水，增强水元素）</li>
+                            <li>可悬挂金属风铃，既增金气又化土煞</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.6 兑宫（正西）分析 -->
+            <div id="palace-6" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.6 兑宫（正西）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星1、向星6、运星1、流年星9</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>1白水生6白金（吉），9紫火生6白金（吉），水金火连环相生，为"财官双美"格局</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p>若为次卧，关联子女或宾客运势；若为储物区，需激活财气。连环相生格局主财运亨通、官运顺畅。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位对应宅邸正西区域，为主卧或次卧空间，关联口才、交际能力与意外之财。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>放置金属饰品增强金气（如铜器、金属摆件）</li>
+                            <li>使用白色或金色装饰，强化气场</li>
+                            <li>可摆放小型鱼缸，形成金生水的良性循环</li>
+                            <li>保持区域明亮，避免阴暗潮湿</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.7 艮宫（东北）分析 -->
+            <div id="palace-7" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.7 艮宫（东北）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星9、向星7、运星2、流年星6</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>9紫火生7赤金（吉），2黑土泄9紫火（凶），6白金生2黑土（凶，金生土加剧耗火）</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p>玄关为气流入口，需"纳吉挡凶"。火生金为吉，但土耗火需化解，避免财气外泄。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位对应宅邸东北区域，为玄关或次卧空间，是宅邸气口，影响整体气场吉凶。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>放置红色地毯或装饰（增强火气）</li>
+                            <li>摆放铜制麒麟（化煞招财）</li>
+                            <li>避免堆放杂物，保持气流通畅</li>
+                            <li>可悬挂红色中国结，增强火元素能量</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.8 离宫（正南）分析 -->
+            <div id="palace-8" class="mb-12 pb-8 border-b-2 border-fengshui-black/30 page-break no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.8 离宫（正南）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星8、向星8、运星3、流年星7</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>8白土生8白土（吉，双旺土气主财库稳固），3碧木克8白土（小凶，木耗土气），7赤金泄8白土（小凶，金泄土气）</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p>客厅为家庭运势中心，关联整体财运与社交。双8白土为当运旺星，主财库稳固，但需化解木克金泄的损耗。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位对应宅邸正南区域，为客厅核心区，是家庭活动与接待宾客的主要场所，关联整体财运。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>放置黄色聚宝盆（增强土气，稳固财库）</li>
+                            <li>使用黄色、棕色装饰，强化土元素</li>
+                            <li>减少绿植与金属物品，避免耗损土气</li>
+                            <li>可摆放陶瓷摆件，增强土属性能量</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.9 中宫（户型中心）分析 -->
+            <div id="palace-9" class="mb-4 no-page-break">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4">4.9 中宫（户型中心）分析</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p><span class="font-bold">飞星组合：</span>山星3、向星4、运星8、流年星5</p>
+                        <p class="mb-3"><span class="font-bold">五行生克：</span>3碧木生4绿木（吉，木气主贵人与文昌），8白土生3碧木（吉，土生木旺），但5黄土泄4绿木（小凶，土耗木气）</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">风水影响分析</h4>
+                        <p>户型中心为气场枢纽，影响全屋能量流通。木气旺盛主贵人运强，但需化解土耗木气的问题。</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">户型功能对应</h4>
+                        <p class="mb-3">该宫位为户型中心区域，通常为客厅或通道，是全屋气场的枢纽，影响各区域能量平衡。</p>
+                        
+                        <h4 class="text-xl font-kai font-bold mb-2 text-fengshui-accent">布局方案</h4>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>保持中心区域通透，避免堆放杂物</li>
+                            <li>放置小型水景或流水摆件，增强气场流动性</li>
+                            <li>可摆放绿色植物，增强木气</li>
+                            <li>使用浅色装饰，保持气场清新</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 总结与建议 -->
+        <section id="conclusion" class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md page-break no-page-break">
+            <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">总结与建议</h2>
+            
+            <!-- 5.1 整体格局评估 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">5.1 整体格局评估</h3>
+                
+                <div class="mb-4">
+                    <p class="font-bold mb-2">格局等级：</p>
+                    <p>此宅为"丁山癸向"，结合下元九运与2025流年飞星，整体属"旺丁又趋财"的良性格局。虽有部分宫位带煞，但通过"五行生克布局"可实现"凶煞可化、吉气可催"。</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="font-bold mb-2 text-fengshui-red">核心优势：</p>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>双8白土临离宫（客厅），为当运旺星，主财库稳固</li>
+                            <li>坤宫（主卧）6白金生1白水，8白土生6白金，形成财星相生格局</li>
+                            <li>兑宫水金火连环相生，为"财官双美"格局</li>
+                        </ol>
+                    </div>
+                    
+                    <div>
+                        <p class="font-bold mb-2 text-fengshui-accent">需注意的问题：</p>
+                        <ol class="space-y-1 pl-5 list-decimal">
+                            <li>震宫双土相战，需化解健康和学习压力问题</li>
+                            <li>巽宫金克木，需保护贵人缘</li>
+                            <li>乾宫土气过旺，需防范健康问题</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5.2 重点调理区域 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">5.2 重点调理区域</h3>
+                
+                <div class="space-y-4">
+                    <div class="border-l-4 border-fengshui-red pl-4">
+                        <p class="font-bold">优先级一：震宫（孩子文昌位）</p>
+                        <ul class="space-y-1 pl-5 list-disc">
+                            <li>摆放绿色植物强化文昌</li>
+                            <li>放置铜葫芦化解双土煞</li>
+                            <li>书桌布局优化</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border-l-4 border-fengshui-gold pl-4">
+                        <p class="font-bold">优先级二：坤宫（主卧财运位）</p>
+                        <ul class="space-y-1 pl-5 list-disc">
+                            <li>悬挂五帝古钱催旺财星</li>
+                            <li>摆放黄玉貔貅聚财</li>
+                            <li>增强金气元素</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border-l-4 border-fengshui-black pl-4">
+                        <p class="font-bold">优先级三：离宫（客厅财库位）</p>
+                        <ul class="space-y-1 pl-5 list-disc">
+                            <li>放置聚宝盆稳固财库</li>
+                            <li>化解木克金泄损耗</li>
+                            <li>优化整体气场布局</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5.3 实施建议 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">5.3 实施建议</h3>
+                
+                <div class="grid md:grid-cols-3 gap-4">
                     <div class="border-2 border-fengshui-black rounded-lg p-4 bg-fengshui-paper/50">
-                        <div class="aspect-square border border-fengshui-black relative">
-                            <!-- 飞星图示意 -->
-                            <div class="absolute inset-0 grid grid-cols-3 grid-rows-3">
-                                <div class="border border-fengshui-black/30 p-1 text-center text-xs">
-                                    <div>山9</div>
-                                    <div>向7</div>
-                                    <div>运2</div>
-                                    <div>流6</div>
-                                    <div class="font-bold mt-1">艮宫</div>
-                                </div>
-                                <div class="border border-fengshui-black/30 p-1 text-center text-xs">
-                                    <div>山7</div>
-                                    <div>向9</div>
-                                    <div>运4</div>
-                                    <div>流2</div>
-                                    <div class="font-bold mt-1">坎宫</div>
-                                </div>
-                                <div class="border border-fengshui-black/30 p-1 text-center text-xs">
-                                    <div>山2</div>
-                                    <div>向5</div>
-                                    <div>运9
+                        <div class="text-center mb-2">
+                            <div class="inline-block p-2 bg-fengshui-red text-white rounded-full">
+                                <i class="fa fa-calendar-check-o"></i>
+                            </div>
+                            <h4 class="font-bold mt-1">短期（1个月内）</h4>
+                        </div>
+                        <ol class="space-y-1 pl-5 list-decimal text-sm">
+                            <li>完成震宫、坤宫的基础布局</li>
+                            <li>调整各宫位的色彩搭配</li>
+                            <li>检查并改善户型内的气流流通</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="border-2 border-fengshui-black rounded-lg p-4 bg-fengshui-paper/50">
+                        <div class="text-center mb-2">
+                            <div class="inline-block p-2 bg-fengshui-gold text-white rounded-full">
+                                <i class="fa fa-calendar-plus-o"></i>
+                            </div>
+                            <h4 class="font-bold mt-1">中期（3个月内）</h4>
+                        </div>
+                        <ol class="space-y-1 pl-5 list-decimal text-sm">
+                            <li>完善九宫格的风水布局</li>
+                            <li>强化重点宫位的能量</li>
+                            <li>根据家庭成员命理调整细节</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="border-2 border-fengshui-black rounded-lg p-4 bg-fengshui-paper/50">
+                        <div class="text-center mb-2">
+                            <div class="inline-block p-2 bg-fengshui-black text-white rounded-full">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <h4 class="font-bold mt-1">长期（1年内）</h4>
+                        </div>
+                        <ol class="space-y-1 pl-5 list-decimal text-sm">
+                            <li>定期检查和维护风水布局</li>
+                            <li>根据流年变化调整布局</li>
+                            <li>结合个人努力实现运势提升</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5.4 注意事项 -->
+            <div>
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">5.4 注意事项</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-3 text-fengshui-red">
+                            <i class="fa fa-exclamation-circle"></i>
+                        </div>
+                        <p><span class="font-bold">风水为助缘之术：</span>最终仍需结合家庭成员自身努力（事业拼搏、学业奋进、家庭经营），方能实现"天人合一"的运势提升</p>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-3 text-fengshui-red">
+                            <i class="fa fa-exclamation-circle"></i>
+                        </div>
+                        <p><span class="font-bold">专业指导：</span>如有疑问，建议咨询专业风水师，确保布局方案的准确性</p>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-3 text-fengshui-red">
+                            <i class="fa fa-exclamation-circle"></i>
+                        </div>
+                        <p><span class="font-bold">循序渐进：</span>风水调整应循序渐进，避免剧烈改变，以免影响原有气场平衡</p>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-3 text-fengshui-red">
+                            <i class="fa fa-exclamation-circle"></i>
+                        </div>
+                        <p><span class="font-bold">因人而异：</span>布局方案需根据家庭成员的具体命理情况进行调整</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 附录 -->
+        <section id="appendix" class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md page-break no-page-break">
+            <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-8">附录</h2>
+            
+            <!-- 6.1 风水术语对照表 -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">6.1 风水术语对照表</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border-2 border-fengshui-black">
+                        <thead>
+                            <tr class="bg-fengshui-black text-fengshui-paper">
+                                <th class="border border-fengshui-black p-2 text-center">术语</th>
+                                <th class="border border-fengshui-black p-2 text-center">含义</th>
+                                <th class="border border-fengshui-black p-2 text-center">五行属性</th>
+                                <th class="border border-fengshui-black p-2 text-center">象征意义</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">山星</td>
+                                <td class="border border-fengshui-black p-2">影响人丁健康</td>
+                                <td class="border border-fengshui-black p-2 text-center">土</td>
+                                <td class="border border-fengshui-black p-2">主健康、人丁</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">向星</td>
+                                <td class="border border-fengshui-black p-2">影响财运事业</td>
+                                <td class="border border-fengshui-black p-2 text-center">水</td>
+                                <td class="border border-fengshui-black p-2">主财富、事业</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">运星</td>
+                                <td class="border border-fengshui-black p-2">当运吉凶</td>
+                                <td class="border border-fengshui-black p-2 text-center">火</td>
+                                <td class="border border-fengshui-black p-2">主时代运势</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">流年星</td>
+                                <td class="border border-fengshui-black p-2">当年吉凶</td>
+                                <td class="border border-fengshui-black p-2 text-center">木</td>
+                                <td class="border border-fengshui-black p-2">主年度变化</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">五黄煞</td>
+                                <td class="border border-fengshui-black p-2">灾煞之星</td>
+                                <td class="border border-fengshui-black p-2 text-center">土</td>
+                                <td class="border border-fengshui-black p-2">主灾祸、疾病</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">二黑病符</td>
+                                <td class="border border-fengshui-black p-2">病符之星</td>
+                                <td class="border border-fengshui-black p-2 text-center">土</td>
+                                <td class="border border-fengshui-black p-2">主健康问题</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">八白财星</td>
+                                <td class="border border-fengshui-black p-2">财星之星</td>
+                                <td class="border border-fengshui-black p-2 text-center">土</td>
+                                <td class="border border-fengshui-black p-2">主财富、成功</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">四绿文昌</td>
+                                <td class="border border-fengshui-black p-2">文昌之星</td>
+                                <td class="border border-fengshui-black p-2 text-center">木</td>
+                                <td class="border border-fengshui-black p-2">主学业、智慧</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 6.2 布局物品清单 -->
+            <div>
+                <h3 class="text-2xl font-kai text-fengshui-black font-bold mb-4 border-b-2 border-fengshui-gold pb-2">6.2 布局物品清单</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border-2 border-fengshui-black">
+                        <thead>
+                            <tr class="bg-fengshui-black text-fengshui-paper">
+                                <th class="border border-fengshui-black p-2 text-center">宫位</th>
+                                <th class="border border-fengshui-black p-2 text-center">主要物品</th>
+                                <th class="border border-fengshui-black p-2 text-center">材质要求</th>
+                                <th class="border border-fengshui-black p-2 text-center">数量</th>
+                                <th class="border border-fengshui-black p-2 text-center">放置位置</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">坎宫</td>
+                                <td class="border border-fengshui-black p-2">铜制马形摆件</td>
+                                <td class="border border-fengshui-black p-2 text-center">金属</td>
+                                <td class="border border-fengshui-black p-2 text-center">1个</td>
+                                <td class="border border-fengshui-black p-2">床头柜</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">坤宫</td>
+                                <td class="border border-fengshui-black p-2">五帝古钱</td>
+                                <td class="border border-fengshui-black p-2 text-center">铜制</td>
+                                <td class="border border-fengshui-black p-2 text-center">1串</td>
+                                <td class="border border-fengshui-black p-2">床头悬挂</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">震宫</td>
+                                <td class="border border-fengshui-black p-2">绿色植物</td>
+                                <td class="border border-fengshui-black p-2 text-center">活体</td>
+                                <td class="border border-fengshui-black p-2 text-center">1盆</td>
+                                <td class="border border-fengshui-black p-2">书桌上</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">震宫</td>
+                                <td class="border border-fengshui-black p-2">铜葫芦</td>
+                                <td class="border border-fengshui-black p-2 text-center">铜制</td>
+                                <td class="border border-fengshui-black p-2 text-center">1个</td>
+                                <td class="border border-fengshui-black p-2">墙角</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">巽宫</td>
+                                <td class="border border-fengshui-black p-2">红色装饰画</td>
+                                <td class="border border-fengshui-black p-2 text-center">纸质</td>
+                                <td class="border border-fengshui-black p-2 text-center">1幅</td>
+                                <td class="border border-fengshui-black p-2">客厅墙面</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">乾宫</td>
+                                <td class="border border-fengshui-black p-2">水晶文昌塔</td>
+                                <td class="border border-fengshui-black p-2 text-center">水晶</td>
+                                <td class="border border-fengshui-black p-2 text-center">1座</td>
+                                <td class="border border-fengshui-black p-2">书桌中央</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">兑宫</td>
+                                <td class="border border-fengshui-black p-2">金属鱼缸</td>
+                                <td class="border border-fengshui-black p-2 text-center">玻璃+金属</td>
+                                <td class="border border-fengshui-black p-2 text-center">1个</td>
+                                <td class="border border-fengshui-black p-2">房间角落</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-fengshui-black p-2 text-center font-bold">艮宫</td>
+                                <td class="border border-fengshui-black p-2">铜制麒麟</td>
+                                <td class="border border-fengshui-black p-2 text-center">铜制</td>
+                                <td class="border border-fengshui-black p-2 text-center">1对</td>
+                                <td class="border border-fengshui-black p-2">玄关两侧</td>
+                            </tr>
+                            <tr class="bg-fengshui-paper/50">
+                                <td class="border border-fengshui-black p-2 text-center font-bold">离宫</td>
+                                <td class="border border-fengshui-black p-2">黄色聚宝盆</td>
+                                <td class="border border-fengshui-black p-2 text-center">陶瓷</td>
+                                <td class="border border-fengshui-black p-2 text-center">1个</td>
+                                <td class="border border-fengshui-black p-2">客厅财位</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文档完成说明 -->
+        <section class="mb-8 border-2 border-fengshui-black p-8 bg-white shadow-md no-page-break">
+            <h2 class="text-3xl font-kai text-center text-fengshui-red font-bold mb-6">文档完成说明</h2>
+            
+            <p class="mb-4">这份风水批文文档已完整呈现了钟女士宅邸的玄空飞星分析内容，包含：</p>
+            <ol class="space-y-1 pl-5 list-decimal mb-6">
+                <li>基础信息与理论前提</li>
+                <li>九宫飞星与户型联动解析</li>
+                <li>总结与建议</li>
+                <li>附录</li>
+            </ol>
+            
+            <div class="mb-6">
+                <p class="font-bold mb-2">使用建议：</p>
+                <ul class="space-y-1 pl-5 list-disc">
+                    <li>建议打印成纸质文档，便于对照实施</li>
+                    <li>实施布局时，建议从优先级高的宫位开始</li>
+                    <li>定期检查和维护风水布局，确保效果持续</li>
+                    <li>结合个人努力，风水方能发挥最佳效果</li>
+                </ul>
+            </div>
+            
+            <p class="text-center italic">这份文档不仅是一份专业的风水分析报告，更是一份实用的家居布局指南，希望能为钟女士的宅邸风水调整提供有益的参考。</p>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-fengshui-black text-fengshui-paper py-6">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <i class="fa fa-compass text-fengshui-gold text-2xl"></i>
+                <h2 class="text-xl font-kai font-bold mt-2">钟女士宅邸风水批文</h2>
+                <p class="text-sm opacity-70">丁山癸向玄空飞星分析报告</p>
+            </div>
+            <div class="border-t border-fengshui-gold/30 pt-4 text-sm opacity-70">
+                <p>分析日期：2025年10月21日 | 文档格式：PDF格式（保留完整排版效果）</p>
+                <p>本批文仅供参考</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-fengshui-red text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 transition-opacity duration-300 hover:bg-fengshui-accent">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 移动端菜单关闭
+                document.getElementById('nav-menu').classList.add('hidden');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.replace('opacity-0', 'opacity-100');
+            } else {
+                backToTopButton.classList.replace('opacity-100', 'opacity-0');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
