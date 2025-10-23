@@ -193,6 +193,44 @@
             color: #fff;
         }
         
+        /* 图片空白区域样式 - 保留原图片位置的空白 */
+        .image-placeholder-area {
+            text-align: center;
+            margin: 30px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            page-break-inside: avoid;
+        }
+        
+        .image-placeholder-area h3 {
+            margin-left: 0;
+            margin-bottom: 15px;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            color: #999;
+        }
+        
+        .local-image-placeholder {
+            width: 60%;
+            height: 200px;
+            margin: 15px auto;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            color: #999;
+        }
+        
         /* 解决方案样式 */
         .solution {
             background-color: #f9f9f9;
@@ -262,6 +300,10 @@
                 text-decoration: none;
                 color: inherit;
             }
+            .image-placeholder, .local-image-placeholder {
+                border-color: #ddd;
+                color: #bbb;
+            }
         }
         
         @media (max-width: 768px) {
@@ -287,6 +329,10 @@
             
             .navbar li {
                 margin: 5px;
+            }
+            
+            .local-image-placeholder {
+                width: 100%;
             }
             
             table {
@@ -349,6 +395,15 @@
         <div class="info">专业顾问：[顾问姓名]</div>
     </section>
 
+    <!-- 户型图空白区域 -->
+    <section class="image-placeholder-area">
+        <h3>宅邸户型图</h3>
+        <div class="image-placeholder">
+            此处预留户型图位置，应显示包含各功能区域及九宫格宫位的户型图
+        </div>
+        <p>注：户型图应包含客厅、主卧、次卧、厨房、厕所等功能区域标注，并使用九宫格划分九个宫位</p>
+    </section>
+
     <!-- 目录 -->
     <section id="toc" class="toc">
         <h2>目录</h2>
@@ -374,14 +429,35 @@
         </ul>
     </section>
 
+    <!-- 飞星图空白区域 -->
+    <section class="image-placeholder-area">
+        <h3>八运丙山壬向飞星图</h3>
+        <div class="image-placeholder">
+            此处预留飞星图位置，应显示八运丙山壬向的飞星排布
+        </div>
+        <p>注：飞星图应包含运星、山星、向星的具体位置，并标注各宫位飞星组合和主要吉凶特征</p>
+    </section>
+
     <!-- 第一章：核心症结 -->
     <section id="chapter1">
         <h2>一、核心症结：形煞与理气的恶性循环</h2>
         
         <h3 id="chapter1-1">1.1 东北方（艮宫）五黄二黑汇聚</h3>
+        <div class="image-placeholder-area">
+            <h4>艮宫（东北方）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留艮宫区域放大图位置，应标注"五黄+二黑"飞星组合
+            </div>
+        </div>
         <p>您宅邸的首要问题，在于东北方（<span class="term">艮宫</span>）。此方位飞星组合为山星<span class="term">五黄灾煞</span>与向星<span class="term">二黑病符</span>汇聚，是盘中最凶之位。然而，此处恰好是家中厕所所在地，且堆满杂物。厕所的污秽之水与杂物的停滞之土，构成了强烈的"<span class="term">形煞</span>"，如同一个开关，彻底激活了五黄二黑的凶性。这正是导致女儿病情反复、家人健康堪忧的风水根源。</p>
         
         <h3 id="chapter1-2">1.2 北方（坎宫）财星受污受阻</h3>
+        <div class="image-placeholder-area">
+            <h4>坎宫（北方）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留坎宫区域放大图位置，应标注"八白+三碧"飞星组合
+            </div>
+        </div>
         <p>其次，北方（<span class="term">坎宫</span>）的明堂与大门口，向星为当旺的<span class="term">八白财星</span>，本应主财源广进。但此处杂物堆积、晾晒衣物，导致"<span class="term">财星</span>"受污受阻，更有山星<span class="term">三碧是非星</span>克入，形成"<span class="term">斗牛煞</span>"。这直接造成了"财不入乱门"的现状，导致求财艰难，家庭内部易生口角。</p>
     </section>
 
@@ -390,6 +466,12 @@
         <h2>二、核心问题诊断：古书为鉴，煞气纵横</h2>
         
         <h3 id="chapter2-1">2.1 巽宫（东南）"二五交加，必损主"</h3>
+        <div class="image-placeholder-area">
+            <h4>巽宫（东南方）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留巽宫区域放大图位置，应标注"二黑+五黄"飞星组合
+            </div>
+        </div>
         <p><strong>飞星组合</strong>：山星<span class="term">二黑（病符）</span>、向星<span class="term">五黄（大煞）</span>。此方位为女儿、儿子卧室及洗澡间。</p>
         <p><strong>古籍依据</strong>：</p>
         <p class="ancient">《玄空秘旨》有云："二五交加，必损主。"又云："二逢五，则伤及壮丁。"</p>
@@ -404,6 +486,12 @@
         </div>
         
         <h3 id="chapter2-2">2.2 坎宫（北）"旺星落陷，吉处藏凶"</h3>
+        <div class="image-placeholder-area">
+            <h4>坎宫（北方）详细局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留坎宫区域详细放大图位置，应标注"八白+八白"飞星组合
+            </div>
+        </div>
         <p><strong>飞星组合</strong>：山星<span class="term">八白（旺丁）</span>、向星<span class="term">八白（旺财）</span>。此方位为厕所、车棚。</p>
         <p><strong>古籍依据</strong>：</p>
         <p class="ancient">《玄机赋》云："旺方宜动，动则吉；煞方宜静，静无咎。"</p>
@@ -418,6 +506,12 @@
         </div>
         
         <h3 id="chapter2-3">2.3 离宫（南）与坤宫（西南）"九七合辙，常遭回禄"</h3>
+        <div class="image-placeholder-area">
+            <h4>离宫（南方）与坤宫（西南方）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留离宫与坤宫区域图位置，应标注"七赤+九紫"和"九紫+七赤"飞星组合
+            </div>
+        </div>
         <p><strong>飞星组合</strong>：离宫为山星<span class="term">七赤（金）</span>向星<span class="term">九紫（火）</span>；坤宫为山星<span class="term">九紫（火）</span>向星<span class="term">七赤（金）</span>。</p>
         <p><strong>古籍依据</strong>：</p>
         <p class="ancient">《飞星赋》明确指出："九七合辙，常遭回禄之灾。"</p>
@@ -436,6 +530,12 @@
         <h2>三、转机与布局：乘旺避煞，古籍可循</h2>
         
         <h3 id="chapter3-1">3.1 艮宫（东北）与震宫（东）"金水相生，科名挺秀"</h3>
+        <div class="image-placeholder-area">
+            <h4>艮宫（东北）与震宫（东）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留艮宫与震宫区域图位置，应标注"六白+一白"和"一白+六白"飞星组合
+            </div>
+        </div>
         <p><strong>飞星组合</strong>：艮宫为山星<span class="term">六白（金）</span>向星<span class="term">一白（水）</span>；震宫为山星<span class="term">一白（水）</span>向星<span class="term">六白（金）</span>。</p>
         <p><strong>古籍依据</strong>：</p>
         <p class="ancient">《玄空秘旨》云："虚联奎壁，启八代之文章。"又云："金水多情，贪花恋酒。"</p>
@@ -466,9 +566,21 @@
         <h2>五、内部优化：平衡宅气以利长久</h2>
         
         <h3 id="chapter5-1">5.1 女儿卧室（离宫）采光优化</h3>
+        <div class="image-placeholder-area">
+            <h4>离宫（女儿卧室）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留女儿卧室区域放大图位置，应标注采光优化位置
+            </div>
+        </div>
         <p>女儿卧室（<span class="term">离宫</span>）：采光极差引动了"<span class="term">碧绿风魔</span>"是非星，需移除窗膜、增加照明并将色调改为白色系，以金气克制过旺木煞，安神启智。</p>
         
         <h3 id="chapter5-2">5.2 厨房（巽宫与震宫）水火相冲化解</h3>
+        <div class="image-placeholder-area">
+            <h4>厨房（巽宫与震宫）局部图</h4>
+            <div class="local-image-placeholder">
+                此处预留厨房区域放大图位置，应标注水火相冲位置及化解方案
+            </div>
+        </div>
         <p>厨房（<span class="term">巽宫</span>与<span class="term">震宫</span>）：与洗澡间水火相冲，引动"<span class="term">回禄之灾</span>"破财星，需加装黄色门帘进行通关化解，并收纳利器，以保家财不失。</p>
     </section>
 
