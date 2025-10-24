@@ -247,9 +247,13 @@
 <!-- 五行力量图表 -->
 <div class="w-full md:w-1/2 bg-white/70 rounded-lg p-5 border border-primary/15">
     <h3 class="text-xl font-serif font-semibold text-primary mb-4 text-center">五行力量分布</h3>
-    <!-- 新增的五行图图片 -->
+    <!-- 自适应容器的图片 -->
     <div class="mb-4 flex justify-center">
-        <img src="https://linweijie666-123.github.io/image/huxingtu.png" alt="五行图" class="max-h-32 object-contain rounded" />
+        <img 
+            src="https://linweijie666-123.github.io/image/huxingtu.png" 
+            alt="五行图" 
+            class="max-w-full h-auto rounded"  <!-- 关键：最大宽度不超过容器，高度自动适应 -->
+        />
     </div>
     <div class="h-64">
         <canvas id="fiveElementsChart"></canvas>
@@ -271,6 +275,8 @@
         <div class="五行标签 text-center p-2 rounded bg-earth/10 text-earth text-xs">
             <i class="fa fa-pagelines block mb-1"></i>土
         </div>
+    </div>
+</div>
     </div>
 </div>
                     
