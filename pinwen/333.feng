@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王女士宅邸风水勘察报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B5A2B', // 传统棕色，体现中国传统风水文化
+                        secondary: '#D2B48C', // 浅棕色，辅助色
+                        accent: '#CD853F', // 秘鲁色，强调色
+                        light: '#F5F5DC', // 米白色，背景色
+                        dark: '#2F4F4F', // 深灰色，文字色
+                        wood: '#A0522D', // 木色
+                        fire: '#DC143C', // 火红色
+                        earth: '#DEB887', // 土黄色
+                        metal: '#B0C4DE', // 金属色
+                        water: '#4682B4', // 水蓝色
+                    },
+                    fontFamily: {
+                        song: ['SimSun', 'STSong', 'serif'],
+                        kai: ['KaiTi', 'STKaiti', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .bg-texture {
+                background-image: url('https://picsum.photos/id/106/1000/1000');
+                background-blend-mode: overlay;
+                background-size: cover;
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
+            }
+            .table-fengshui {
+                border-collapse: separate;
+                border-spacing: 0;
+            }
+            .table-fengshui th, .table-fengshui td {
+                border: 1px solid #8B5A2B;
+                padding: 0.75rem;
+            }
+            .table-fengshui th {
+                background-color: rgba(139, 90, 43, 0.1);
+                font-weight: bold;
+            }
+            .flying-star-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                gap: 1px;
+                background-color: #8B5A2B;
+            }
+            .flying-star-cell {
+                background-color: white;
+                aspect-ratio: 1/1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            .flying-star-number {
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            .flying-star-direction {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                font-size: 0.7rem;
+                color: #8B5A2B;
+            }
+        }
+        
+        @media print {
+            @page {
+                size: A4;
+                margin: 1.5cm;
+            }
+            body {
+                font-size: 12pt;
+                background-color: white;
+            }
+            header, footer, #backToTop {
+                display: none;
+            }
+            main {
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .chart-container {
+                page-break-inside: avoid;
+                max-height: 250px;
+            }
+            section {
+                page-break-after: avoid;
+                margin-bottom: 1cm !important;
+            }
+            canvas {
+                max-width: 100%;
+                max-height: 250px;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-song scroll-smooth">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-primary text-white shadow-md no-print">
+        <nav class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
+            <div class="flex items-center">
+                <i class="fa fa-compass text-2xl mr-3" aria-hidden="true"></i>
+                <h1 class="text-xl md:text-2xl font-kai">王女士宅邸风水勘察报告</h1>
+            </div>
+            <button id="menuToggle" class="md:hidden text-white focus:outline-none">
+                <i class="fa fa-bars text-xl" aria-hidden="true"></i>
+            </button>
+            <div id="mainMenu" class="hidden w-full md:flex md:w-auto mt-3 md:mt-0">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                    <li><a href="#overview" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-info-circle mr-1" aria-hidden="true"></i> 基础信息</a></li>
+                    <li><a href="#flying-star" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-star mr-1" aria-hidden="true"></i> 飞星分析</a></li>
+                    <li><a href="#diagnosis" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-stethoscope mr-1" aria-hidden="true"></i> 问题诊断</a></li>
+                    <li><a href="#opportunities" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-lightbulb-o mr-1" aria-hidden="true"></i> 转机机会</a></li>
+                    <li><a href="#solutions" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-wrench mr-1" aria-hidden="true"></i> 调理方案</a></li>
+                    <li><a href="#implementation" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-calendar mr-1" aria-hidden="true"></i> 实施步骤</a></li>
+                    <li><a href="#notes" class="hover:text-secondary transition-colors duration-300"><i class="fa fa-exclamation-circle mr-1" aria-hidden="true"></i> 注意事项</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 封面区域 -->
+        <section class="mb-12 bg-texture bg-primary/10 rounded-lg p-8 text-center shadow-lg">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-kai font-bold text-primary mb-4 text-shadow">王女士宅邸风水勘察报告</h1>
+            <p class="text-xl md:text-2xl font-kai text-dark/80 mb-6">广东深圳·九运壬山丙向</p>
+            <div class="flex justify-center space-x-4 mb-6">
+                <span class="bg-primary/20 px-4 py-2 rounded-full text-primary font-medium"><i class="fa fa-map-marker mr-2" aria-hidden="true"></i> 深圳福田</span>
+                <span class="bg-primary/20 px-4 py-2 rounded-full text-primary font-medium"><i class="fa fa-home mr-2" aria-hidden="true"></i> 壬山丙向</span>
+                <span class="bg-primary/20 px-4 py-2 rounded-full text-primary font-medium"><i class="fa fa-clock-o mr-2" aria-hidden="true"></i> 九运建筑</span>
+            </div>
+            <div class="inline-block bg-white/80 px-6 py-3 rounded-lg shadow-md">
+                <p class="text-lg font-medium"><i class="fa fa-quote-left text-primary mr-2" aria-hidden="true"></i> 风水之道，在乎天人合一，阴阳平衡，五行调和<i class="fa fa-quote-right text-primary ml-2" aria-hidden="true"></i></p>
+            </div>
+        </section>
+
+        <!-- 一、基础信息概览 -->
+        <section id="overview" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">一、基础信息概览</h2>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="table-fengshui w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">项目</th>
+                                <th class="text-left">详细信息</th>
+                                <th class="text-left">备注</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-medium">宅邸地址</td>
+                                <td>广东深圳市福田区莲花街道</td>
+                                <td>高层住宅15楼</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">房屋坐向</td>
+                                <td>壬山丙向（坐北朝南偏西）</td>
+                                <td>精确坐向：350°</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">建造时间</td>
+                                <td>2018年（戊戌年）</td>
+                                <td>属九运建筑</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">入住时间</td>
+                                <td>2020年（庚子年）</td>
+                                <td>已居住5年</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">家庭成员</td>
+                                <td>王女士（38岁）、先生（40岁）、女儿（12岁）、儿子（8岁）</td>
+                                <td>四口之家</td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium">主要问题</td>
+                                <td>财运阻滞、健康波动、子女学业压力大</td>
+                                <td>需系统性调理</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 宅邸布局示意图 -->
+            <div class="mt-8">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">宅邸平面布局示意</h3>
+                <div class="bg-white rounded-lg shadow-md p-6 border border-primary/30 h-64 flex items-center justify-center">
+                    <div class="w-full max-w-md relative border-2 border-primary/50 p-2">
+                        <!-- 简化的房屋平面图 -->
+                        <div class="grid grid-cols-4 gap-1 w-full h-full">
+                            <div class="col-span-1 row-span-2 border border-gray-300 bg-water/10 flex items-center justify-center text-xs p-1">
+                                <div>主卧<br/>(乾宫)</div>
+                            </div>
+                            <div class="col-span-2 row-span-2 border border-gray-300 bg-light flex items-center justify-center text-xs p-1">
+                                <div>客厅<br/>(中宫)</div>
+                            </div>
+                            <div class="col-span-1 row-span-1 border border-gray-300 bg-wood/10 flex items-center justify-center text-xs p-1">
+                                <div>次卧<br/>(兑宫)</div>
+                            </div>
+                            <div class="col-span-1 row-span-1 border border-gray-300 bg-metal/10 flex items-center justify-center text-xs p-1">
+                                <div>书房<br/>(艮宫)</div>
+                            </div>
+                            <div class="col-span-2 row-span-2 border border-gray-300 bg-fire/10 flex items-center justify-center text-xs p-1">
+                                <div>厨房/餐厅<br/>(巽宫)</div>
+                            </div>
+                            <div class="col-span-1 row-span-2 border border-gray-300 bg-earth/10 flex items-center justify-center text-xs p-1">
+                                <div>卫生间<br/>(坎宫)</div>
+                            </div>
+                            <div class="col-span-1 row-span-2 border border-gray-300 bg-primary/10 flex items-center justify-center text-xs p-1">
+                                <div>阳台<br/>(离宫)</div>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-6 left-0 text-xs text-gray-500">
+                            注：上北下南左西右东
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 二、玄空飞星理气分析 -->
+        <section id="flying-star" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">二、玄空飞星理气分析</h2>
+            </div>
+            
+            <!-- 2.1 九运壬山丙向飞星盘 -->
+            <div class="mb-10">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">2.1 九运壬山丙向飞星盘</h3>
+                <p class="mb-4">根据玄空飞星理论，九运（2024-2043年）壬山丙向的飞星盘如下：</p>
+                
+                <!-- 飞星盘网格 -->
+                <div class="bg-white rounded-lg shadow-md p-6 border border-primary/30 mb-4">
+                    <div class="max-w-md mx-auto">
+                        <div class="flying-star-grid">
+                            <!-- 第一行 -->
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-metal">5</span>
+                                <span class="flying-star-number text-primary">2</span>
+                                <span class="flying-star-direction">乾</span>
+                            </div>
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-earth">2</span>
+                                <span class="flying-star-number text-fire">9</span>
+                                <span class="flying-star-direction">坎</span>
+                            </div>
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-water">1</span>
+                                <span class="flying-star-number text-metal">6</span>
+                                <span class="flying-star-direction">艮</span>
+                            </div>
+                            <!-- 第二行 -->
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-earth">8</span>
+                                <span class="flying-star-number text-earth">8</span>
+                                <span class="flying-star-direction">震</span>
+                            </div>
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-metal">6</span>
+                                <span class="flying-star-number text-water">1</span>
+                                <span class="flying-star-direction">中</span>
+                            </div>
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-wood">4</span>
+                                <span class="flying-star-number text-wood">3</span>
+                                <span class="flying-star-direction">兑</span>
+                            </div>
+                            <!-- 第三行 -->
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-wood">3</span>
+                                <span class="flying-star-number text-water">1</span>
+                                <span class="flying-star-direction">巽</span>
+                            </div>
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-metal">7</span>
+                                <span class="flying-star-number text-earth">5</span>
+                                <span class="flying-star-direction">离</span>
+                            </div>
+                            <div class="flying-star-cell">
+                                <span class="flying-star-number text-fire">9</span>
+                                <span class="flying-star-number text-metal">7</span>
+                                <span class="flying-star-direction">坤</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center text-sm text-gray-600">
+                            注：每个宫位上方为山星，下方为向星，按九宫格分布（上北下南左西右东）
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-sm text-gray-600">飞星盘说明：九运壬山丙向飞星分布为：乾宫(5 2)、坎宫(2 9)、艮宫(1 6)、震宫(8 8)、中宫(6 1)、兑宫(4 3)、巽宫(3 1)、离宫(7 5)、坤宫(9 7)，各宫位数字代表山星与向星组合。</p>
+            </div>
+            
+            <!-- 2.2 元运与九星属性 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">2.2 元运与九星属性</h3>
+                
+                <!-- 三元九运体系 -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-kai font-bold text-primary mb-3">三元九运体系</h4>
+                    <ul class="list-disc list-inside mb-4 pl-4">
+                        <li class="mb-2">一元 = 60年（一个花甲）</li>
+                        <li class="mb-2">一运 = 20年</li>
+                        <li>九运循环：一白(1864-1883)→二黑(1884-1903)→三碧(1904-1923)→四绿(1924-1943)→五黄(1944-1963)→六白(1964-1983)→七赤(1984-2003)→八白(2004-2023)→九紫(2024-2043)</li>
+                    </ul>
+                    
+                    <!-- 九运时间线图表 -->
+                    <div class="bg-light p-4 rounded-lg chart-container">
+                        <canvas id="nineCyclesChart" height="200"></canvas>
+                    </div>
+                </div>
+                
+                <!-- 九星五行属性 -->
+                <div>
+                    <h4 class="text-lg font-kai font-bold text-primary mb-3">九星五行属性</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-water flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">1</span>
+                                </div>
+                                <h5 class="font-bold">一白贪狼星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属水</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>智慧、文昌、官运</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-earth flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">2</span>
+                                </div>
+                                <h5 class="font-bold">二黑巨门星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属土</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>疾病、灾祸、是非</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-wood flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">3</span>
+                                </div>
+                                <h5 class="font-bold">三碧禄存星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属木</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>争斗、官司、是非</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-wood flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">4</span>
+                                </div>
+                                <h5 class="font-bold">四绿文曲星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属木</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>文昌、学业、才华</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-earth flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">5</span>
+                                </div>
+                                <h5 class="font-bold">五黄廉贞星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属土</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>大凶、灾祸、疾病</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-metal flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">6</span>
+                                </div>
+                                <h5 class="font-bold">六白武曲星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属金</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>财富、权力、事业</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-metal flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">7</span>
+                                </div>
+                                <h5 class="font-bold">七赤破军星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属金</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>破财、官非、桃花</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-earth flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">8</span>
+                                </div>
+                                <h5 class="font-bold">八白左辅星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属土</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>财运、置业、贵人</p>
+                        </div>
+                        
+                        <div class="border border-primary/30 rounded-lg p-4 bg-light">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-fire flex items-center justify-center text-white mr-2">
+                                    <span class="font-bold">9</span>
+                                </div>
+                                <h5 class="font-bold">九紫右弼星</h5>
+                            </div>
+                            <p class="text-sm"><span class="font-medium">五行：</span>属火</p>
+                            <p class="text-sm"><span class="font-medium">主理：</span>姻缘、喜庆、名声</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 三、核心问题诊断 -->
+        <section id="diagnosis" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">三、核心问题诊断</h2>
+            </div>
+            
+            <!-- 问题严重程度图表 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">各宫位风水问题严重程度评估</h3>
+                <div class="chart-container">
+                    <canvas id="problemSeverityChart" height="250"></canvas>
+                </div>
+            </div>
+            
+            <!-- 3.1 东南巽宫问题 -->
+            <div class="mb-10 bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-fire/20 p-4 border-b border-fire/30">
+                    <h3 class="text-xl font-kai font-bold text-primary">3.1 东南巽宫（3 1）——碧绿风魔，口舌是非</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="mb-3"><span class="font-bold">飞星组合：</span>山星三碧（木）、向星一白（水）、运星四绿（木）</p>
+                            <p class="mb-3"><span class="font-bold">实际布局：</span>此处为厨房和餐厅，紧邻卫生间</p>
+                            
+                            <div class="bg-light p-4 rounded-lg mb-4">
+                                <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《玄空秘旨》云："碧绿风魔，他处廉贞莫见"，"震巽失宫，风痨蛊胀"。此格局木气过旺且与污秽之气相邻，形成"木克土"之病，影响脾胃健康。</p>
+                            </div>
+                            
+                            <h4 class="text-lg font-bold text-primary mb-2">影响分析：</h4>
+                            <ul class="list-disc list-inside pl-4 space-y-1">
+                                <li>家人健康状况不稳定，特别是脾胃和肝胆问题</li>
+                                <li>夫妻关系易生口角，影响家庭和谐</li>
+                                <li>财运受压制，正财偏财均难以聚集</li>
+                                <li>厨房属火，与木形成"木生火"，火炎上则易有心血管问题</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-light p-5 rounded-lg border border-primary/20">
+                            <h4 class="font-bold text-primary mb-3 text-center">问题根源图解</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-wood/20 flex items-center justify-center text-wood mr-3">
+                                        <span class="font-bold">3+4</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">木气过旺</p>
+                                        <p class="text-sm text-dark/70">三碧+四绿木气叠加，形成"碧绿风魔"</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-wood/20 flex items-center justify-center text-wood mr-3">
+                                        <i class="fa fa-fire text-fire"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">木火通明过燥</p>
+                                        <p class="text-sm text-dark/70">厨房属火，木火相生导致气场过燥</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-water/20 flex items-center justify-center text-water mr-3">
+                                        <i class="fa fa-tint"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">水火相冲</p>
+                                        <p class="text-sm text-dark/70">厨房之火与卫生间之水相邻相冲</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 rounded-full bg-earth/20 flex items-center justify-center text-earth mr-3">
+                                        <i class="fa fa-ban text-red-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">土气受克</p>
+                                        <p class="text-sm text-dark/70">木气过旺克制土气，影响脾胃健康</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3.2 中宫问题 -->
+            <div class="mb-10 bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-fire/20 p-4 border-b border-fire/30">
+                    <h3 class="text-xl font-kai font-bold text-primary">3.2 中宫（6 1）——五黄入中，全盘皆凶</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="mb-3"><span class="font-bold">飞星组合：</span>山星六白（金）、向星一白（水）、运星五黄（土）</p>
+                            <p class="mb-3"><span class="font-bold">实际布局：</span>客厅中央区域，为全屋气流枢纽</p>
+                            
+                            <div class="bg-light p-4 rounded-lg mb-4">
+                                <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《玄空秘旨》云："五黄入中，百煞无忌"。五黄廉贞星为大凶星，主凶灾、疾病、意外。此方位又是全屋的核心地带，影响极其严重</p>
+                            </div>
+                            
+                            <h4 class="text-lg font-bold text-primary mb-2">影响分析：</h4>
+                            <ul class="list-disc list-inside pl-4 space-y-1">
+                                <li>家庭成员整体运势低迷，诸事不顺</li>
+                                <li>易发生意外事故，需特别注意安全</li>
+                                <li>事业发展受阻，投资易失利</li>
+                                <li>子女学习压力大，注意力难以集中</li>
+                                <li>中宫受克，影响全屋气场流通</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-light p-5 rounded-lg border border-primary/20">
+                            <h4 class="font-bold text-primary mb-3 text-center">五黄星的危害</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <i class="fa fa-exclamation-triangle text-fire mt-1 mr-3" aria-hidden="true"></i>
+                                    <p class="text-sm"><span class="font-medium">健康方面：</span>易引发突发疾病、慢性病加重、意外受伤等</p>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fa fa-exclamation-triangle text-fire mt-1 mr-3" aria-hidden="true"></i>
+                                    <p class="text-sm"><span class="font-medium">财运方面：</span>投资失利、破财、被骗、债务纠纷等</p>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fa fa-exclamation-triangle text-fire mt-1 mr-3" aria-hidden="true"></i>
+                                    <p class="text-sm"><span class="font-medium">人际关系：</span>口舌是非、官司纠纷、亲友反目等</p>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <i class="fa fa-exclamation-triangle text-fire mt-1 mr-3" aria-hidden="true"></i>
+                                    <p class="text-sm"><span class="font-medium">事业方面：</span>工作受阻、晋升无望、合作破裂等</p>
+                                </div>
+                                
+                                <div class="mt-4 p-3 bg-fire/10 rounded-lg text-center text-sm">
+                                    <p>五黄星每年会移动位置，需定期化解</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3.3 西北乾宫问题 -->
+            <div class="mb-10 bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-fire/20 p-4 border-b border-fire/30">
+                    <h3 class="text-xl font-kai font-bold text-primary">3.3 西北乾宫（5 2）——土重金埋，男主人运势受损</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="mb-3"><span class="font-bold">飞星组合：</span>山星五黄（土）、向星二黑（土）、运星六白（金）</p>
+                            <p class="mb-3"><span class="font-bold">实际布局：</span>主卧室，为夫妻休息之所</p>
+                            
+                            <div class="bg-light p-4 rounded-lg mb-4">
+                                <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《飞星赋》云："二五交加，必损主"。乾宫属金，代表男主人，此处土气过旺，形成"土重金埋"之局，压制男主人运势，影响健康与事业。</p>
+                            </div>
+                            
+                            <h4 class="text-lg font-bold text-primary mb-2">影响分析：</h4>
+                            <ul class="list-disc list-inside pl-4 space-y-1">
+                                <li>男主人健康状况不佳，特别是呼吸系统和肾脏问题</li>
+                                <li>睡眠质量差，多梦易醒，精神压力大</li>
+                                <li>事业发展受阻，工作压力大，难以突破瓶颈</li>
+                                <li>夫妻感情受影响，易有隔阂与误解</li>
+                                <li>决策能力下降，易犯错误</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-light p-5 rounded-lg border border-primary/20">
+                            <h4 class="font-bold text-primary mb-3 text-center">乾宫风水意义</h4>
+                            <div class="space-y-4">
+                                <div class="text-center mb-2">
+                                    <div class="inline-block p-2 bg-metal/20 rounded-full mb-1">
+                                        <i class="fa fa-male text-2xl text-metal" aria-hidden="true"></i>
+                                    </div>
+                                    <p class="text-sm font-medium">代表家庭中的男主人</p>
+                                </div>
+                                
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">事业运</span>
+                                    <div class="w-2/3 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 30%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">健康运</span>
+                                    <div class="w-2/3 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">财运</span>
+                                    <div class="w-2/3 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 35%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">决策力</span>
+                                    <div class="w-2/3 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 25%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-xs text-center text-gray-500 mt-2">
+                                    乾宫受克对男主人各项运势的影响程度
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3.4 南方离宫问题 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-fire/20 p-4 border-b border-fire/30">
+                    <h3 class="text-xl font-kai font-bold text-primary">3.4 南方离宫（7 5）——火土相生，是非破财</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="mb-3"><span class="font-bold">飞星组合：</span>山星七赤（金）、向星五黄（土）、运星九紫（火）</p>
+                            <p class="mb-3"><span class="font-bold">实际布局：</span>主阳台和休闲区，堆放杂物较多</p>
+                            
+                            <div class="bg-light p-4 rounded-lg mb-4">
+                                <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《玄空秘旨》云："七逢五鬼，定见灾伤"。此格局火生土、土生金，形成连续相生，但五黄凶星临向，主意外灾祸与破财。</p>
+                            </div>
+                            
+                            <h4 class="text-lg font-bold text-primary mb-2">影响分析：</h4>
+                            <ul class="list-disc list-inside pl-4 space-y-1">
+                                <li>易有意外损伤，特别是金属利器所伤</li>
+                                <li>钱财易损耗，投资易失利</li>
+                                <li>易招惹是非口舌，甚至官司纠纷</li>
+                                <li>阳台堆放杂物影响气场流通，加重凶性</li>
+                                <li>影响家庭女性成员运势</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-light p-5 rounded-lg border border-primary/20">
+                            <h4 class="font-bold text-primary mb-3 text-center">七赤星的负面影响</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center p-2 bg-white rounded">
+                                    <div class="w-10 h-10 rounded-full bg-metal/20 flex items-center justify-center text-metal mr-3 flex-shrink-0">
+                                        <i class="fa fa-money" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-sm">破财倾向</p>
+                                        <p class="text-xs text-dark/70">意外支出、投资亏损、财物被盗</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 bg-white rounded">
+                                    <div class="w-10 h-10 rounded-full bg-metal/20 flex items-center justify-center text-metal mr-3 flex-shrink-0">
+                                        <i class="fa fa-gavel" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-sm">是非官司</p>
+                                        <p class="text-xs text-dark/70">口舌纠纷、人际关系紧张、法律诉讼</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 bg-white rounded">
+                                    <div class="w-10 h-10 rounded-full bg-metal/20 flex items-center justify-center text-metal mr-3 flex-shrink-0">
+                                        <i class="fa fa-medkit" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-sm">意外伤害</p>
+                                        <p class="text-xs text-dark/70">刀伤、车祸、金属利器所致伤害</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-2 bg-white rounded">
+                                    <div class="w-10 h-10 rounded-full bg-metal/20 flex items-center justify-center text-metal mr-3 flex-shrink-0">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-sm">桃花煞</p>
+                                        <p class="text-xs text-dark/70">婚外情、感情纠纷、烂桃花</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 四、转机与机会点 -->
+        <section id="opportunities" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">四、转机与机会点</h2>
+            </div>
+            
+            <!-- 吉星分布与潜力评估图表 -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">各宫位吉星分布与发展潜力评估</h3>
+                <div class="chart-container">
+                    <canvas id="luckStarPotentialChart" height="250"></canvas>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- 4.1 东方震宫双星到坐 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-earth/20 p-4 border-b border-earth/30">
+                        <h3 class="text-xl font-kai font-bold text-primary">4.1 东方震宫（8 8）——双星到坐，旺丁旺财</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-3"><span class="font-bold">飞星组合：</span>山星八白（土）、向星八白（土）、运星三碧（木）</p>
+                        <p class="mb-3"><span class="font-bold">实际布局：</span>客厅东侧和阳台区域</p>
+                        
+                        <div class="bg-light p-4 rounded-lg mb-4">
+                            <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《紫白诀》云："八逢八，田庄进益"，"当元旺星，富而且贵"。八白左辅星为九运前的当旺之星，主财运、置业、人口兴旺。</p>
+                        </div>
+                        
+                        <h4 class="text-lg font-bold text-primary mb-2">发展潜力：</h4>
+                        <ul class="list-disc list-inside pl-4 space-y-1">
+                            <li>此方位为当前最有利的财星位，可重点催旺</li>
+                            <li>双星汇聚，能量强大，利正财和置业</li>
+                            <li>震宫属木，与八白土形成"木克土"，需调和五行</li>
+                            <li>可通过布局增强家庭财运和人丁兴旺</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 4.2 东北艮宫文昌位 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-water/20 p-4 border-b border-water/30">
+                        <h3 class="text-xl font-kai font-bold text-primary">4.2 东北艮宫（1 6）——文昌贵人，利学业事业</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-3"><span class="font-bold">飞星组合：</span>山星一白（水）、向星六白（金）、运星八白（土）</p>
+                        <p class="mb-3"><span class="font-bold">实际布局：</span>儿童房和书房区域</p>
+                        
+                        <div class="bg-light p-4 rounded-lg mb-4">
+                            <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《玄空秘旨》云："一白为官星之应，六白为科名之先兆"。一白星主智慧，六白星主贵人，二者组合大利学业与事业发展。</p>
+                        </div>
+                        
+                        <h4 class="text-lg font-bold text-primary mb-2">发展潜力：</h4>
+                        <ul class="list-disc list-inside pl-4 space-y-1">
+                            <li>绝佳的文昌位，有利于子女学业和考试</li>
+                            <li>金水相生，利思维敏捷和学习能力提升</li>
+                            <li>六白星为武曲星，主贵人相助，利事业发展</li>
+                            <li>艮宫属土，与一白六白形成土生金、金生水的良性循环</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 4.3 南方离宫九紫星 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-fire/20 p-4 border-b border-fire/30">
+                        <h3 class="text-xl font-kai font-bold text-primary">4.3 南方离宫（7 5）——九紫生气，喜庆之兆</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-3"><span class="font-bold">飞星组合：</span>山星七赤（金）、向星五黄（土）、运星九紫（火）</p>
+                        <p class="mb-3"><span class="font-bold">实际布局：</span>主阳台和休闲区</p>
+                        
+                        <div class="bg-light p-4 rounded-lg mb-4">
+                            <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《飞星赋》云："九紫为未来生气，催官发财"。九紫星为九运当旺之星，主喜庆、婚姻、贵人、名声。</p>
+                        </div>
+                        
+                        <h4 class="text-lg font-bold text-primary mb-2">转化潜力：</h4>
+                        <ul class="list-disc list-inside pl-4 space-y-1">
+                            <li>九紫星为未来20年当旺之星，能量强大</li>
+                            <li>可通过合理布局化解五黄凶性，利用九紫吉气</li>
+                            <li>离宫属火，与九紫火形成相助，增强喜庆之气</li>
+                            <li>有利于提升家庭名声和人际关系</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 4.4 北方坎宫水火既济 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-water/20 p-4 border-b border-water/30">
+                        <h3 class="text-xl font-kai font-bold text-primary">4.4 北方坎宫（2 9）——水火既济，调和之象</h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="mb-3"><span class="font-bold">飞星组合：</span>山星二黑（土）、向星九紫（火）、运星一白（水）</p>
+                        <p class="mb-3"><span class="font-bold">实际布局：</span>主卫和储物间</p>
+                        
+                        <div class="bg-light p-4 rounded-lg mb-4">
+                            <p class="italic text-dark/80"><span class="font-bold">古籍依据：</span>《易经》曰："水火既济，亨，小利贞，初吉终乱"。此格局虽有二黑病符，但九紫火与一白水形成水火既济，有转化潜力。</p>
+                        </div>
+                        
+                        <h4 class="text-lg font-bold text-primary mb-2">转化潜力：</h4>
+                        <ul class="list-disc list-inside pl-4 space-y-1">
+                            <li>水火既济为吉利之象，可调和家庭气场</li>
+                            <li>九紫火生二黑土，可泄病符之气，减轻负面影响</li>
+                            <li>坎宫属水，与一白水相助，增强智慧与沟通</li>
+                            <li>保持卫生间清洁干燥，可提升此方位能量</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 五、全屋风水调理方案 -->
+        <section id="solutions" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">五、全屋风水调理方案</h2>
+            </div>
+            
+            <!-- 5.1 整体布局原则 -->
+            <div class="mb-10 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">5.1 整体布局原则</h3>
+                <p class="mb-4">根据玄空飞星理论和实际勘察结果，全屋调理遵循以下原则：</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-light p-5 rounded-lg border-l-4 border-primary">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                                <span class="font-bold">1</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-primary">先化煞后催旺</h4>
+                        </div>
+                        <p>优先化解五黄、二黑等大凶星，再考虑催旺吉星。风水调理的首要任务是消除负面影响，确保家人平安健康，然后才能考虑提升运势。</p>
+                    </div>
+                    
+                    <div class="bg-light p-5 rounded-lg border-l-4 border-primary">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                                <span class="font-bold">2</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-primary">五行平衡</h4>
+                        </div>
+                        <p>通过金、木、水、火、土的合理配置，达到气场和谐。根据各宫位五行属性，采用相生相克原理，调整环境元素，实现五行平衡。</p>
+                    </div>
+                    
+                    <div class="bg-light p-5 rounded-lg border-l-4 border-primary">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                                <span class="font-bold">3</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-primary">动静相宜</h4>
+                        </div>
+                        <p>吉位宜动，凶位宜静，合理安排功能区域。在吉星方位设置活动频繁的区域（如客厅、书房），在凶星方位设置相对安静的区域。</p>
+                    </div>
+                    
+                    <div class="bg-light p-5 rounded-lg border-l-4 border-primary">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                                <span class="font-bold">4</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-primary">天人合一</h4>
+                        </div>
+                        <p>结合家庭成员命理，量身定制调理方案。考虑王女士一家四口的年龄、性别和命理特征，制定个性化的风水调理措施，确保方案的针对性和有效性。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5.2 分区域调理策略 -->
+            <div class="mb-10 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">5.2 分区域调理策略</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 东方震宫 -->
+                    <div class="border border-primary/30 rounded-lg overflow-hidden">
+                        <div class="bg-wood/20 p-3">
+                            <h4 class="font-bold text-primary">东方震宫（8 8）——双星到坐，旺丁旺财</h4>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-2"><span class="font-medium">现状：</span>客厅和阳台</p>
+                            <p class="mb-2"><span class="font-medium">优势：</span>八白左辅星为当运旺星，双星汇聚大利财丁</p>
+                            <p class="mb-2"><span class="font-medium">调理：</span>保持开阔明亮，摆放发财树等绿植，增强生气</p>
+                            <div class="mt-3 flex justify-center">
+                                <div class="w-20 h-20 bg-wood/10 rounded-full flex items-center justify-center">
+                                    <i class="fa fa-tree text-3xl text-wood" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 南方离宫 -->
+                    <div class="border border-primary/30 rounded-lg overflow-hidden">
+                        <div class="bg-fire/20 p-3">
+                            <h4 class="font-bold text-primary">南方离宫（7 5）——火土相生，名利双收</h4>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-2"><span class="font-medium">现状：</span>主阳台和休闲区</p>
+                            <p class="mb-2"><span class="font-medium">优势：</span>九紫火为当运旺星，与五黄土形成火土相生</p>
+                            <p class="mb-2"><span class="font-medium">调理：</span>设置水景，水火既济；悬挂红色中国结，增强喜庆</p>
+                            <div class="mt-3 flex justify-center">
+                                <div class="w-20 h-20 bg-fire/10 rounded-full flex items-center justify-center">
+                                    <i class="fa fa-tint text-3xl text-water" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 西方兑宫 -->
+                    <div class="border border-primary/30 rounded-lg overflow-hidden">
+                        <div class="bg-metal/20 p-3">
+                            <h4 class="font-bold text-primary">西方兑宫（4 3）——木气流通，贵人扶持</h4>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-2"><span class="font-medium">现状：</span>次卧和书房</p>
+                            <p class="mb-2"><span class="font-medium">优势：</span>四绿文昌星与三碧禄存星组合，利学业和事业</p>
+                            <p class="mb-2"><span class="font-medium">调理：</span>作为子女书房，摆放文房四宝，增强文昌气</p>
+                            <div class="mt-3 flex justify-center">
+                                <div class="w-20 h-20 bg-metal/10 rounded-full flex items-center justify-center">
+                                    <i class="fa fa-book text-3xl text-metal" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 北方坎宫 -->
+                    <div class="border border-primary/30 rounded-lg overflow-hidden">
+                        <div class="bg-water/20 p-3">
+                            <h4 class="font-bold text-primary">北方坎宫（2 9）——水火既济，健康平安</h4>
+                        </div>
+                        <div class="p-4">
+                            <p class="mb-2"><span class="font-medium">现状：</span>主卫和储物间</p>
+                            <p class="mb-2"><span class="font-medium">挑战：</span>二黑病符星在此，但与九紫火形成水火既济</p>
+                            <p class="mb-2"><span class="font-medium">调理：</span>保持清洁干燥，悬挂铜葫芦，化解病气</p>
+                            <div class="mt-3 flex justify-center">
+                                <div class="w-20 h-20 bg-water/10 rounded-full flex items-center justify-center">
+                                    <i class="fa fa-medkit text-3xl text-water" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5.3 风水物品配置清单 -->
+            <div class="mb-10 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">5.3 风水物品配置清单</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="table-fengshui w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">位置</th>
+                                <th class="text-left">物品名称</th>
+                                <th class="text-left">数量</th>
+                                <th class="text-left">材质要求</th>
+                                <th class="text-left">主要功效</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>东南巽宫（厨房）</td>
+                                <td>六帝古钱</td>
+                                <td>1串</td>
+                                <td>纯铜</td>
+                                <td>化解木气过旺</td>
+                            </tr>
+                            <tr>
+                                <td>中宫（客厅中央）</td>
+                                <td>铜制风铃</td>
+                                <td>1个</td>
+                                <td>纯铜</td>
+                                <td>泄五黄煞气</td>
+                            </tr>
+                            <tr>
+                                <td>西北乾宫（主卧）</td>
+                                <td>铜葫芦</td>
+                                <td>2个</td>
+                                <td>纯铜</td>
+                                <td>收煞化病</td>
+                            </tr>
+                            <tr>
+                                <td>东北艮宫（儿童房）</td>
+                                <td>文昌塔</td>
+                                <td>1座</td>
+                                <td>水晶</td>
+                                <td>催旺学业</td>
+                            </tr>
+                            <tr>
+                                <td>正北坎宫（卫生间）</td>
+                                <td>五帝钱</td>
+                                <td>1串</td>
+                                <td>铜钱</td>
+                                <td>化解病符</td>
+                            </tr>
+                            <tr>
+                                <td>东方震宫（客厅）</td>
+                                <td>发财树</td>
+                                <td>1盆</td>
+                                <td>活体</td>
+                                <td>增强生气</td>
+                            </tr>
+                            <tr>
+                                <td>南方离宫（阳台）</td>
+                                <td>风水轮</td>
+                                <td>1个</td>
+                                <td>水晶+铜</td>
+                                <td>水火既济</td>
+                            </tr>
+                            <tr>
+                                <td>全屋</td>
+                                <td>黄色地毯</td>
+                                <td>若干</td>
+                                <td>羊毛</td>
+                                <td>土气通关</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 5.4 色彩与材质运用 -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-kai font-bold text-primary mb-4">5.4 色彩与材质运用</h3>
+                <p class="mb-4">根据五行生克原理，建议采用以下色彩和材质：</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <!-- 木属性区域 -->
+                    <div class="border border-wood rounded-lg overflow-hidden">
+                        <div class="bg-wood text-white p-3 text-center font-bold">木属性区域</div>
+                        <div class="p-3 bg-light">
+                            <p class="text-sm mb-2"><span class="font-medium">方位：</span>东、东南</p>
+                            <p class="text-sm mb-2"><span class="font-medium">色彩：</span>绿色、青色</p>
+                            <p class="text-sm mb-2"><span class="font-medium">材质：</span>实木家具、绿植</p>
+                            <p class="text-sm"><span class="font-medium">作用：</span>增强生气，利健康和学业</p>
+                            <div class="mt-3 h-4 bg-gradient-to-r from-green-400 to-teal-500 rounded"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 火属性区域 -->
+                    <div class="border border-fire rounded-lg overflow-hidden">
+                        <div class="bg-fire text-white p-3 text-center font-bold">火属性区域</div>
+                        <div class="p-3 bg-light">
+                            <p class="text-sm mb-2"><span class="font-medium">方位：</span>南</p>
+                            <p class="text-sm mb-2"><span class="font-medium">色彩：</span>红色、紫色</p>
+                            <p class="text-sm mb-2"><span class="font-medium">材质：</span>红色装饰品、灯光</p>
+                            <p class="text-sm"><span class="font-medium">作用：</span>增强阳气，利事业和财运</p>
+                            <div class="mt-3 h-4 bg-gradient-to-r from-red-500 to-purple-500 rounded"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 土属性区域 -->
+                    <div class="border border-earth rounded-lg overflow-hidden">
+                        <div class="bg-earth text-white p-3 text-center font-bold">土属性区域</div>
+                        <div class="p-3 bg-light">
+                            <p class="text-sm mb-2"><span class="font-medium">方位：</span>东北、西南、中宫</p>
+                            <p class="text-sm mb-2"><span class="font-medium">色彩：</span>黄色、咖啡色</p>
+                            <p class="text-sm mb-2"><span class="font-medium">材质：</span>陶瓷、石材</p>
+                            <p class="text-sm"><span class="font-medium">作用：</span>稳定气场，化解煞气</p>
+                            <div class="mt-3 h-4 bg-gradient-to-r from-yellow-500 to-amber-700 rounded"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 金属性区域 -->
+                    <div class="border border-metal rounded-lg overflow-hidden">
+                        <div class="bg-metal text-white p-3 text-center font-bold">金属性区域</div>
+                        <div class="p-3 bg-light">
+                            <p class="text-sm mb-2"><span class="font-medium">方位：</span>西、西北</p>
+                            <p class="text-sm mb-2"><span class="font-medium">色彩：</span>白色、金色</p>
+                            <p class="text-sm mb-2"><span class="font-medium">材质：</span>金属饰品、水晶</p>
+                            <p class="text-sm"><span class="font-medium">作用：</span>泄土生水，利健康和财运</p>
+                            <div class="mt-3 h-4 bg-gradient-to-r from-gray-200 to-yellow-300 rounded"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 水属性区域 -->
+                    <div class="border border-water rounded-lg overflow-hidden">
+                        <div class="bg-water text-white p-3 text-center font-bold">水属性区域</div>
+                        <div class="p-3 bg-light">
+                            <p class="text-sm mb-2"><span class="font-medium">方位：</span>北</p>
+                            <p class="text-sm mb-2"><span class="font-medium">色彩：</span>蓝色、黑色</p>
+                            <p class="text-sm mb-2"><span class="font-medium">材质：</span>水景、鱼缸</p>
+                            <p class="text-sm"><span class="font-medium">作用：</span>增强智慧，利事业发展</p>
+                            <div class="mt-3 h-4 bg-gradient-to-r from-blue-500 to-gray-800 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 六、实施步骤与时间安排 -->
+        <section id="implementation" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">六、实施步骤与时间安排</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 第一阶段：紧急化解 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-fire">
+                    <div class="p-5">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-fire/20 flex items-center justify-center text-fire mr-3">
+                                <i class="fa fa-exclamation-triangle text-2xl" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-primary">第一阶段</h3>
+                                <p class="text-sm text-dark/70">紧急化解（1周内完成）</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="font-bold text-primary mb-2">重点化解五黄煞气</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 mb-4 text-sm">
+                            <li>中宫悬挂铜风铃，立即生效</li>
+                            <li>主卧放置铜葫芦，化解病气</li>
+                            <li>厨房悬挂六帝钱，改善健康</li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-primary mb-2">基础清洁整理</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 text-sm">
+                            <li>全屋大扫除，特别是卫生间和厨房</li>
+                            <li>清理杂物，保持气流通畅</li>
+                            <li>更换老旧灯具，确保照明充足</li>
+                        </ul>
+                        
+                        <div class="mt-4 bg-fire/5 p-3 rounded-lg text-sm">
+                            <p class="font-medium text-fire">时间节点：立即开始，7天内完成</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第二阶段：全面调理 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-primary">
+                    <div class="p-5">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-3">
+                                <i class="fa fa-cogs text-2xl" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-primary">第二阶段</h3>
+                                <p class="text-sm text-dark/70">全面调理（1个月内完成）</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="font-bold text-primary mb-2">风水物品配置</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 mb-4 text-sm">
+                            <li>按清单采购所有风水物品</li>
+                            <li>专业人士指导下正确摆放</li>
+                            <li>确保每件物品都经过开光</li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-primary mb-2">色彩和材质调整</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 mb-4 text-sm">
+                            <li>更换部分家具和装饰品</li>
+                            <li>调整窗帘、床上用品颜色</li>
+                            <li>增加绿植和水景布置</li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-primary mb-2">功能区域优化</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 text-sm">
+                            <li>调整家具布局，确保动线合理</li>
+                            <li>设立专门的学习区域</li>
+                            <li>优化储物空间设计</li>
+                        </ul>
+                        
+                        <div class="mt-4 bg-primary/5 p-3 rounded-lg text-sm">
+                            <p class="font-medium text-primary">时间节点：第2-4周完成</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 第三阶段：巩固提升 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-water">
+                    <div class="p-5">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-water/20 flex items-center justify-center text-water mr-3">
+                                <i class="fa fa-line-chart text-2xl" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-primary">第三阶段</h3>
+                                <p class="text-sm text-dark/70">巩固提升（3个月内完成）</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="font-bold text-primary mb-2">定期检查维护</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 mb-4 text-sm">
+                            <li>每月检查风水物品状态</li>
+                            <li>根据季节调整布局</li>
+                            <li>及时更换损坏物品</li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-primary mb-2">命理结合调理</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 mb-4 text-sm">
+                            <li>根据家庭成员八字进行个性化调整</li>
+                            <li>选择吉日吉时进行重要调整</li>
+                            <li>配合适当的风水仪式</li>
+                        </ul>
+                        
+                        <h4 class="font-bold text-primary mb-2">效果评估反馈</h4>
+                        <ul class="list-disc list-inside pl-2 space-y-1 text-sm">
+                            <li>记录每月运势变化</li>
+                            <li>根据效果微调布局</li>
+                            <li>建立长期维护机制</li>
+                        </ul>
+                        
+                        <div class="mt-4 bg-water/5 p-3 rounded-lg text-sm">
+                            <p class="font-medium text-water">时间节点：第2-12周完成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 实施进度时间线 -->
+            <div class="mt-10 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-kai font-bold text-primary mb-6">风水调理实施进度时间线</h3>
+                <div class="relative">
+                    <!-- 时间线轴 -->
+                    <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-primary/30 transform md:-translate-x-1/2"></div>
+                    
+                    <!-- 时间点1 -->
+                    <div class="relative mb-12 md:mb-20">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
+                                <div class="bg-light p-4 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-primary mb-1">紧急化解阶段</h4>
+                                    <p class="text-sm text-dark/80 mb-2">第1周：重点化解五黄、二黑等凶星煞气</p>
+                                    <ul class="text-xs text-dark/70 list-disc list-inside pl-2 space-y-1">
+                                        <li>中宫悬挂铜风铃</li>
+                                        <li>主卧放置铜葫芦</li>
+                                        <li>厨房悬挂六帝钱</li>
+                                        <li>全屋大扫除</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-fire flex items-center justify-center text-white z-10 my-3 md:my-0 order-1 md:order-2">
+                                <span>1</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 时间点2 -->
+                    <div class="relative mb-12 md:mb-20">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 order-1"></div>
+                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white z-10 my-3 md:my-0 order-2">
+                                <span>2</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3">
+                                <div class="bg-light p-4 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-primary mb-1">全面调理阶段</h4>
+                                    <p class="text-sm text-dark/80 mb-2">第2-4周：风水物品配置与环境调整</p>
+                                    <ul class="text-xs text-dark/70 list-disc list-inside pl-2 space-y-1">
+                                        <li>采购并摆放所有风水物品</li>
+                                        <li>调整色彩与材质搭配</li>
+                                        <li>优化家具布局与动线</li>
+                                        <li>设立专门学习区域</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 时间点3 -->
+                    <div class="relative">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
+                                <div class="bg-light p-4 rounded-lg shadow-sm">
+                                    <h4 class="font-bold text-primary mb-1">巩固提升阶段</h4>
+                                    <p class="text-sm text-dark/80 mb-2">第5-12周：定期维护与效果评估</p>
+                                    <ul class="text-xs text-dark/70 list-disc list-inside pl-2 space-y-1">
+                                        <li>每月检查风水物品状态</li>
+                                        <li>根据八字进行个性化调整</li>
+                                        <li>记录运势变化与效果评估</li>
+                                        <li>建立长期维护机制</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-water flex items-center justify-center text-white z-10 my-3 md:my-0 order-1 md:order-2">
+                                <span>3</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 order-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 七、注意事项与建议 -->
+        <section id="notes" class="mb-16 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">七、注意事项与建议</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 7.1 风水调理的科学认识 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-kai font-bold text-primary mb-4">7.1 风水调理的科学认识</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">风水是环境心理学</h4>
+                                <p class="text-sm text-dark/80">通过改善居住环境，调整人的心理状态，进而影响行为和结果。良好的环境能让人心情愉悦，提高生活质量。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">三分天注定，七分靠打拼</h4>
+                                <p class="text-sm text-dark/80">风水只是辅助，关键还是个人努力和选择。风水调理可以创造良好条件，但最终的成功还需要个人的付出和努力。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">持之以恒</h4>
+                                <p class="text-sm text-dark/80">风水效果需要时间积累，不能期望立竿见影。环境气场的改变需要一个过程，需要耐心和坚持。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">理性对待</h4>
+                                <p class="text-sm text-dark/80">避免过度迷信，保持科学理性的态度。风水调理应与现代科学相结合，不能盲目相信和依赖。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 7.2 家庭成员配合要点 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-kai font-bold text-primary mb-4">7.2 家庭成员配合要点</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-smile-o" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">保持积极心态</h4>
+                                <p class="text-sm text-dark/80">相信通过努力可以改善运势。积极的心态能带来正面的能量，与良好的风水环境相辅相成。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">共同维护环境</h4>
+                                <p class="text-sm text-dark/80">每个人都有责任保持家居整洁。干净整洁的环境是良好风水的基础，需要家庭成员共同维护。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">尊重彼此意见</h4>
+                                <p class="text-sm text-dark/80">在风水调整中充分沟通协商。家庭成员应相互尊重，共同参与风水调理方案的制定和实施。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 flex-shrink-0">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary mb-1">定期交流反馈</h4>
+                                <p class="text-sm text-dark/80">及时分享感受和变化。定期交流风水调理后的感受和变化，以便及时调整和优化方案。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 7.3 特殊时期注意事项 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-kai font-bold text-primary mb-4">7.3 特殊时期注意事项</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-fire/20 flex items-center justify-center text-fire mr-4">
+                                <i class="fa fa-hammer" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">装修期间</h4>
+                                <p class="text-sm text-dark/80">避免在五黄、二黑方位动土，如需动土需选择吉日并进行相应化解。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
+                                <i class="fa fa-truck" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">搬家时期</h4>
+                                <p class="text-sm text-dark/80">选择吉日，避免与家人八字相冲，搬家时携带吉祥物品，确保平安顺利。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-water/20 flex items-center justify-center text-water mr-4">
+                                <i class="fa fa-female" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">生理期</h4>
+                                <p class="text-sm text-dark/80">女性生理期避免接触风水物品，特别是法器类物品，以免影响效果。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-earth/20 flex items-center justify-center text-earth mr-4">
+                                <i class="fa fa-medkit" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">疾病期间</h4>
+                                <p class="text-sm text-dark/80">重病患者房间不宜做大调整，保持原有环境稳定，重点做好清洁和通风。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 7.4 后续维护建议 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-kai font-bold text-primary mb-4">7.4 后续维护建议</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">建立档案</h4>
+                                <p class="text-sm text-dark/80">记录所有风水布局和调整过程，包括时间、物品、位置和效果，便于后续参考。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">定期检查</h4>
+                                <p class="text-sm text-dark/80">每季度全面检查一次风水物品状态和环境变化，及时发现问题并处理。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
+                                <i class="fa fa-sliders" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">及时调整</h4>
+                                <p class="text-sm text-dark/80">根据流年变化调整布局，每年结合流年飞星进行相应的调整和化解。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mr-4">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-primary">专业指导</h4>
+                                <p class="text-sm text-dark/80">遇到重大问题咨询专业风水师，不要自行随意调整重要的风水布局。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 八、结语与展望 -->
+        <section class="mb-12 scroll-mt-20">
+            <div class="flex items-center mb-6">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+                    <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-kai font-bold text-primary">八、结语与展望</h2>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <p class="mb-6 text-lg leading-relaxed">王女士的宅邸虽存在一些风水问题，但整体格局尚可。通过系统性的风水调理，完全可以化凶为吉，提升全家运势。</p>
+                
+                <!-- 调理核心要点回顾 -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-kai font-bold text-primary mb-4">调理核心要点回顾</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-light p-4 rounded-lg text-center">
+                            <div class="w-12 h-12 rounded-full bg-fire/20 flex items-center justify-center text-fire mx-auto mb-3">
+                                <i class="fa fa-shield text-xl" aria-hidden="true"></i>
+                            </div>
+                            <p class="font-medium">化解凶星煞气</p>
+                            <p class="text-sm text-dark/70">重点化解五黄、二黑等大凶星</p>
+                        </div>
+                        
+                        <div class="bg-light p-4 rounded-lg text-center">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mx-auto mb-3">
+                                <i class="fa fa-star text-xl" aria-hidden="true"></i>
+                            </div>
+                            <p class="font-medium">利用当运吉星</p>
+                            <p class="text-sm text-dark/70">充分利用八白、九紫等当运吉星</p>
+                        </div>
+                        
+                        <div class="bg-light p-4 rounded-lg text-center">
+                            <div class="w-12 h-12 rounded-full bg-earth/20 flex items-center justify-center text-earth mx-auto mb-3">
+                                <i class="fa fa-balance-scale text-xl" aria-hidden="true"></i>
+                            </div>
+                            <p class="font-medium">五行平衡调和</p>
+                            <p class="text-sm text-dark/70">通过五行平衡达到气场和谐</p>
+                        </div>
+                        
+                        <div class="bg-light p-4 rounded-lg text-center">
+                            <div class="w-12 h-12 rounded-full bg-water/20 flex items-center justify-center text-water mx-auto mb-3">
+                                <i class="fa fa-user text-xl" aria-hidden="true"></i>
+                            </div>
+                            <p class="font-medium">个性化调整</p>
+                            <p class="text-sm text-dark/70">结合命理进行个性化调整</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 预期效果 -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-kai font-bold text-primary mb-4">预期效果</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <i class="fa fa-heartbeat text-2xl text-red-500 mr-3" aria-hidden="true"></i>
+                            <p>家庭成员身体健康，抵抗力增强</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <i class="fa fa-money text-2xl text-green-600 mr-3" aria-hidden="true"></i>
+                            <p>事业发展顺利，财运稳步提升</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <i class="fa fa-graduation-cap text-2xl text-blue-500 mr-3" aria-hidden="true"></i>
+                            <p>子女学业进步，聪明伶俐</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <i class="fa fa-home text-2xl text-primary mr-3" aria-hidden="true"></i>
+                            <p>家庭和睦，夫妻感情升温</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <i class="fa fa-users text-2xl text-purple-500 mr-3" aria-hidden="true"></i>
+                            <p>人际关系改善，贵人相助</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-light rounded-lg">
+                            <i class="fa fa-smile-o text-2xl text-yellow-500 mr-3" aria-hidden="true"></i>
+                            <p>生活质量提高，心情愉悦</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 结语 -->
+                <div class="bg-primary/5 p-6 rounded-lg border-l-4 border-primary">
+                    <p class="mb-4 leading-relaxed">风水调理是一个系统工程，需要时间和耐心。只要严格按照方案执行，保持积极心态，相信王女士一家必将迎来更加美好的生活。</p>
+                    <p class="font-bold text-primary text-lg">记住，<span class="italic">最好的风水是善良和努力</span>，让我们共同期待一个充满希望的未来。</p>
+                </div>
+                
+                <!-- 特别提醒 -->
+                <div class="mt-8 p-4 bg-fire/10 rounded-lg border border-fire/30">
+                    <p class="text-sm text-dark/80 italic">
+                        <span class="font-bold">特别提醒：</span>本报告基于玄空飞星理论和传统风水文化撰写，仅供参考。在实际操作中，请结合现代科学和个人实际情况综合考虑。风水调理效果因人而异，不能替代现代医学治疗和个人努力奋斗。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-primary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-kai font-bold mb-4">王女士宅邸风水勘察报告</h3>
+                    <p class="text-white/80 mb-4">广东深圳·九运壬山丙向</p>
+                    <p class="text-white/80 text-sm">报告日期：2024年</p>
+                    <p class="text-white/80 text-sm">勘察师：专业风水师</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-kai font-bold mb-4">核心联系方式</h3>
+                    <ul class="space-y-2 text-white/80">
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-2" aria-hidden="true"></i>
+                            <span>风水咨询热线：400-XXX-XXXX</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
+                            <span>邮箱：fengshui@example.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-weixin mr-2" aria-hidden="true"></i>
+                            <span>微信：FengShui_Expert</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-kai font-bold mb-4">免责声明</h3>
+                    <p class="text-white/80 text-sm leading-relaxed">
+                        本报告仅供参考，不构成任何专业建议。风水文化属于传统民俗文化范畴，其效果因人而异。
+                        读者应理性看待，结合现代科学和个人实际情况综合判断。本报告不承担任何因使用本报告内容
+                        而产生的法律责任和经济损失。
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-white/20 text-center text-white/60 text-sm">
+                <p>© 2024 专业风水勘察机构 版权所有 | 传统风水文化研究与应用</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 no-print">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            const mainMenu = document.getElementById('mainMenu');
+            mainMenu.classList.toggle('hidden');
+        });
+
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset >
