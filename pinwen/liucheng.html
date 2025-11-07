@@ -62,17 +62,12 @@
 <body class="bg-white">
     <div class="max-w-3xl mx-auto p-4 md:p-8">
         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 md:gap-6">
-            <!-- 标题卡片（背景替换为指定图片） -->
+            <!-- 标题卡片 -->
             <div class="card md:col-span-1 md:row-span-1 p-8 flex flex-col justify-center items-center text-center">
-                <!-- 替换为背景图片，保持图片覆盖且居中 -->
                 <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url(''); opacity: 0.1;"></div>
                 <h1 class="text-4xl md:text-5xl font-black text-gray-800 mb-4 relative z-10">远程风水服务5步走</h1>
                 <p class="text-xl md:text-2xl font-bold text-red-600 relative z-10">一看就会！</p>
             </div>
-        </div>
-    </div>
-</body>
-</html>
 
             <!-- 第1步：咨询报名 -->
             <div class="card md:col-span-1 md:row-span-1 p-6 relative">
@@ -91,76 +86,55 @@
                 <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
             </div>
 
-以下是确保可点击跳转的链接添加方案，重点优化了链接格式和交互体验，同时保持排版美观：
+            <!-- 第2步：准备材料 -->
+            <div class="card md:col-span-1 md:row-span-1 p-6 relative">
+                <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
+                <div class="step-number text-green-500">02</div>
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-ruler-combined text-3xl text-green-500 mr-4"></i>
+                    <h2 class="text-2xl font-bold text-gray-800">准备材料</h2>
+                </div>
+                <div class="space-y-3 mb-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-home text-green-500 mt-1 mr-3"></i>
+                        <p class="text-gray-700">户型图（CAD / 手绘 / 现有图，标东南西北）</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-compass text-green-500 mt-1 mr-3"></i>
+                        <p class="text-gray-700">罗盘（电商买7天无理由款，用完可退）</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 mb-4">准备阶段需要您提供房屋的户型图，可以是CAD图纸、手绘草图或现有平面图，但必须标注清楚东南西北方向。</p>
+                
+                <!-- 可点击跳转的链接 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <a 
+                        href="https://linweijie666-123.github.io/image/huxingtushili.png" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="group flex items-center justify-center p-3 bg-white border border-green-200 rounded-lg shadow-sm hover:shadow text-green-700 hover:bg-green-50 transition-all duration-200 cursor-pointer"
+                    >
+                        <i class="fas fa-image mr-2 text-green-500 group-hover:scale-110 transition-transform"></i>
+                        <span>查看户型图示例</span>
+                    </a>
+                    <a 
+                        href="https://linweijie666-123.github.io/image/luopanshili.png" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="group flex items-center justify-center p-3 bg-white border border-green-200 rounded-lg shadow-sm hover:shadow text-green-700 hover:bg-green-50 transition-all duration-200 cursor-pointer"
+                    >
+                        <i class="fas fa-compass mr-2 text-green-500 group-hover:scale-110 transition-transform"></i>
+                        <span>查看罗盘示例</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center text-gray-500">
+                    <i class="far fa-clock mr-2"></i>
+                    <span>耗时：3-5天（含制作/购买时间）</span>
+                </div>
+                <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
+            </div>
 
-```html
-<!-- 第2步：准备材料 -->
-<div class="card md:col-span-1 md:row-span-1 p-6 relative">
-    <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
-    <div class="step-number text-green-500">02</div>
-    <div class="flex items-center mb-4">
-        <i class="fas fa-ruler-combined text-3xl text-green-500 mr-4"></i>
-        <h2 class="text-2xl font-bold text-gray-800">准备材料</h2>
-    </div>
-    <div class="space-y-3 mb-4">
-        <div class="flex items-start">
-            <i class="fas fa-home text-green-500 mt-1 mr-3"></i>
-            <p class="text-gray-700">户型图（CAD / 手绘 / 现有图，标东南西北）</p>
-        </div>
-        <div class="flex items-start">
-            <i class="fas fa-compass text-green-500 mt-1 mr-3"></i>
-            <p class="text-gray-700">罗盘（电商买7天无理由款，用完可退）</p>
-        </div>
-    </div>
-    <p class="text-gray-600 mb-4">准备阶段需要您提供房屋的户型图，可以是CAD图纸、手绘草图或现有平面图，但必须标注清楚东南西北方向。</p>
-    
-    <!-- 新增可点击跳转的链接 -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-        <a 
-            href="https://linweijie666-123.github.io/image/huxingtushili.png" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="group flex items-center justify-center p-3 bg-white border border-green-200 rounded-lg shadow-sm hover:shadow text-green-700 hover:bg-green-50 transition-all duration-200 cursor-pointer"
-        >
-            <i class="fas fa-image mr-2 text-green-500 group-hover:scale-110 transition-transform"></i>
-            <span>查看户型图示例</span>
-        </a>
-        <a 
-            href="https://linweijie666-123.github.io/image/luopanshili.png" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="group flex items-center justify-center p-3 bg-white border border-green-200 rounded-lg shadow-sm hover:shadow text-green-700 hover:bg-green-50 transition-all duration-200 cursor-pointer"
-        >
-            <i class="fas fa-compass mr-2 text-green-500 group-hover:scale-110 transition-transform"></i>
-            <span>查看罗盘示例</span>
-        </a>
-    </div>
-    
-    <div class="flex items-center text-gray-500">
-        <i class="far fa-clock mr-2"></i>
-        <span>耗时：3-5天（含制作/购买时间）</span>
-    </div>
-    <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
-</div>
-```
-
-### 确保可点击的核心优化：
-1. **完整链接格式**：明确添加 `https://` 协议前缀，避免浏览器将链接识别为相对路径
-2. **安全属性**：增加 `rel="noopener noreferrer"` 解决现代浏览器的安全拦截问题
-3. **点击提示**：强制设置 `cursor-pointer` 确保鼠标悬停时显示手型图标，明确可点击
-4. **交互反馈**：
-   - 悬停时背景色变化（`hover:bg-green-50`）
-   - 轻微阴影增强（`hover:shadow`）
-   - 图标缩放动画（`group-hover:scale-110`）
-   让用户清晰感知点击状态
-
-### 排版美观性保障：
-- 使用 `grid` 布局，在移动端自动堆叠为上下排列，在中等屏幕（`sm`）以上分为两列，节省空间
-- 链接块采用白色背景+绿色边框，与整体绿色主题呼应且不突兀
-- 保持与上下内容的间距（`mb-4` 和 `gap-4`），避免拥挤
-- 图标与文字对齐，视觉重心统一
-
-如果点击仍无反应，可先通过浏览器地址栏直接访问链接，确认图片是否存在（链接是否有效）。若链接本身无效，需先修正图片路径。
             <!-- 第3步：1小时视频 -->
             <div class="card md:col-span-1 md:row-span-1 p-6 relative">
                 <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
@@ -219,6 +193,9 @@
                         <i class="fab fa-weixin text-2xl text-green-500 mr-3"></i>
                         <span class="font-semibold text-gray-700">微信号：扇子老师2025</span>
                     </div>
-   
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
