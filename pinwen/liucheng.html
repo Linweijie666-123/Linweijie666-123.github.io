@@ -91,6 +91,9 @@
                 <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
             </div>
 
+以下是确保可点击跳转的链接添加方案，重点优化了链接格式和交互体验，同时保持排版美观：
+
+```html
 <!-- 第2步：准备材料 -->
 <div class="card md:col-span-1 md:row-span-1 p-6 relative">
     <div class="absolute top-0 left-0 w-full h-full highlight-gradient-green"></div>
@@ -111,27 +114,25 @@
     </div>
     <p class="text-gray-600 mb-4">准备阶段需要您提供房屋的户型图，可以是CAD图纸、手绘草图或现有平面图，但必须标注清楚东南西北方向。</p>
     
-    <!-- 优化后的跳转链接（增加点击区域和反馈） -->
-    <div class="flex flex-col sm:flex-row gap-3 mb-4">
+    <!-- 新增可点击跳转的链接 -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <a 
             href="https://linweijie666-123.github.io/image/huxingtushili.png" 
             target="_blank" 
-            rel="noopener noreferrer"  <!-- 增强安全性，避免被拦截 -->
-            class="flex items-center justify-center px-4 py-3 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-all shadow-sm hover:shadow cursor-pointer"  <!-- 明确cursor-pointer -->
-            style="user-select: none;"  <!-- 避免点击时选中文本 -->
+            rel="noopener noreferrer"
+            class="group flex items-center justify-center p-3 bg-white border border-green-200 rounded-lg shadow-sm hover:shadow text-green-700 hover:bg-green-50 transition-all duration-200 cursor-pointer"
         >
-            <i class="fas fa-home mr-2"></i>
-            户型图示例
+            <i class="fas fa-image mr-2 text-green-500 group-hover:scale-110 transition-transform"></i>
+            <span>查看户型图示例</span>
         </a>
         <a 
             href="https://linweijie666-123.github.io/image/luopanshili.png" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="flex items-center justify-center px-4 py-3 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-all shadow-sm hover:shadow cursor-pointer"
-            style="user-select: none;"
+            class="group flex items-center justify-center p-3 bg-white border border-green-200 rounded-lg shadow-sm hover:shadow text-green-700 hover:bg-green-50 transition-all duration-200 cursor-pointer"
         >
-            <i class="fas fa-compass mr-2"></i>
-            罗盘示例
+            <i class="fas fa-compass mr-2 text-green-500 group-hover:scale-110 transition-transform"></i>
+            <span>查看罗盘示例</span>
         </a>
     </div>
     
@@ -141,7 +142,25 @@
     </div>
     <div class="arrow-down"><i class="fas fa-chevron-down"></i></div>
 </div>
+```
 
+### 确保可点击的核心优化：
+1. **完整链接格式**：明确添加 `https://` 协议前缀，避免浏览器将链接识别为相对路径
+2. **安全属性**：增加 `rel="noopener noreferrer"` 解决现代浏览器的安全拦截问题
+3. **点击提示**：强制设置 `cursor-pointer` 确保鼠标悬停时显示手型图标，明确可点击
+4. **交互反馈**：
+   - 悬停时背景色变化（`hover:bg-green-50`）
+   - 轻微阴影增强（`hover:shadow`）
+   - 图标缩放动画（`group-hover:scale-110`）
+   让用户清晰感知点击状态
+
+### 排版美观性保障：
+- 使用 `grid` 布局，在移动端自动堆叠为上下排列，在中等屏幕（`sm`）以上分为两列，节省空间
+- 链接块采用白色背景+绿色边框，与整体绿色主题呼应且不突兀
+- 保持与上下内容的间距（`mb-4` 和 `gap-4`），避免拥挤
+- 图标与文字对齐，视觉重心统一
+
+如果点击仍无反应，可先通过浏览器地址栏直接访问链接，确认图片是否存在（链接是否有效）。若链接本身无效，需先修正图片路径。
             <!-- 第3步：1小时视频 -->
             <div class="card md:col-span-1 md:row-span-1 p-6 relative">
                 <div class="absolute top-0 left-0 w-full h-full highlight-gradient-purple"></div>
