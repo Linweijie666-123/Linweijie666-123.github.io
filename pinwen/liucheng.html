@@ -111,13 +111,25 @@
     </div>
     <p class="text-gray-600 mb-4">准备阶段需要您提供房屋的户型图，可以是CAD图纸、手绘草图或现有平面图，但必须标注清楚东南西北方向。</p>
     
-    <!-- 修正后的跳转链接（补充https://协议） -->
+    <!-- 优化后的跳转链接（增加点击区域和反馈） -->
     <div class="flex flex-col sm:flex-row gap-3 mb-4">
-        <a href="https://linweijie666-123.github.io/image/huxingtushili.png" target="_blank" class="flex items-center justify-center px-4 py-2 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-colors">
+        <a 
+            href="https://linweijie666-123.github.io/image/huxingtushili.png" 
+            target="_blank" 
+            rel="noopener noreferrer"  <!-- 增强安全性，避免被拦截 -->
+            class="flex items-center justify-center px-4 py-3 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-all shadow-sm hover:shadow cursor-pointer"  <!-- 明确cursor-pointer -->
+            style="user-select: none;"  <!-- 避免点击时选中文本 -->
+        >
             <i class="fas fa-home mr-2"></i>
             户型图示例
         </a>
-        <a href="https://linweijie666-123.github.io/image/luopanshili.png" target="_blank" class="flex items-center justify-center px-4 py-2 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-colors">
+        <a 
+            href="https://linweijie666-123.github.io/image/luopanshili.png" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="flex items-center justify-center px-4 py-3 bg-green-50 text-green-700 rounded-lg border border-green-200 hover:bg-green-100 transition-all shadow-sm hover:shadow cursor-pointer"
+            style="user-select: none;"
+        >
             <i class="fas fa-compass mr-2"></i>
             罗盘示例
         </a>
