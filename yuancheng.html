@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>黑扇子正本清源 - 远程风水项目</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    // Tailwind 配置
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#f5f1e6',
+            ink: '#2d2d2a',
+            cinnabar: '#b82222',
+            bamboo: '#70864e',
+            gold: '#d4af37',
+          },
+          fontFamily: {
+            song: ['"Noto Serif SC"', 'serif'],
+            kai: ['"Noto Serif SC"', 'serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .bg-pattern {
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+      .scroll-decoration {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f5f1e6' fill-opacity='1' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,218.7C672,235,768,245,864,229.3C960,213,1056,171,1152,160C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-size: cover;
+        background-position: bottom;
+      }
+      .ink-splash {
+        position: relative;
+      }
+      .ink-splash::before {
+        content: '';
+        position: absolute;
+        width: 120%;
+        height: 120%;
+        top: -10%;
+        left: -10%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+        opacity: 0.2;
+        z-index: -1;
+        border-radius: 50%;
+      }
+      .brush-border {
+        position: relative;
+      }
+      .brush-border::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 10%;
+        width: 80%;
+        height: 2px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 2'%3E%3Cpath d='M0,1 Q25,0 50,1 T100,1' stroke='%23b82222' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+      }
+      .fade-in {
+        animation: fadeIn 1.5s ease-in-out forwards;
+        opacity: 0;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 1s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .scroll-animation {
+        background: linear-gradient(90deg, transparent, #b82222, transparent);
+        background-size: 200% 100%;
+        animation: scroll 2s ease-in-out;
+      }
+      @keyframes scroll {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-paper bg-pattern text-ink font-song">
+  <!-- 导航栏 -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-paper/90 backdrop-blur-sm shadow-md">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <i class="fa fa-fan text-cinnabar text-3xl mr-3 transform rotate-45"></i>
+        <h1 class="text-2xl md:text-3xl font-kai font-bold text-ink">黑扇子正本清源</h1>
+      </div>
+      <div class="hidden md:flex space-x-8">
+        <a href="#selling-points" class="font-kai hover:text-cinnabar transition-colors duration-300">核心卖点</a>
+        <a href="#value" class="font-kai hover:text-cinnabar transition-colors duration-300">用户价值</a>
+        <a href="#experience" class="font-kai hover:text-cinnabar transition-colors duration-300">服务体验</a>
+        <a href="#contact" class="font-kai hover:text-cinnabar transition-colors duration-300">咨询预约</a>
+      </div>
+      <button class="md:hidden text-ink focus:outline-none" id="menu-toggle">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-paper/95 backdrop-blur-md shadow-lg">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="#selling-points" class="font-kai hover:text-cinnabar transition-colors duration-300 py-2">核心卖点</a>
+        <a href="#value" class="font-kai hover:text-cinnabar transition-colors duration-300 py-2">用户价值</a>
+        <a href="#experience" class="font-kai hover:text-cinnabar transition-colors duration-300 py-2">服务体验</a>
+        <a href="#contact" class="font-kai hover:text-cinnabar transition-colors duration-300 py-2">咨询预约</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 英雄区域 -->
+  <header class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-10">
+      <img src="https://picsum.photos/id/1067/1920/1080" alt="山水背景" class="w-full h-full object-cover">
+    </div>
+    <div class="container mx-auto px-4 py-20 z-10 text-center">
+      <div class="fade-in" style="animation-delay: 0.2s;">
+        <i class="fa fa-compass text-cinnabar text-5xl mb-6 transform transition-transform duration-700 hover:rotate-180"></i>
+        <h1 class="text-4xl md:text-6xl font-kai font-bold mb-6 leading-tight">
+          远程风水调理<br>正本清源之道
+        </h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 font-kai">
+          百万粉丝认证 · 零成本试错 · 远程便捷 · 精准调理
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#selling-points" class="bg-cinnabar hover:bg-cinnabar/90 text-paper px-8 py-3 rounded-md font-kai transition-all duration-300 transform hover:scale-105 shadow-lg">
+            了解详情
+          </a>
+          <a href="#contact" class="bg-transparent border-2 border-cinnabar text-cinnabar hover:bg-cinnabar/10 px-8 py-3 rounded-md font-kai transition-all duration-300 transform hover:scale-105">
+            立即咨询
+          </a>
+        </div>
+      </div>
+      
+      <!-- 卷轴装饰 -->
+      <div class="absolute bottom-0 left-0 right-0 h-24 scroll-decoration"></div>
+      
+      <!-- 向下滚动指示 -->
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <i class="fa fa-angle-down text-ink/50 text-3xl"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- 项目简介 -->
+  <section class="py-20 relative">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-4xl font-kai font-bold mb-6 brush-border inline-block">黑扇子远程风水项目</h2>
+        <p class="text-lg leading-relaxed">
+          基于百万粉丝的专业背书与标准化远程风水项目流程，我们从"降低决策门槛、强化专业价值、优化体验细节"三大核心维度，
+          为您提供精准有效的风水调理服务，匹配您对居住环境与运势提升的深层需求。
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-paper p-6 rounded-lg shadow-md border border-ink/10 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg reveal" style="transition-delay: 0.1s;">
+          <div class="w-16 h-16 bg-cinnabar/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-balance-scale text-cinnabar text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-kai font-semibold text-center mb-3">降低决策门槛</h3>
+          <p class="text-center">零成本试错，轻松启动风水调理，无需专业知识与高额投入</p>
+        </div>
+        
+        <div class="bg-paper p-6 rounded-lg shadow-md border border-ink/10 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg reveal" style="transition-delay: 0.2s;">
+          <div class="w-16 h-16 bg-cinnabar/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-star text-cinnabar text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-kai font-semibold text-center mb-3">强化专业价值</h3>
+          <p class="text-center">百万粉丝认证，标准化服务流程，精准诊断问题根源</p>
+        </div>
+        
+        <div class="bg-paper p-6 rounded-lg shadow-md border border-ink/10 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-lg reveal" style="transition-delay: 0.3s;">
+          <div class="w-16 h-16 bg-cinnabar/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-heart text-cinnabar text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-kai font-semibold text-center mb-3">优化体验细节</h3>
+          <p class="text-center">全程舒适安心，专业不晦涩，从咨询到交付贴心陪伴</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心卖点 -->
+  <section id="selling-points" class="py-20 bg-ink/5 relative">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-4xl font-kai font-bold mb-6 brush-border inline-block">核心卖点</h2>
+        <p class="text-lg max-w-3xl mx-auto">击穿用户决策顾虑，突出项目差异化优势</p>
+      </div>
+      
+      <div class="max-w-5xl mx-auto space-y-16">
+        <!-- 卖点1 -->
+        <div class="flex flex-col md:flex-row items-center gap-8 reveal">
+          <div class="md:w-1/2 order-2 md:order-1">
+            <h3 class="text-2xl font-kai font-semibold mb-4 text-cinnabar">「零成本试错」工具准备</h3>
+            <p class="mb-4">无需长期投入购买专业风水工具，彻底打消"工具贵、用不上"的顾虑，降低参与门槛。</p>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>罗盘"即用即退"：7天无理由退货，用完即退，仅需短暂占用资金</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>户型图"灵活获取"：无需专业测绘，购房图纸、手机拍摄均可</span>
+              </li>
+            </ul>
+          </div>
+          <div class="md:w-1/2 order-1 md:order-2 ink-splash">
+            <img src="https://picsum.photos/id/175/600/400" alt="罗盘工具" class="rounded-lg shadow-lg w-full h-auto">
+          </div>
+        </div>
+        
+        <!-- 卖点2 -->
+        <div class="flex flex-col md:flex-row items-center gap-8 reveal">
+          <div class="md:w-1/2 ink-splash">
+            <img src="https://picsum.photos/id/304/600/400" alt="专业背书" class="rounded-lg shadow-lg w-full h-auto">
+          </div>
+          <div class="md:w-1/2">
+            <h3 class="text-2xl font-kai font-semibold mb-4 text-cinnabar">「百万粉丝背书」的专业权威性</h3>
+            <p class="mb-4">区别于普通风水师，用户无需担心"不专业、不靠谱"，降低信任成本。</p>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>个人IP加持："黑扇子正本清源"全网百万粉丝认证，私域沉淀口碑</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>标准化交付流程：从咨询到批文全流程透明，1小时视频+1周批文产出</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- 卖点3 -->
+        <div class="flex flex-col md:flex-row items-center gap-8 reveal">
+          <div class="md:w-1/2 order-2 md:order-1">
+            <h3 class="text-2xl font-kai font-semibold mb-4 text-cinnabar">「远程便捷化」服务</h3>
+            <p class="mb-4">打破时空限制，解决"线下沟通难、耗时长"的痛点，轻松参与无压力。</p>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>无需上门，省时省力：在家通过视频即可完成勘察，适合忙碌人群</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>轻量化参与：仅需配合提供基础信息、参与1小时视频，后续等待批文即可</span>
+              </li>
+            </ul>
+          </div>
+          <div class="md:w-1/2 order-1 md:order-2 ink-splash">
+            <img src="https://picsum.photos/id/180/600/400" alt="远程服务" class="rounded-lg shadow-lg w-full h-auto">
+          </div>
+        </div>
+        
+        <!-- 卖点4 -->
+        <div class="flex flex-col md:flex-row items-center gap-8 reveal">
+          <div class="md:w-1/2 ink-splash">
+            <img src="https://picsum.photos/id/164/600/400" alt="定制方案" class="rounded-lg shadow-lg w-full h-auto">
+          </div>
+          <div class="md:w-1/2">
+            <h3 class="text-2xl font-kai font-semibold mb-4 text-cinnabar">「痛点精准击中」的定制化方案</h3>
+            <p class="mb-4">拒绝"通用模板"，让用户感受到"方案为我量身定制"，认可度更高。</p>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>先问需求，再做勘察：咨询阶段深度了解用户痛点，视频勘察针对性聚焦</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-check-circle text-bamboo mt-1 mr-2"></i>
+                <span>可视化勘察过程：实时分析，用户直观看到问题所在及影响原因</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 用户价值感 -->
+  <section id="value" class="py-20 relative">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-4xl font-kai font-bold mb-6 brush-border inline-block">用户价值感</h2>
+        <p class="text-lg max-w-3xl mx-auto">让用户明确"我能得到什么实际好处"</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- 价值1 -->
+        <div class="bg-paper rounded-lg shadow-md p-6 border border-ink/10 hover:shadow-lg transition-shadow duration-300 reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-cinnabar/10 flex items-center justify-center mr-3">
+              <i class="fa fa-search text-cinnabar"></i>
+            </div>
+            <h3 class="text-xl font-kai font-semibold">「问题根源诊断」价值</h3>
+          </div>
+          <p class="mb-3">不止"看风水"，更"找病因"，让用户从"迷茫焦虑"到"清楚问题所在"。</p>
+          <p>针对健康隐患、财运难题、家庭关系、子女学业等深层痛点，精准定位风水层面的根源。</p>
+        </div>
+        
+        <!-- 价值2 -->
+        <div class="bg-paper rounded-lg shadow-md p-6 border border-ink/10 hover:shadow-lg transition-shadow duration-300 reveal" style="transition-delay: 0.1s;">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-cinnabar/10 flex items-center justify-center mr-3">
+              <i class="fa fa-lightbulb-o text-cinnabar"></i>
+            </div>
+            <h3 class="text-xl font-kai font-semibold">「可落地的解决方案」价值</h3>
+          </div>
+          <p class="mb-3">拒绝"玄学空谈"，给具体方法，避免"知道问题但不知道怎么改"的困境。</p>
+          <p>专属风水批文包含凶位化解方案、吉位激活技巧、日常维护建议，用户可直接照做。</p>
+        </div>
+        
+        <!-- 价值3 -->
+        <div class="bg-paper rounded-lg shadow-md p-6 border border-ink/10 hover:shadow-lg transition-shadow duration-300 reveal" style="transition-delay: 0.2s;">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-cinnabar/10 flex items-center justify-center mr-3">
+              <i class="fa fa-calendar text-cinnabar"></i>
+            </div>
+            <h3 class="text-xl font-kai font-semibold">「长期运势参考」价值</h3>
+          </div>
+          <p class="mb-3">不止当下，更看未来，实现"当下调理+长期受益"，价值远超单次咨询。</p>
+          <p>结合元运、流年飞星预判未来风险与机遇，让用户提前规避凶煞、把握吉运。</p>
+        </div>
+        
+        <!-- 价值4 -->
+        <div class="bg-paper rounded-lg shadow-md p-6 border border-ink/10 hover:shadow-lg transition-shadow duration-300 reveal" style="transition-delay: 0.3s;">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-cinnabar/10 flex items-center justify-center mr-3">
+              <i class="fa fa-money text-cinnabar"></i>
+            </div>
+            <h3 class="text-xl font-kai font-semibold">「低成本高回报」价值</h3>
+          </div>
+          <p class="mb-3">小钱解决大问题，性价比极高，让用户觉得"花小钱就能解决大烦恼"。</p>
+          <p>通过"罗盘即退+远程服务"大幅降低投入，却能获得定制化方案与专业批文。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 用户体验感 -->
+  <section id="experience" class="py-20 bg-ink/5 relative">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-4xl font-kai font-bold mb-6 brush-border inline-block">用户体验感</h2>
+        <p class="text-lg max-w-3xl mx-auto">从接触到交付，全程让用户"舒服、安心、认可"</p>
+      </div>
+      
+      <div class="max-w-5xl mx-auto">
+        <div class="relative">
+          <!-- 时间线 -->
+          <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-cinnabar/30 transform md:translate-x-px"></div>
+          
+          <!-- 体验1 -->
+          <div class="relative flex flex-col md:flex-row mb-12 reveal">
+            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+              <h3 class="text-xl font-kai font-semibold mb-2 text-cinnabar">「沟通体验」</h3>
+              <p class="mb-1">专业不晦涩，易懂不敷衍</p>
+              <p class="text-sm opacity-80">咨询引导阶段用用户听得懂的语言沟通，耐心解答疑问；视频勘察阶段实时讲解，让用户参与其中，增强认同感。</p>
+            </div>
+            <div class="md:w-12 flex justify-center order-1 md:order-2">
+              <div class="w-8 h-8 rounded-full bg-cinnabar flex items-center justify-center z-10 shadow-md">
+                <span class="text-paper font-kai">1</span>
+              </div>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3 hidden md:block"></div>
+          </div>
+          
+          <!-- 体验2 -->
+          <div class="relative flex flex-col md:flex-row mb-12 reveal">
+            <div class="md:w-1/2 md:pr-12 order-1 hidden md:block"></div>
+            <div class="md:w-12 flex justify-center order-2">
+              <div class="w-8 h-8 rounded-full bg-cinnabar flex items-center justify-center z-10 shadow-md">
+                <span class="text-paper font-kai">2</span>
+              </div>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+              <h3 class="text-xl font-kai font-semibold mb-2 text-cinnabar">「等待体验」</h3>
+              <p class="mb-1">透明不焦虑，期待不煎熬</p>
+              <p class="text-sm opacity-80">批文等待周期（1周）提前明确告知，期间适当同步制作进度，避免用户因"未知等待"产生焦虑，强化专属感。</p>
+            </div>
+          </div>
+          
+          <!-- 体验3 -->
+          <div class="relative flex flex-col md:flex-row mb-12 reveal">
+            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+              <h3 class="text-xl font-kai font-semibold mb-2 text-cinnabar">「交付体验」</h3>
+              <p class="mb-1">专业且精致，有仪式感</p>
+              <p class="text-sm opacity-80">风水批文设计成规范文档形式，包含勘察数据、问题分析、方案建议和引用依据，排版清晰，让用户感受专业与用心。</p>
+            </div>
+            <div class="md:w-12 flex justify-center order-1 md:order-2">
+              <div class="w-8 h-8 rounded-full bg-cinnabar flex items-center justify-center z-10 shadow-md">
+                <span class="text-paper font-kai">3</span>
+              </div>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3 hidden md:block"></div>
+          </div>
+          
+          <!-- 体验4 -->
+          <div class="relative flex flex-col md:flex-row reveal">
+            <div class="md:w-1/2 md:pr-12 order-1 hidden md:block"></div>
+            <div class="md:w-12 flex justify-center order-2">
+              <div class="w-8 h-8 rounded-full bg-cinnabar flex items-center justify-center z-10 shadow-md">
+                <span class="text-paper font-kai">4</span>
+              </div>
+            </div>
+            <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+              <h3 class="text-xl font-kai font-semibold mb-2 text-cinnabar">「售后体验」</h3>
+              <p class="mb-1">持续陪伴，不甩锅</p>
+              <p class="text-sm opacity-80">批文交付后提供短期售后答疑，让用户觉得"不是交完批文就结束了，有问题还能找得到人"，强化负责任形象。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 咨询预约 -->
+  <section id="contact" class="py-20 relative">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-paper rounded-lg shadow-xl overflow-hidden border border-ink/10 reveal">
+        <div class="md:flex">
+          <div class="md:w-1/2 bg-ink text-paper p-8">
+            <h2 class="text-2xl md:text-3xl font-kai font-bold mb-6">预约咨询</h2>
+            <p class="mb-6 opacity-90">
+              填写下方表单，我们将尽快与您联系，为您安排远程风水调理的初步咨询，解答您的疑问。
+            </p>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <i class="fa fa-envelope-o text-cinnabar mt-1 mr-3"></i>
+                <span>邮箱：service@heishanzi.com</span>
+              </div>
+              <div class="flex items-start">
+                <i class="fa fa-weixin text-cinnabar mt-1 mr-3"></i>
+                <span>微信：HeiShanZiFengShui</span>
+              </div>
+              <div class="flex items-start">
+                <i class="fa fa-clock-o text-cinnabar mt-1 mr-3"></i>
+                <span>服务时间：每日 9:00-21:00</span>
+              </div>
+            </div>
+            <div class="mt-10">
+              <h3 class="text-lg font-kai mb-4">关注我们</h3>
+              <div class="flex space-x-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-paper/10 flex items-center justify-center hover:bg-cinnabar transition-colors duration-300">
+                  <i class="fa fa-weibo text-paper"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-paper/10 flex items-center justify-center hover:bg-cinnabar transition-colors duration-300">
+                  <i class="fa fa-weixin text-paper"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-paper/10 flex items-center justify-center hover:bg-cinnabar transition-colors duration-300">
+                  <i class="fa fa-youtube-play text-paper"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 p-8">
+            <form>
+              <div class="mb-4">
+                <label for="name" class="block mb-2 font-kai">姓名</label>
+                <input type="text" id="name" class="w-full px-4 py-2 border border-ink/20 rounded-md bg-paper focus:outline-none focus:ring-2 focus:ring-cinnabar/50 transition-all">
+              </div>
+              <div class="mb-4">
+                <label for="phone" class="block mb-2 font-kai">电话</label>
+                <input type="tel" id="phone" class="w-full px-4 py-2 border border-ink/20 rounded-md bg-paper focus:outline-none focus:ring-2 focus:ring-cinnabar/50 transition-all">
+              </div>
+              <div class="mb-4">
+                <label for="concern" class="block mb-2 font-kai">您关心的问题</label>
+                <select id="concern" class="w-full px-4 py-2 border border-ink/20 rounded-md bg-paper focus:outline-none focus:ring-2 focus:ring-cinnabar/50 transition-all">
+                  <option value="">请选择...</option>
+                  <option value="health">家人健康</option>
+                  <option value="finance">事业财运</option>
+                  <option value="family">家庭关系</option>
+                  <option value="study">子女学业</option>
+                  <option value="other">其他问题</option>
+                </select>
+              </div>
+              <div class="mb-6">
+                <label for="message" class="block mb-2 font-kai">留言</label>
+                <textarea id="message" rows="3" class="w-full px-4 py-2 border border-ink/20 rounded-md bg-paper focus:outline-none focus:ring-2 focus:ring-cinnabar/50 transition-all"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-cinnabar hover:bg-cinnabar/90 text-paper py-3 rounded-md font-kai transition-all duration-300 transform hover:scale-[1.02]">
+                提交预约
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-ink text-paper py-10">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center mb-6 md:mb-0">
+          <i class="fa fa-fan text-cinnabar text-2xl mr-2 transform rotate-45"></i>
+          <h2 class="text-xl font-kai font-bold">黑扇子正本清源</h2>
+        </div>
+        <div class="text-center md:text-right text-sm opacity-70">
+          <p>© 2025 黑扇子正本清源远程风水项目 版权所有</p>
+          <p class="mt-1">本项目仅供参考，请勿迷信</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-lg');
+        navbar.classList.remove('py-3', 'shadow-md');
+      } else {
+        navbar.classList.add('py-3', 'shadow-md');
+        navbar.classList.remove('py-2', 'shadow-lg');
+      }
+    });
+    
+    // 滚动显示动画
+    function checkReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      
+      reveals.forEach(reveal => {
+        const revealTop = reveal.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (revealTop < windowHeight - revealPoint) {
+          reveal.classList.add('active');
+        }
+      });
+    }
+    
+    // 初始检查
+    checkReveal();
+    
+    // 滚动时检查
+    window.addEventListener('scroll', checkReveal);
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // 关闭移动菜单（如果打开）
+        document.getElementById('mobile-menu').classList.add('hidden');
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
