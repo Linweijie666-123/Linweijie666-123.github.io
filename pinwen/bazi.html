@@ -1,0 +1,118 @@
+import React, { useState } from 'react';
+import { UserInput, BaziChart, AnalysisResult } from './types';
+import { InputForm } from './components/InputForm';
+import { BaziChartDisplay } from './components/BaziChartDisplay';
+import { AnalysisResultDisplay } from './components/AnalysisResult';
+import { generateBaziChart, calculateTrueSolarTime } from './utils/baziLogic';
+import { analyzeBaziWithGemini } from './services/geminiService';
+import { ScrollText } from 'lucide-react';
+
+const App: React.FC = () => {
+  const [step, setStep] = useState<'input' | 'result'>('input');
+  const [loading, setLoading] = useState(false);
+  const [userInput, setUserInput] = useState<UserInput | null>(null);
+  const [baziData, setBaziData] = useState<BaziChart | null>(null);
+  const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleFormSubmit = async (input: UserInput) => {
+    setLoading(true);
+    setError(null);
+    setUserInput(input);
+
+    try {
+      // 1. Calculate Chart locally (Deterministic)
+      // Note: We reconstruct the Date object here to ensure timezone consistency if needed,
+      // but the input is raw numbers which is safer.
+      const chart = generateBaziChart(input);
+      setBaziData(chart);
+
+      // 2. Analyze with AI
+      const analysisResult = await analyzeBaziWithGemini(input, chart);
+      setAnalysis(analysisResult);
+      
+      setStep('result');
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "排盘过程中发生错误，请检查网络或重试。");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = () => {
+    setStep('input');
+    setBaziData(null);
+    setAnalysis(null);
+    setError(null);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#f7f5f0] text-ink-900 font-serif selection:bg-cinnabar selection:text-white">
+      {/* Header */}
+      <header className="bg-ink-900 text-white py-6 shadow-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+             <div className="bg-white/10 p-2 rounded-lg">
+                <ScrollText className="w-6 h-6 text-white" />
+             </div>
+             <div>
+                 <h1 className="text-xl font-bold tracking-wide">问真AI排盘</h1>
+                 <p className="text-[10px] text-ink-300 tracking-wider uppercase">Zen Bazi Analytics</p>
+             </div>
+          </div>
+          {step === 'result' && (
+            <button 
+                onClick={reset}
+                className="text-sm px-4 py-2 border border-white/30 rounded-full hover:bg-white hover:text-ink-900 transition"
+            >
+                重新排盘
+            </button>
+          )}
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        
+        {error && (
+            <div className="max-w-2xl mx-auto mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                {error}
+            </div>
+        )}
+
+        {step === 'input' ? (
+          <div className="animate-fade-in-up">
+             <div className="text-center mb-10 max-w-xl mx-auto">
+                 <h2 className="text-3xl font-bold text-ink-800 mb-4">探寻命理玄机，指引人生方向</h2>
+                 <p className="text-ink-500 leading-relaxed">
+                     融合传统子平八字与现代AI技术，精准校对真太阳时，深度解析您的事业、财运与人生格局。
+                 </p>
+             </div>
+             <InputForm onSubmit={handleFormSubmit} isLoading={loading} />
+          </div>
+        ) : (
+          <div className="max-w-4xl mx-auto animate-fade-in">
+            {baziData && userInput && (
+                <BaziChartDisplay data={baziData} input={userInput} />
+            )}
+            {analysis && (
+                <AnalysisResultDisplay analysis={analysis} />
+            )}
+          </div>
+        )}
+      </main>
+      
+      <footer className="bg-ink-100 py-8 mt-12 border-t border-ink-200">
+          <div className="container mx-auto text-center text-ink-400 text-sm">
+              <p>&copy; {new Date().getFullYear()} ZenBazi AI. All rights reserved.</p>
+              <p className="mt-2 text-xs">Based on Lunar.js & Google Gemini</p>
+          </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
