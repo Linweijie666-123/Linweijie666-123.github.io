@@ -195,7 +195,122 @@
             return [];
         };
 
-        // 3. 简化排盘逻辑 (由于无法引入巨大天文库，此处使用模拟算法，逻辑上符合规则)
+        // 3. 神煞全表推导 (新增核心功能)
+        const getShenSha = (pillarGan, pillarZhi, dayGan, yearZhi, dayZhi) => {
+            let list = [];
+
+            // --- 以日干查神煞 ---
+            // 天乙贵人
+            if (dayGan === '甲' || dayGan === '戊') { if (['丑', '未'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '乙' || dayGan === '己') { if (['子', '申'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '丙' || dayGan === '丁') { if (['亥', '酉'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '庚' || dayGan === '辛') { if (['寅', '午'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '壬' || dayGan === '癸') { if (['卯', '巳'].includes(pillarZhi)) list.push('天乙'); }
+
+            // 文昌贵人
+            const wenChangMap = {'甲':'巳', '乙':'午', '丙':'申', '丁':'酉', '戊':'申', '己':'酉', '庚':'亥', '辛':'子', '壬':'寅', '癸':'卯'};
+            if (wenChangMap[dayGan] === pillarZhi) list.push('文昌');
+
+            // 禄神
+            const luMap = {'甲':'寅', '乙':'卯', '丙':'巳', '丁':'午', '戊':'巳', '己':'午', '庚':'申', '辛':'酉', '壬':'亥', '癸':'子'};
+            if (luMap[dayGan] === pillarZhi) list.push('禄神');
+
+            // 羊刃 (以阳干帝旺为准)
+            const yangRenMap = {'甲':'卯', '丙':'午', '戊':'午', '庚':'酉', '壬':'子'};
+            if (yangRenMap[dayGan] === pillarZhi) list.push('羊刃');
+
+            // 国印贵人
+            const guoYinMap = {'甲':'戌', '乙':'亥', '丙':'丑', '丁':'寅', '戊':'丑', '己':'寅', '庚':'辰', '辛':'巳', '壬':'未', '癸':'申'};
+            if (guoYinMap[dayGan] === pillarZhi) list.push('国印');
+
+            // 金舆
+            const jinYuMap = {'甲':'辰', '乙':'巳', '丙':'未', '丁':'申', '戊':'未', '己':'申', '庚':'戌', '辛':'亥', '壬':'丑', '癸':'寅'};
+            if (jinYuMap[dayGan] === pillarZhi) list.push('金舆');
+
+            // 红艳煞
+            const hongYanMap = {'甲':'午', '乙':'申', '丙':'寅', '丁':'未', '戊':'辰', '己':'辰', '庚':'戌', '辛':'酉', '壬':'子', '癸':'申'};
+            if (hongYanMap[dayGan] === pillarZhi) list.push('红艳');
+
+            // 太极贵人
+            if (dayGan === '甲' || dayGan === '乙') { if (['子', '午'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '丙' || dayGan === '丁') { if (['卯', '酉'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '戊' || dayGan === '己') { if (['辰', '戌', '丑', '未'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '庚' || dayGan === '辛') { if (['寅', '亥'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '壬' || dayGan === '癸') { if (['巳', '申'].includes(pillarZhi)) list.push('太极'); }
+
+
+            // --- 以年支或日支查神煞 (地支三合局推导) ---
+            const getSanHeGroup = (z) => {
+                if (['申','子','辰'].includes(z)) return '水';
+                if (['寅','午','戌'].includes(z)) return '火';
+                if (['亥','卯','未'].includes(z)) return '木';
+                if (['巳','酉','丑'].includes(z)) return '金';
+                return '';
+            };
+
+            [yearZhi, dayZhi].forEach(baseZhi => {
+                if (!baseZhi) return;
+                const group = getSanHeGroup(baseZhi);
+                
+                // 驿马 (申子辰马在寅, 寅午戌马在申, 亥卯未马在巳, 巳酉丑马在亥)
+                if ((group === '水' && pillarZhi === '寅') || 
+                    (group === '火' && pillarZhi === '申') || 
+                    (group === '木' && pillarZhi === '巳') || 
+                    (group === '金' && pillarZhi === '亥')) {
+                    if (!list.includes('驿马')) list.push('驿马');
+                }
+
+                // 桃花 (申子辰在酉, 寅午戌在卯, 亥卯未在子, 巳酉丑在午)
+                if ((group === '水' && pillarZhi === '酉') || 
+                    (group === '火' && pillarZhi === '卯') || 
+                    (group === '木' && pillarZhi === '子') || 
+                    (group === '金' && pillarZhi === '午')) {
+                    if (!list.includes('桃花')) list.push('桃花');
+                }
+
+                // 华盖 (申子辰在辰, 寅午戌在戌, 亥卯未在未, 巳酉丑在丑)
+                if ((group === '水' && pillarZhi === '辰') || 
+                    (group === '火' && pillarZhi === '戌') || 
+                    (group === '木' && pillarZhi === '未') || 
+                    (group === '金' && pillarZhi === '丑')) {
+                    if (!list.includes('华盖')) list.push('华盖');
+                }
+
+                // 将星 (申子辰在子, 寅午戌在午, 亥卯未在卯, 巳酉丑在酉)
+                if ((group === '水' && pillarZhi === '子') || 
+                    (group === '火' && pillarZhi === '午') || 
+                    (group === '木' && pillarZhi === '卯') || 
+                    (group === '金' && pillarZhi === '酉')) {
+                    if (!list.includes('将星')) list.push('将星');
+                }
+                
+                // 劫煞 (申子辰在巳, 寅午戌在亥, 亥卯未在申, 巳酉丑在寅)
+                if ((group === '水' && pillarZhi === '巳') || 
+                    (group === '火' && pillarZhi === '亥') || 
+                    (group === '木' && pillarZhi === '申') || 
+                    (group === '金' && pillarZhi === '寅')) {
+                    if (!list.includes('劫煞')) list.push('劫煞');
+                }
+                
+                // 亡神 (申子辰在亥, 寅午戌在巳, 亥卯未在寅, 巳酉丑在申)
+                if ((group === '水' && pillarZhi === '亥') || 
+                    (group === '火' && pillarZhi === '巳') || 
+                    (group === '木' && pillarZhi === '寅') || 
+                    (group === '金' && pillarZhi === '申')) {
+                    if (!list.includes('亡神')) list.push('亡神');
+                }
+            });
+
+            // --- 其它特殊神煞 ---
+            // 魁罡 (日柱为主，若出现在其他柱也标注)
+            if (['庚辰','庚戌','壬辰','戊戌'].includes(pillarGan + pillarZhi)) {
+                list.push('魁罡');
+            }
+
+            return [...new Set(list)]; // 去重
+        };
+
+        // 4. 简化排盘逻辑 (由于无法引入巨大天文库，此处使用模拟算法，逻辑上符合规则)
         // 实际开发中需替换为 lunar-javascript 库
         const calculateBazi = (dateStr, timeHour, gender, isSolarTime) => {
             // 修正：直接解析 YYYY-MM-DD 字符串，避免 new Date(dateStr) 产生的 UTC/本地时区偏差导致日期错乱
@@ -403,18 +518,16 @@
                         </div>
                     </div>
 
-                    {/* 核心排盘表格 */}
-                    <div className="grid grid-cols-6 border-2 border-indigo-900 text-sm">
+                    {/* 核心排盘表格 - 改为5列 */}
+                    <div className="grid grid-cols-5 border-2 border-indigo-900 text-sm">
                         {/* 表头 */}
-                        <div className={headClass + " bg-indigo-900 text-gold"}>项目</div>
-                        <div className={headClass}>日期</div>
+                        <div className={headClass + " bg-indigo-900 text-gold"}>日期</div>
                         {pillars.map((p, i) => (
                             <div key={p} className={headClass}>{titles[i]}</div>
                         ))}
 
                         {/* 主星 (十神 - 天干) */}
                         <div className={cellClass + " font-bold text-gray-500"}>主星</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass + " text-gray-500 text-xs"}>
                                 {p === 'day' ? <span className="text-cinnabar font-bold text-lg">日主</span> : getTenGod(dayMaster, data[p].gan)}
@@ -423,7 +536,6 @@
 
                         {/* 天干 */}
                         <div className={cellClass + " font-lishu text-lg font-bold"}>天干</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass}>
                                 <span className={`text-2xl font-lishu font-bold ${p === 'day' ? 'text-cinnabar' : 'text-indigo-900'}`}>
@@ -434,7 +546,6 @@
 
                         {/* 地支 */}
                         <div className={cellClass + " font-lishu text-lg font-bold"}>地支</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => {
                              const isKongWang = kongWang.includes(data[p].zhi);
                              return (
@@ -449,7 +560,6 @@
 
                         {/* 藏干 (本气/余气/藏干) */}
                         <div className={cellClass + " font-bold text-gray-500"}>藏干</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass + " text-xs items-start pl-4"}>
                                 {ZHI_HIDDEN[data[p].zhi].map((h, idx) => (
@@ -463,35 +573,34 @@
 
                         {/* 纳音 */}
                         <div className={cellClass + " font-bold text-gray-500"}>纳音</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass}>
                                 <span className="vertical-text text-gray-600 text-xs h-16">{NA_YIN[data[p].gan + data[p].zhi]}</span>
                             </div>
                         ))}
 
-                        {/* 神煞 (模拟) */}
+                        {/* 神煞 (新版 - 全量排查) */}
                         <div className={cellClass + " font-bold text-gray-500"}>神煞</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => {
-                            // 简单的神煞模拟
-                            let shens = [];
-                            if (data[p].zhi === '子' && dayMaster === '壬') shens.push('羊刃');
-                            if (data[p].zhi === '午' && (dayMaster === '丙' || dayMaster === '戊')) shens.push('羊刃');
-                            if (['子','午','卯','酉'].includes(data[p].zhi)) shens.push('桃花');
-                            if (['辰','戌','丑','未'].includes(data[p].zhi)) shens.push('华盖');
-                            if (['寅','申','巳','亥'].includes(data[p].zhi)) shens.push('驿马');
-                            
-                            // 天乙贵人逻辑模拟
-                            if ((dayMaster === '甲' || dayMaster === '戊') && (data[p].zhi === '丑' || data[p].zhi === '未')) shens.push('天乙');
+                            // 传入当前柱的 天干, 地支, 加上 日主, 年支, 日支 进行神煞全量计算
+                            const shens = getShenSha(data[p].gan, data[p].zhi, dayMaster, data.year.zhi, data.day.zhi);
                             
                             return (
-                                <div key={p} className={cellClass + " text-[10px]"}>
-                                    {shens.map(s => (
-                                        <span key={s} className={`block mb-1 px-1 rounded ${s==='天乙'?'bg-cinnabar text-white':'bg-gray-100 text-gray-600'}`}>
-                                            {s}
-                                        </span>
-                                    ))}
+                                <div key={p} className={cellClass + " text-[10px] flex flex-wrap gap-1 justify-center content-start py-2"}>
+                                    {shens.map(s => {
+                                        const isGood = ['天乙', '太极', '文昌', '禄神', '国印', '将星', '金舆'].includes(s);
+                                        const isBad = ['劫煞', '亡神', '羊刃', '魁罡'].includes(s); // 魁罡中性，此处暂列
+                                        return (
+                                            <span key={s} className={`block px-1 rounded border ${
+                                                s==='天乙' ? 'bg-cinnabar text-white border-cinnabar' : 
+                                                isGood ? 'bg-red-50 text-cinnabar border-red-100' :
+                                                isBad ? 'bg-gray-700 text-white border-gray-700' :
+                                                'bg-gray-100 text-gray-600 border-gray-200'
+                                            }`}>
+                                                {s}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             );
                         })}
@@ -503,26 +612,92 @@
         const AnalysisSection = ({ data, userInfo }) => {
             if (!data) return null;
             
-            // 简单五行判断日主强弱
-            // 真实逻辑需要得令、得地、得势综合判断，此处简化演示
+            // 基础信息提取
             const dayMaster = data.day.gan;
             const monthZhi = data.month.zhi;
-            // 假设：生在同五行或印月为强
-            const isStrong = ['寅','卯'].includes(monthZhi) && ['甲','乙'].includes(dayMaster); 
-            
-            // 修复：动态计算五行与笔画
-            const dayEl = getFiveElement(dayMaster); // 动态获取日主五行
-            const nameTotalStrokes = getSimulatedStrokes(userInfo.name); // 动态计算姓名总笔画
-            const yiGua = calculateNameYi(userInfo.name, nameTotalStrokes, dayEl); // 传入计算后的参数
-
-            // --- 新增：婚姻逻辑 ---
-            const isMale = userInfo.gender === 'male';
-            const spouseStars = isMale ? ['正财', '偏财'] : ['正官', '七杀'];
-            // 检查天干是否透出配偶星
-            const visibleSpouseStar = [data.year.gan, data.month.gan, data.hour.gan].map(g => getTenGod(dayMaster, g)).find(tg => spouseStars.includes(tg));
             const dayZhi = data.day.zhi;
+            const isMale = userInfo.gender === 'male';
             
-            // --- 新增：未来三年流年逻辑 ---
+            // --- 动态计算五行与笔画 ---
+            const dayEl = getFiveElement(dayMaster);
+            const nameTotalStrokes = getSimulatedStrokes(userInfo.name);
+            const yiGua = calculateNameYi(userInfo.name, nameTotalStrokes, dayEl);
+
+            // --- 1. 事业格局深度逻辑 ---
+            // 判断月令本气
+            const monthZhiMainGan = ZHI_HIDDEN[monthZhi][0].gan;
+            const monthTenGod = getTenGod(dayMaster, monthZhiMainGan); // 月令格局核心
+            
+            // 强弱判断 (简化版：得月令或得地)
+            const isStrong = ['寅','卯'].includes(monthZhi) && ['甲','乙'].includes(dayMaster) ||
+                            ['巳','午'].includes(monthZhi) && ['丙','丁'].includes(dayMaster) ||
+                            ['申','酉'].includes(monthZhi) && ['庚','辛'].includes(dayMaster) ||
+                            ['亥','子'].includes(monthZhi) && ['壬','癸'].includes(dayMaster) ||
+                            ['辰','戌','丑','未'].includes(monthZhi) && ['戊','己'].includes(dayMaster);
+            
+            let careerAdvice = "";
+            let patternDesc = "";
+
+            // 根据月令十神定格局描述
+            if(monthTenGod.includes('官')) {
+                patternDesc = "此造月令正官，为人正直负责，行事稳重，有极强的自律性和管理能力。";
+                careerAdvice = "适合在体制内、大型企业、行政管理等稳定性高的领域发展。若官星透干，更易获得职级晋升。";
+            } else if(monthTenGod.includes('杀')) {
+                patternDesc = "月令七杀，性格果断坚毅，有魄力，不畏艰难，具备开创精神。";
+                careerAdvice = "适合军警、司法、创业、市场开拓或具有挑战性的工作。职业生涯早期多波折，但成就往往惊人。";
+            } else if(monthTenGod.includes('财')) {
+                patternDesc = "月令财星，现实务实，商业嗅觉敏锐，善于理财和资源整合。";
+                careerAdvice = "适合金融、贸易、销售、会计或自主经商。若身旺能担财，则富贵可期；若身弱则需防财多压身，宜合伙求财。";
+            } else if(monthTenGod.includes('印')) {
+                patternDesc = "月令印星，慈悲善良，重名誉，喜学习，有深厚的文化底蕴或专业技能。";
+                careerAdvice = "适合教育、学术、研究、咨询、医疗或文化传媒行业。贵人运强，多得长辈或上司提携。";
+            } else if(monthTenGod.includes('食') || monthTenGod.includes('伤')) {
+                patternDesc = "月令食伤，才华横溢，思维活跃，崇尚自由，不喜拘束，有独特的表现力。";
+                careerAdvice = "适合艺术、设计、技术研发、演艺、营销策划等需要创意和技能的行业。不宜从事过于刻板的行政工作。";
+            } else {
+                patternDesc = "月令比劫，意志坚定，自信心强，但个性较为固执，喜竞争。";
+                careerAdvice = "适合自由职业、合伙经营、体力主导或竞争性强的业务岗位。需防同辈竞争或财务纠纷。";
+            }
+
+            // --- 2. 婚姻家庭深度逻辑 ---
+            const spouseStars = isMale ? ['正财', '偏财'] : ['正官', '七杀'];
+            // 检查四柱天干是否透出配偶星
+            const visibleSpouseStar = [data.year.gan, data.month.gan, data.hour.gan].map(g => getTenGod(dayMaster, g)).find(tg => spouseStars.includes(tg));
+            
+            // 日支（夫妻宫）特性
+            const dayZhiTenGod = getTenGod(dayMaster, ZHI_HIDDEN[dayZhi][0].gan);
+            let marriageDesc = "";
+            let spouseChar = "";
+
+            // 夫妻宫十神判断
+            if(dayZhiTenGod.includes('财')) {
+                marriageDesc = isMale ? "男命日坐财星，主妻贤淑得力，能得妻子之财或因妻致富。" : "女命日坐财星，倾向于找经济条件较好或善于理财的配偶，但也可能因财生官而旺夫。";
+                spouseChar = "配偶务实精明，善于持家。";
+            } else if(dayZhiTenGod.includes('官') || dayZhiTenGod.includes('杀')) {
+                marriageDesc = isMale ? "男命日坐官杀，妻管严，妻子性格强势或能力出众。" : "女命日坐官杀，夫星得位，丈夫多为家庭核心，但需防七杀过旺带来的压力。";
+                spouseChar = "配偶性格稳重，责任感强，或有些许霸道。";
+            } else if(dayZhiTenGod.includes('印')) {
+                marriageDesc = "日坐印星，配偶仁慈宽厚，对自己多有呵护照顾，如同长辈般关怀。";
+                spouseChar = "配偶性格温和，有涵养，但可能略显依赖或行动力不足。";
+            } else if(dayZhiTenGod.includes('食') || dayZhiTenGod.includes('伤')) {
+                marriageDesc = isMale ? "男命日坐食伤，对妻子疼爱有加，但也容易情绪化。" : "女命日坐食伤，克夫之象，对丈夫要求过高或挑剔，易引发口角。";
+                spouseChar = "配偶聪明伶俐，才华出众，长相多清秀，但情绪起伏较大。";
+            } else {
+                marriageDesc = "日坐比劫，夫妻之间更像朋友或合作伙伴，但也容易固执己见，互不相让，多有争吵。";
+                spouseChar = "配偶个性刚强，主观意识强，行事果断。";
+            }
+
+            // --- 3. 姓名深度逻辑 ---
+            // 模拟数理灵动 (简化版)
+            let strokeLucky = "中平";
+            let strokeDesc = "此数理半吉半凶，运势浮沉不定，需依个人努力而定。";
+            const luckyStrokes = [1,3,5,6,7,8,11,13,15,16,21,23,24,25,31,32,33,35,37,39,41,45,47,48,52];
+            if(luckyStrokes.includes(nameTotalStrokes % 81)) {
+                strokeLucky = "大吉";
+                strokeDesc = "此数理为首领运格，天赋吉运，甚至能点石成金，利于事业开创与功名成就。";
+            }
+
+            // --- 4. 未来三年流年逻辑 ---
             const currentYear = new Date().getFullYear();
             const futureYears = [];
             for (let i = 0; i < 3; i++) {
@@ -531,91 +706,131 @@
                 const ganStr = GAN[(6 + offset) % 10]; // 1900 庚
                 const zhiStr = ZHI[(0 + offset) % 12]; // 1900 子
                 const tenGod = getTenGod(dayMaster, ganStr);
-                futureYears.push({ year: y, gan: ganStr, zhi: zhiStr, tenGod });
+                
+                let advice = "";
+                // 简单的流年建议生成
+                if(tenGod.includes('财')) advice = "流年见财，利于投资理财、拓展业务。上班族可争取加薪，经商者商机增多。男命桃花运旺，单身者宜把握。需防财多坏印，注意长辈健康。";
+                else if(tenGod.includes('官') || tenGod.includes('杀')) advice = "官杀克身，压力与机遇并存。利于考公、升职考核、获取名誉。女命感情运佳。若身弱则需防小人是非，注意休息，避免过劳。";
+                else if(tenGod.includes('印')) advice = "印星生身，利于学习进修、考证获誉、置办房产。贵人运强，多得长辈提携。心态趋于平和，宜静不宜动，不宜盲目扩张投资。";
+                else if(tenGod.includes('食') || tenGod.includes('伤')) advice = "食伤泄秀，思维活跃，才华发挥。利于创作、设计、技艺提升。但言多必失，职场中需谨言慎行，防口舌是非。";
+                else advice = "比劫夺财，利于结交朋友、拓展人脉、合作共赢。但财运起伏大，容易破财，不宜借贷担保。感情上需防第三者或竞争关系。";
+
+                futureYears.push({ year: y, gan: ganStr, zhi: zhiStr, tenGod, advice });
             }
 
             return (
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* 1. 事业分析 (原有) */}
-                    <div className="vintage-border bg-white/90 p-4 relative">
-                        <h3 className="font-lishu text-xl text-indigo-900 border-b border-gold mb-3 flex items-center">
-                            <span className="w-2 h-6 bg-cinnabar mr-2"></span>
-                            事业格局
+                <div className="mt-6 grid grid-cols-1 gap-8">
+                    {/* 1. 事业格局 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-cinnabar mr-3"></span>
+                            事业格局分析
                         </h3>
-                        <p className="text-sm leading-relaxed text-gray-700 indent-8">
-                            日主<span className="font-bold text-cinnabar">{dayMaster}</span>（五行属{dayEl}），
-                            {isStrong ? '身旺' : '身弱'}之局。
-                            官杀星为事业宫，当前命局中
-                            {getTenGod(dayMaster, data.month.gan).includes('官') ? '月透官星，贵气得显。' : '官星藏于地支，宜稳中求进。'}
-                            财星滋杀，{data.year.zhi === '辰' ? '库通根气' : '需防财来财去'}。
-                            建议从事五行属{dayEl === '木' ? '火、土' : (dayEl === '火' ? '土、金' : (dayEl === '土' ? '金、水' : (dayEl === '金' ? '水、木' : '木、火')))}之行业。
-                        </p>
+                        <div className="space-y-4 text-gray-700 leading-relaxed text-justify">
+                            <p>
+                                <span className="font-bold text-indigo-900">【命局定性】</span>
+                                日主<span className="font-bold text-cinnabar">{dayMaster}</span>（五行属{dayEl}），生于{data.month.zhi}月。
+                                {patternDesc}
+                                全局气势判定为<span className="font-bold">{isStrong ? '身旺' : '身弱'}</span>。
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【行业指引】</span>
+                                建议从事五行属<span className="font-bold text-cinnabar">{dayEl === '木' ? '火、土' : (dayEl === '火' ? '土、金' : (dayEl === '土' ? '金、水' : (dayEl === '金' ? '水、木' : '木、火')))}</span>之行业。
+                                {dayEl === '木' ? '如能源、餐饮、建筑、房地产等。' : 
+                                 dayEl === '火' ? '如房地产、农牧、五金、金融等。' :
+                                 dayEl === '土' ? '如金融、珠宝、物流、水产等。' :
+                                 dayEl === '金' ? '如水利、运输、林业、纺织等。' :
+                                 '如教育、出版、光电、IT互联网等。'}
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【发展建议】</span>
+                                {careerAdvice}
+                            </p>
+                        </div>
                     </div>
 
-                    {/* 2. 婚姻家庭 (新增) */}
-                    <div className="vintage-border bg-white/90 p-4 relative">
-                        <h3 className="font-lishu text-xl text-indigo-900 border-b border-gold mb-3 flex items-center">
-                            <span className="w-2 h-6 bg-indigo-900 mr-2"></span>
-                            婚姻家庭
+                    {/* 2. 婚姻家庭 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-indigo-900 mr-3"></span>
+                            婚姻情感剖析
                         </h3>
-                        <p className="text-sm leading-relaxed text-gray-700 indent-8">
-                            {isMale ? '乾造' : '坤造'}以<span className="font-bold text-indigo-900">{isMale ? '财星' : '官杀'}</span>为配偶星。
-                            {visibleSpouseStar ? `天干透出${visibleSpouseStar}，异性缘分较明显，感情易早成。` : '天干不显配偶星，感情多藏于地支，缘分或晚至，宜晚婚。'}
-                            日支夫妻宫坐<span className="font-bold text-cinnabar">{dayZhi}</span>，
-                            {['子','午','卯','酉'].includes(dayZhi) ? '为四正桃花之地，配偶相貌端庄，风采迷人，但需防烂桃花。' : 
-                             ['寅','申','巳','亥'].includes(dayZhi) ? '为驿马长生之地，配偶聪慧精明，可能来自远方或动中求财。' : 
-                             '为墓库之地，配偶性格敦厚沉稳，家庭观念重，生活平实。'}
-                        </p>
+                        <div className="space-y-4 text-gray-700 leading-relaxed text-justify">
+                            <p>
+                                <span className="font-bold text-indigo-900">【配偶星缘】</span>
+                                {isMale ? '乾造' : '坤造'}以<span className="font-bold text-indigo-900">{isMale ? '财星' : '官杀'}</span>为配偶星。
+                                {visibleSpouseStar ? `命局天干透出${visibleSpouseStar}，代表异性缘分较明显，感情机会多，容易早恋或早婚。` : '天干不显配偶星，感情多藏于地支或流年大运中，缘分来得较晚，或倾向于晚婚，感情生活平淡。'}
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【夫妻宫像】</span>
+                                日支夫妻宫坐<span className="font-bold text-cinnabar">{dayZhi}</span>。
+                                {marriageDesc}
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【伴侣画像】</span>
+                                {spouseChar}
+                                {['子','午','卯','酉'].includes(dayZhi) ? '且配偶多为气质佳、相貌端庄之人，桃花较旺。' : 
+                                 ['寅','申','巳','亥'].includes(dayZhi) ? '且配偶多为聪明能干、奔波劳碌或异地之人。' : 
+                                 '且配偶多为敦厚老实、相貌朴素、家庭观念重之人。'}
+                            </p>
+                        </div>
                     </div>
 
-                    {/* 3. 易卦姓名 (原有) */}
-                    <div className="vintage-border bg-white/90 p-4 relative">
-                        <h3 className="font-lishu text-xl text-indigo-900 border-b border-gold mb-3 flex items-center">
-                            <span className="w-2 h-6 bg-indigo-900 mr-2"></span>
-                            易卦姓名
+                    {/* 3. 易卦姓名 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-indigo-900 mr-3"></span>
+                            易卦姓名与数理
                         </h3>
-                        <div className="flex items-start gap-4">
-                            <div className="text-center">
-                                <div className="text-4xl font-lishu mb-2">{yiGua.gua}</div>
-                                <div className="text-xs bg-indigo-100 px-2 py-1 rounded">五行: {yiGua.five}</div>
+                        <div className="flex flex-col md:flex-row gap-8">
+                            <div className="flex-shrink-0 text-center md:border-r border-indigo-100 md:pr-8">
+                                <div className="text-6xl font-lishu text-cinnabar mb-2">{yiGua.gua}</div>
+                                <div className="text-sm bg-indigo-50 px-3 py-1 rounded inline-block text-indigo-900 mb-2">五行: {yiGua.five}</div>
+                                <div className="text-xs text-gray-500">变爻: 六{yiGua.yao}</div>
                             </div>
-                            <div className="text-sm text-gray-700">
-                                <p className="mb-1"><span className="font-bold">卦辞：</span>{yiGua.desc}</p>
-                                <p className="mb-1"><span className="font-bold">变爻：</span>六{yiGua.yao}</p>
-                                <p className="mb-1">
-                                    <span className="font-bold">吉凶：</span>
-                                    <span className={yiGua.luck.includes('吉') ? 'text-cinnabar' : 'text-gray-600'}>
-                                        {yiGua.luck}
-                                    </span>
+                            <div className="flex-1 space-y-3 text-sm text-gray-700 leading-relaxed">
+                                <p><span className="font-bold text-indigo-900">【卦象辞意】</span>{yiGua.desc}</p>
+                                <p>
+                                    <span className="font-bold text-indigo-900">【五行生克】</span>
+                                    此卦五行属{yiGua.five}，与日主{dayMaster}({dayEl})形成
+                                    <span className={yiGua.luck.includes('吉') ? 'text-cinnabar font-bold' : 'text-gray-600'}>
+                                        {yiGua.luck.split(' ')[0]}
+                                    </span>关系。
+                                    {yiGua.luck.includes('吉') ? '卦气生助日主，名字能为命主带来正向的能量磁场，辅助运势提升。' : '卦气与日主相克或耗泄，名字助力稍弱，需靠后天努力补足。'}
                                 </p>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    注：依据康熙字典笔画推演 (总格: {nameTotalStrokes}画 / 日主喜用参断)
+                                <p>
+                                    <span className="font-bold text-indigo-900">【数理灵动】</span>
+                                    总格笔画<span className="font-bold text-cinnabar">{nameTotalStrokes}</span>画。
+                                    <span className="font-bold">{strokeLucky}。</span>
+                                    {strokeDesc}
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* 4. 未来三年运势 (新增) */}
-                    <div className="vintage-border bg-white/90 p-4 relative">
-                        <h3 className="font-lishu text-xl text-indigo-900 border-b border-gold mb-3 flex items-center">
-                            <span className="w-2 h-6 bg-cinnabar mr-2"></span>
-                            未来三年走势
+                    {/* 4. 未来三年运势 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-cinnabar mr-3"></span>
+                            未来三年运势走向
                         </h3>
-                        <div className="space-y-3 mt-2">
+                        <div className="space-y-6">
                             {futureYears.map(item => (
-                                <div key={item.year} className="flex items-center border-b border-gray-100 pb-2 last:border-0">
-                                    <div className="w-14 font-bold text-indigo-900 font-lishu text-lg">{item.year}</div>
-                                    <div className="flex-1 ml-3">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="bg-indigo-900 text-gold text-xs px-1.5 py-0.5 rounded">{item.gan}{item.zhi}年</span>
+                                <div key={item.year} className="flex flex-col md:flex-row gap-4 border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                                    <div className="md:w-32 flex-shrink-0">
+                                        <div className="font-bold text-indigo-900 font-lishu text-2xl">{item.year}</div>
+                                        <div className="flex items-center gap-2 mt-1">
+                                            <span className="bg-indigo-900 text-gold text-xs px-2 py-0.5 rounded">{item.gan}{item.zhi}年</span>
                                             <span className="text-xs border border-cinnabar text-cinnabar px-1 rounded">流年{item.tenGod}</span>
                                         </div>
-                                        <p className="text-xs text-gray-600">
-                                            {item.tenGod.includes('财') ? '财星主事，利于投资理财，关注商业机会，但需防开支过大。' :
-                                             item.tenGod.includes('官') || item.tenGod.includes('杀') ? '官杀主事，事业压力与机遇并存，利于升职考核，女命利感情。' :
-                                             item.tenGod.includes('印') ? '印星主事，利于学习进修、考证获誉，贵人运强，宜静不宜动。' :
-                                             item.tenGod.includes('食') || item.tenGod.includes('伤') ? '食伤主事，思维活跃，利于创作、技艺发挥，但需防口舌是非。' :
-                                             '比劫主事，利于结交朋友、合作共赢，但需防竞争激烈或财物分夺。'}
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-sm text-gray-800 leading-relaxed">
+                                            <span className="font-bold text-indigo-900">【运程总述】</span>
+                                            {item.advice}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mt-2">
+                                            提示：流年运势仅供参考，具体应结合大运及流月综合推断。
                                         </p>
                                     </div>
                                 </div>
@@ -706,7 +921,7 @@
 
                     <footer className="text-center mt-12 text-xs text-gray-500 font-lishu">
                         <p>© 2025 黑扇子八字排盘系统 | 易经数理分析</p>
-                        <p className="mt-1">排盘分析内容仅供参考</p>
+                        <p className="mt-1">八字排盘仅供参考</p>
                     </footer>
                 </div>
             );
