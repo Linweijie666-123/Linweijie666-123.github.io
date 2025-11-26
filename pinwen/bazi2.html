@@ -195,7 +195,122 @@
             return [];
         };
 
-        // 3. 简化排盘逻辑 (由于无法引入巨大天文库，此处使用模拟算法，逻辑上符合规则)
+        // 3. 神煞全表推导 (新增核心功能)
+        const getShenSha = (pillarGan, pillarZhi, dayGan, yearZhi, dayZhi) => {
+            let list = [];
+
+            // --- 以日干查神煞 ---
+            // 天乙贵人
+            if (dayGan === '甲' || dayGan === '戊') { if (['丑', '未'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '乙' || dayGan === '己') { if (['子', '申'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '丙' || dayGan === '丁') { if (['亥', '酉'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '庚' || dayGan === '辛') { if (['寅', '午'].includes(pillarZhi)) list.push('天乙'); }
+            else if (dayGan === '壬' || dayGan === '癸') { if (['卯', '巳'].includes(pillarZhi)) list.push('天乙'); }
+
+            // 文昌贵人
+            const wenChangMap = {'甲':'巳', '乙':'午', '丙':'申', '丁':'酉', '戊':'申', '己':'酉', '庚':'亥', '辛':'子', '壬':'寅', '癸':'卯'};
+            if (wenChangMap[dayGan] === pillarZhi) list.push('文昌');
+
+            // 禄神
+            const luMap = {'甲':'寅', '乙':'卯', '丙':'巳', '丁':'午', '戊':'巳', '己':'午', '庚':'申', '辛':'酉', '壬':'亥', '癸':'子'};
+            if (luMap[dayGan] === pillarZhi) list.push('禄神');
+
+            // 羊刃 (以阳干帝旺为准)
+            const yangRenMap = {'甲':'卯', '丙':'午', '戊':'午', '庚':'酉', '壬':'子'};
+            if (yangRenMap[dayGan] === pillarZhi) list.push('羊刃');
+
+            // 国印贵人
+            const guoYinMap = {'甲':'戌', '乙':'亥', '丙':'丑', '丁':'寅', '戊':'丑', '己':'寅', '庚':'辰', '辛':'巳', '壬':'未', '癸':'申'};
+            if (guoYinMap[dayGan] === pillarZhi) list.push('国印');
+
+            // 金舆
+            const jinYuMap = {'甲':'辰', '乙':'巳', '丙':'未', '丁':'申', '戊':'未', '己':'申', '庚':'戌', '辛':'亥', '壬':'丑', '癸':'寅'};
+            if (jinYuMap[dayGan] === pillarZhi) list.push('金舆');
+
+            // 红艳煞
+            const hongYanMap = {'甲':'午', '乙':'申', '丙':'寅', '丁':'未', '戊':'辰', '己':'辰', '庚':'戌', '辛':'酉', '壬':'子', '癸':'申'};
+            if (hongYanMap[dayGan] === pillarZhi) list.push('红艳');
+
+            // 太极贵人
+            if (dayGan === '甲' || dayGan === '乙') { if (['子', '午'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '丙' || dayGan === '丁') { if (['卯', '酉'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '戊' || dayGan === '己') { if (['辰', '戌', '丑', '未'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '庚' || dayGan === '辛') { if (['寅', '亥'].includes(pillarZhi)) list.push('太极'); }
+            else if (dayGan === '壬' || dayGan === '癸') { if (['巳', '申'].includes(pillarZhi)) list.push('太极'); }
+
+
+            // --- 以年支或日支查神煞 (地支三合局推导) ---
+            const getSanHeGroup = (z) => {
+                if (['申','子','辰'].includes(z)) return '水';
+                if (['寅','午','戌'].includes(z)) return '火';
+                if (['亥','卯','未'].includes(z)) return '木';
+                if (['巳','酉','丑'].includes(z)) return '金';
+                return '';
+            };
+
+            [yearZhi, dayZhi].forEach(baseZhi => {
+                if (!baseZhi) return;
+                const group = getSanHeGroup(baseZhi);
+                
+                // 驿马 (申子辰马在寅, 寅午戌马在申, 亥卯未马在巳, 巳酉丑马在亥)
+                if ((group === '水' && pillarZhi === '寅') || 
+                    (group === '火' && pillarZhi === '申') || 
+                    (group === '木' && pillarZhi === '巳') || 
+                    (group === '金' && pillarZhi === '亥')) {
+                    if (!list.includes('驿马')) list.push('驿马');
+                }
+
+                // 桃花 (申子辰在酉, 寅午戌在卯, 亥卯未在子, 巳酉丑在午)
+                if ((group === '水' && pillarZhi === '酉') || 
+                    (group === '火' && pillarZhi === '卯') || 
+                    (group === '木' && pillarZhi === '子') || 
+                    (group === '金' && pillarZhi === '午')) {
+                    if (!list.includes('桃花')) list.push('桃花');
+                }
+
+                // 华盖 (申子辰在辰, 寅午戌在戌, 亥卯未在未, 巳酉丑在丑)
+                if ((group === '水' && pillarZhi === '辰') || 
+                    (group === '火' && pillarZhi === '戌') || 
+                    (group === '木' && pillarZhi === '未') || 
+                    (group === '金' && pillarZhi === '丑')) {
+                    if (!list.includes('华盖')) list.push('华盖');
+                }
+
+                // 将星 (申子辰在子, 寅午戌在午, 亥卯未在卯, 巳酉丑在酉)
+                if ((group === '水' && pillarZhi === '子') || 
+                    (group === '火' && pillarZhi === '午') || 
+                    (group === '木' && pillarZhi === '卯') || 
+                    (group === '金' && pillarZhi === '酉')) {
+                    if (!list.includes('将星')) list.push('将星');
+                }
+                
+                // 劫煞 (申子辰在巳, 寅午戌在亥, 亥卯未在申, 巳酉丑在寅)
+                if ((group === '水' && pillarZhi === '巳') || 
+                    (group === '火' && pillarZhi === '亥') || 
+                    (group === '木' && pillarZhi === '申') || 
+                    (group === '金' && pillarZhi === '寅')) {
+                    if (!list.includes('劫煞')) list.push('劫煞');
+                }
+                
+                // 亡神 (申子辰在亥, 寅午戌在巳, 亥卯未在寅, 巳酉丑在申)
+                if ((group === '水' && pillarZhi === '亥') || 
+                    (group === '火' && pillarZhi === '巳') || 
+                    (group === '木' && pillarZhi === '寅') || 
+                    (group === '金' && pillarZhi === '申')) {
+                    if (!list.includes('亡神')) list.push('亡神');
+                }
+            });
+
+            // --- 其它特殊神煞 ---
+            // 魁罡 (日柱为主，若出现在其他柱也标注)
+            if (['庚辰','庚戌','壬辰','戊戌'].includes(pillarGan + pillarZhi)) {
+                list.push('魁罡');
+            }
+
+            return [...new Set(list)]; // 去重
+        };
+
+        // 4. 简化排盘逻辑 (由于无法引入巨大天文库，此处使用模拟算法，逻辑上符合规则)
         // 实际开发中需替换为 lunar-javascript 库
         const calculateBazi = (dateStr, timeHour, gender, isSolarTime) => {
             // 修正：直接解析 YYYY-MM-DD 字符串，避免 new Date(dateStr) 产生的 UTC/本地时区偏差导致日期错乱
@@ -403,18 +518,16 @@
                         </div>
                     </div>
 
-                    {/* 核心排盘表格 */}
-                    <div className="grid grid-cols-6 border-2 border-indigo-900 text-sm">
+                    {/* 核心排盘表格 - 改为5列 */}
+                    <div className="grid grid-cols-5 border-2 border-indigo-900 text-sm">
                         {/* 表头 */}
-                        <div className={headClass + " bg-indigo-900 text-gold"}>项目</div>
-                        <div className={headClass}>日期</div>
+                        <div className={headClass + " bg-indigo-900 text-gold"}>日期</div>
                         {pillars.map((p, i) => (
                             <div key={p} className={headClass}>{titles[i]}</div>
                         ))}
 
                         {/* 主星 (十神 - 天干) */}
                         <div className={cellClass + " font-bold text-gray-500"}>主星</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass + " text-gray-500 text-xs"}>
                                 {p === 'day' ? <span className="text-cinnabar font-bold text-lg">日主</span> : getTenGod(dayMaster, data[p].gan)}
@@ -423,7 +536,6 @@
 
                         {/* 天干 */}
                         <div className={cellClass + " font-lishu text-lg font-bold"}>天干</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass}>
                                 <span className={`text-2xl font-lishu font-bold ${p === 'day' ? 'text-cinnabar' : 'text-indigo-900'}`}>
@@ -434,7 +546,6 @@
 
                         {/* 地支 */}
                         <div className={cellClass + " font-lishu text-lg font-bold"}>地支</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => {
                              const isKongWang = kongWang.includes(data[p].zhi);
                              return (
@@ -449,7 +560,6 @@
 
                         {/* 藏干 (本气/余气/藏干) */}
                         <div className={cellClass + " font-bold text-gray-500"}>藏干</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass + " text-xs items-start pl-4"}>
                                 {ZHI_HIDDEN[data[p].zhi].map((h, idx) => (
@@ -463,35 +573,34 @@
 
                         {/* 纳音 */}
                         <div className={cellClass + " font-bold text-gray-500"}>纳音</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => (
                             <div key={p} className={cellClass}>
                                 <span className="vertical-text text-gray-600 text-xs h-16">{NA_YIN[data[p].gan + data[p].zhi]}</span>
                             </div>
                         ))}
 
-                        {/* 神煞 (模拟) */}
+                        {/* 神煞 (新版 - 全量排查) */}
                         <div className={cellClass + " font-bold text-gray-500"}>神煞</div>
-                        <div className={cellClass}></div>
                         {pillars.map(p => {
-                            // 简单的神煞模拟
-                            let shens = [];
-                            if (data[p].zhi === '子' && dayMaster === '壬') shens.push('羊刃');
-                            if (data[p].zhi === '午' && (dayMaster === '丙' || dayMaster === '戊')) shens.push('羊刃');
-                            if (['子','午','卯','酉'].includes(data[p].zhi)) shens.push('桃花');
-                            if (['辰','戌','丑','未'].includes(data[p].zhi)) shens.push('华盖');
-                            if (['寅','申','巳','亥'].includes(data[p].zhi)) shens.push('驿马');
-                            
-                            // 天乙贵人逻辑模拟
-                            if ((dayMaster === '甲' || dayMaster === '戊') && (data[p].zhi === '丑' || data[p].zhi === '未')) shens.push('天乙');
+                            // 传入当前柱的 天干, 地支, 加上 日主, 年支, 日支 进行神煞全量计算
+                            const shens = getShenSha(data[p].gan, data[p].zhi, dayMaster, data.year.zhi, data.day.zhi);
                             
                             return (
-                                <div key={p} className={cellClass + " text-[10px]"}>
-                                    {shens.map(s => (
-                                        <span key={s} className={`block mb-1 px-1 rounded ${s==='天乙'?'bg-cinnabar text-white':'bg-gray-100 text-gray-600'}`}>
-                                            {s}
-                                        </span>
-                                    ))}
+                                <div key={p} className={cellClass + " text-[10px] flex flex-wrap gap-1 justify-center content-start py-2"}>
+                                    {shens.map(s => {
+                                        const isGood = ['天乙', '太极', '文昌', '禄神', '国印', '将星', '金舆'].includes(s);
+                                        const isBad = ['劫煞', '亡神', '羊刃', '魁罡'].includes(s); // 魁罡中性，此处暂列
+                                        return (
+                                            <span key={s} className={`block px-1 rounded border ${
+                                                s==='天乙' ? 'bg-cinnabar text-white border-cinnabar' : 
+                                                isGood ? 'bg-red-50 text-cinnabar border-red-100' :
+                                                isBad ? 'bg-gray-700 text-white border-gray-700' :
+                                                'bg-gray-100 text-gray-600 border-gray-200'
+                                            }`}>
+                                                {s}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             );
                         })}
@@ -513,6 +622,29 @@
             const dayEl = getFiveElement(dayMaster);
             const nameTotalStrokes = getSimulatedStrokes(userInfo.name);
             const yiGua = calculateNameYi(userInfo.name, nameTotalStrokes, dayEl);
+
+            // --- 收集所有柱的神煞 ---
+            const allShenSha = new Set();
+            ['year', 'month', 'day', 'hour'].forEach(p => {
+                const shens = getShenSha(data[p].gan, data[p].zhi, dayMaster, data.year.zhi, data.day.zhi);
+                shens.forEach(s => allShenSha.add(s));
+            });
+
+            // --- 生成神煞解语 ---
+            let shenShaAnalysis = [];
+            
+            if (allShenSha.has('天乙')) shenShaAnalysis.push({ title: '天乙贵人', desc: '命带天乙，一生多得贵人提携，逢凶化吉，遇难呈祥，人缘佳，易获社会地位。' });
+            if (allShenSha.has('文昌')) shenShaAnalysis.push({ title: '文昌贵人', desc: '文昌入命，主聪明好学，才华横溢，利于考学、从事文职或学术研究，气质儒雅。' });
+            if (allShenSha.has('禄神')) shenShaAnalysis.push({ title: '禄神', desc: '命坐禄神，主财禄丰盈，衣食无忧，性格稳重，有较强的理财能力和福气。' });
+            if (allShenSha.has('驿马')) shenShaAnalysis.push({ title: '驿马', desc: '驿马入命，主奔波劳碌，或背井离乡发展，动中求财，利于外贸、交通、旅游等动行业。' });
+            if (allShenSha.has('桃花')) shenShaAnalysis.push({ title: '桃花', desc: '命带桃花，主风流倜傥，异性缘佳，具有艺术天分和审美能力，但需防感情纠纷。' });
+            if (allShenSha.has('羊刃')) shenShaAnalysis.push({ title: '羊刃', desc: '羊刃入命，性格刚毅果断，急躁冲动，由于气势过强，需防意外损伤或人际冲突，宜从事军警武职。' });
+            if (allShenSha.has('魁罡')) shenShaAnalysis.push({ title: '魁罡', desc: '魁罡贵人，性格刚烈，掌权好杀，聪明果断，有领导才能，但婚姻易有波折。' });
+            if (allShenSha.has('华盖')) shenShaAnalysis.push({ title: '华盖', desc: '华盖入命，主孤独清高，喜钻研宗教、哲学或玄学，才华出众但性格内向。' });
+            if (allShenSha.has('将星')) shenShaAnalysis.push({ title: '将星', desc: '将星入命，有领导才能，权威显达，能掌权柄，利于管理或政治发展。' });
+            if (allShenSha.has('金舆')) shenShaAnalysis.push({ title: '金舆', desc: '金舆入命，主富贵，出入有车马，配偶条件佳，生活优裕。' });
+            
+            if (shenShaAnalysis.length === 0) shenShaAnalysis.push({ title: '神煞平稳', desc: '命局神煞显现较少，说明人生运势更多依赖五行生克制化，少大起大落，平实稳健。' });
 
             // --- 1. 事业格局深度逻辑 ---
             // 判断月令本气
@@ -667,7 +799,23 @@
                         </div>
                     </div>
 
-                    {/* 3. 易卦姓名 (扩充) */}
+                     {/* 3. 新增：神煞命理讲解 (插在中间) */}
+                     <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-cinnabar mr-3"></span>
+                            神煞命理讲解
+                        </h3>
+                        <div className="grid grid-cols-1 gap-4">
+                            {shenShaAnalysis.map((item, idx) => (
+                                <div key={idx} className="text-sm text-gray-700 leading-relaxed">
+                                    <span className="font-bold text-indigo-900 text-base">【{item.title}】</span>
+                                    {item.desc}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 4. 易卦姓名 (扩充) */}
                     <div className="vintage-border bg-white/90 p-6 relative">
                         <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
                             <span className="w-2 h-6 bg-indigo-900 mr-3"></span>
@@ -699,7 +847,7 @@
                         </div>
                     </div>
 
-                    {/* 4. 未来三年运势 (扩充) */}
+                    {/* 5. 未来三年运势 (扩充) */}
                     <div className="vintage-border bg-white/90 p-6 relative">
                         <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
                             <span className="w-2 h-6 bg-cinnabar mr-3"></span>
