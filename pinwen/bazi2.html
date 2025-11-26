@@ -503,90 +503,277 @@
         const AnalysisSection = ({ data, userInfo }) => {
             if (!data) return null;
             
-            // 简单五行判断日主强弱
-            // 真实逻辑需要得令、得地、得势综合判断，此处简化演示
+            // 基础信息提取
             const dayMaster = data.day.gan;
             const monthZhi = data.month.zhi;
-            // 假设：生在同五行或印月为强
-            const isStrong = ['寅','卯'].includes(monthZhi) && ['甲','乙'].includes(dayMaster); 
+            const dayZhi = data.day.zhi;
+            const isMale = userInfo.gender === 'male';
             
-            // 修复：动态计算五行与笔画
-            const dayEl = getFiveElement(dayMaster); // 动态获取日主五行
-            const nameTotalStrokes = getSimulatedStrokes(userInfo.name); // 动态计算姓名总笔画
-            const yiGua = calculateNameYi(userInfo.name, nameTotalStrokes, dayEl); // 传入计算后的参数
+            // --- 动态计算五行与笔画 ---
+            const dayEl = getFiveElement(dayMaster);
+            const nameTotalStrokes = getSimulatedStrokes(userInfo.name);
+            const yiGua = calculateNameYi(userInfo.name, nameTotalStrokes, dayEl);
+
+            // --- 1. 事业格局深度逻辑 ---
+            // 判断月令本气
+            const monthZhiMainGan = ZHI_HIDDEN[monthZhi][0].gan;
+            const monthTenGod = getTenGod(dayMaster, monthZhiMainGan); // 月令格局核心
+            
+            // 强弱判断 (简化版：得月令或得地)
+            const isStrong = ['寅','卯'].includes(monthZhi) && ['甲','乙'].includes(dayMaster) ||
+                            ['巳','午'].includes(monthZhi) && ['丙','丁'].includes(dayMaster) ||
+                            ['申','酉'].includes(monthZhi) && ['庚','辛'].includes(dayMaster) ||
+                            ['亥','子'].includes(monthZhi) && ['壬','癸'].includes(dayMaster) ||
+                            ['辰','戌','丑','未'].includes(monthZhi) && ['戊','己'].includes(dayMaster);
+            
+            let careerAdvice = "";
+            let patternDesc = "";
+
+            // 根据月令十神定格局描述
+            if(monthTenGod.includes('官')) {
+                patternDesc = "此造月令正官，为人正直负责，行事稳重，有极强的自律性和管理能力。";
+                careerAdvice = "适合在体制内、大型企业、行政管理等稳定性高的领域发展。若官星透干，更易获得职级晋升。";
+            } else if(monthTenGod.includes('杀')) {
+                patternDesc = "月令七杀，性格果断坚毅，有魄力，不畏艰难，具备开创精神。";
+                careerAdvice = "适合军警、司法、创业、市场开拓或具有挑战性的工作。职业生涯早期多波折，但成就往往惊人。";
+            } else if(monthTenGod.includes('财')) {
+                patternDesc = "月令财星，现实务实，商业嗅觉敏锐，善于理财和资源整合。";
+                careerAdvice = "适合金融、贸易、销售、会计或自主经商。若身旺能担财，则富贵可期；若身弱则需防财多压身，宜合伙求财。";
+            } else if(monthTenGod.includes('印')) {
+                patternDesc = "月令印星，慈悲善良，重名誉，喜学习，有深厚的文化底蕴或专业技能。";
+                careerAdvice = "适合教育、学术、研究、咨询、医疗或文化传媒行业。贵人运强，多得长辈或上司提携。";
+            } else if(monthTenGod.includes('食') || monthTenGod.includes('伤')) {
+                patternDesc = "月令食伤，才华横溢，思维活跃，崇尚自由，不喜拘束，有独特的表现力。";
+                careerAdvice = "适合艺术、设计、技术研发、演艺、营销策划等需要创意和技能的行业。不宜从事过于刻板的行政工作。";
+            } else {
+                patternDesc = "月令比劫，意志坚定，自信心强，但个性较为固执，喜竞争。";
+                careerAdvice = "适合自由职业、合伙经营、体力主导或竞争性强的业务岗位。需防同辈竞争或财务纠纷。";
+            }
+
+            // --- 2. 婚姻家庭深度逻辑 ---
+            const spouseStars = isMale ? ['正财', '偏财'] : ['正官', '七杀'];
+            // 检查四柱天干是否透出配偶星
+            const visibleSpouseStar = [data.year.gan, data.month.gan, data.hour.gan].map(g => getTenGod(dayMaster, g)).find(tg => spouseStars.includes(tg));
+            
+            // 日支（夫妻宫）特性
+            const dayZhiTenGod = getTenGod(dayMaster, ZHI_HIDDEN[dayZhi][0].gan);
+            let marriageDesc = "";
+            let spouseChar = "";
+
+            // 夫妻宫十神判断
+            if(dayZhiTenGod.includes('财')) {
+                marriageDesc = isMale ? "男命日坐财星，主妻贤淑得力，能得妻子之财或因妻致富。" : "女命日坐财星，倾向于找经济条件较好或善于理财的配偶，但也可能因财生官而旺夫。";
+                spouseChar = "配偶务实精明，善于持家。";
+            } else if(dayZhiTenGod.includes('官') || dayZhiTenGod.includes('杀')) {
+                marriageDesc = isMale ? "男命日坐官杀，妻管严，妻子性格强势或能力出众。" : "女命日坐官杀，夫星得位，丈夫多为家庭核心，但需防七杀过旺带来的压力。";
+                spouseChar = "配偶性格稳重，责任感强，或有些许霸道。";
+            } else if(dayZhiTenGod.includes('印')) {
+                marriageDesc = "日坐印星，配偶仁慈宽厚，对自己多有呵护照顾，如同长辈般关怀。";
+                spouseChar = "配偶性格温和，有涵养，但可能略显依赖或行动力不足。";
+            } else if(dayZhiTenGod.includes('食') || dayZhiTenGod.includes('伤')) {
+                marriageDesc = isMale ? "男命日坐食伤，对妻子疼爱有加，但也容易情绪化。" : "女命日坐食伤，克夫之象，对丈夫要求过高或挑剔，易引发口角。";
+                spouseChar = "配偶聪明伶俐，才华出众，长相多清秀，但情绪起伏较大。";
+            } else {
+                marriageDesc = "日坐比劫，夫妻之间更像朋友或合作伙伴，但也容易固执己见，互不相让，多有争吵。";
+                spouseChar = "配偶个性刚强，主观意识强，行事果断。";
+            }
+
+            // --- 3. 姓名深度逻辑 ---
+            // 模拟数理灵动 (简化版)
+            let strokeLucky = "中平";
+            let strokeDesc = "此数理半吉半凶，运势浮沉不定，需依个人努力而定。";
+            const luckyStrokes = [1,3,5,6,7,8,11,13,15,16,21,23,24,25,31,32,33,35,37,39,41,45,47,48,52];
+            if(luckyStrokes.includes(nameTotalStrokes % 81)) {
+                strokeLucky = "大吉";
+                strokeDesc = "此数理为首领运格，天赋吉运，甚至能点石成金，利于事业开创与功名成就。";
+            }
+
+            // --- 4. 未来三年流年逻辑 ---
+            const currentYear = new Date().getFullYear();
+            const futureYears = [];
+            for (let i = 0; i < 3; i++) {
+                const y = currentYear + i;
+                const offset = y - 1900;
+                const ganStr = GAN[(6 + offset) % 10]; // 1900 庚
+                const zhiStr = ZHI[(0 + offset) % 12]; // 1900 子
+                const tenGod = getTenGod(dayMaster, ganStr);
+                
+                let advice = "";
+                // 简单的流年建议生成
+                if(tenGod.includes('财')) advice = "流年见财，利于投资理财、拓展业务。上班族可争取加薪，经商者商机增多。男命桃花运旺，单身者宜把握。需防财多坏印，注意长辈健康。";
+                else if(tenGod.includes('官') || tenGod.includes('杀')) advice = "官杀克身，压力与机遇并存。利于考公、升职考核、获取名誉。女命感情运佳。若身弱则需防小人是非，注意休息，避免过劳。";
+                else if(tenGod.includes('印')) advice = "印星生身，利于学习进修、考证获誉、置办房产。贵人运强，多得长辈提携。心态趋于平和，宜静不宜动，不宜盲目扩张投资。";
+                else if(tenGod.includes('食') || tenGod.includes('伤')) advice = "食伤泄秀，思维活跃，才华发挥。利于创作、设计、技艺提升。但言多必失，职场中需谨言慎行，防口舌是非。";
+                else advice = "比劫夺财，利于结交朋友、拓展人脉、合作共赢。但财运起伏大，容易破财，不宜借贷担保。感情上需防第三者或竞争关系。";
+
+                futureYears.push({ year: y, gan: ganStr, zhi: zhiStr, tenGod, advice });
+            }
 
             return (
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* 事业分析 */}
-                    <div className="vintage-border bg-white/90 p-4 relative">
-                        <h3 className="font-lishu text-xl text-indigo-900 border-b border-gold mb-3 flex items-center">
-                            <span className="w-2 h-6 bg-cinnabar mr-2"></span>
-                            事业格局
+                <div className="mt-6 grid grid-cols-1 gap-8">
+                    {/* 1. 事业格局 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-cinnabar mr-3"></span>
+                            事业格局分析
                         </h3>
-                        <p className="text-sm leading-relaxed text-gray-700 indent-8">
-                            日主<span className="font-bold text-cinnabar">{dayMaster}</span>（五行属{dayEl}），
-                            {isStrong ? '身旺' : '身弱'}之局。
-                            官杀星为事业宫，当前命局中
-                            {getTenGod(dayMaster, data.month.gan).includes('官') ? '月透官星，贵气得显。' : '官星藏于地支，宜稳中求进。'}
-                            财星滋杀，{data.year.zhi === '辰' ? '库通根气' : '需防财来财去'}。
-                            建议从事五行属{dayEl === '木' ? '火、土' : (dayEl === '火' ? '土、金' : (dayEl === '土' ? '金、水' : (dayEl === '金' ? '水、木' : '木、火')))}之行业。
-                        </p>
+                        <div className="space-y-4 text-gray-700 leading-relaxed text-justify">
+                            <p>
+                                <span className="font-bold text-indigo-900">【命局定性】</span>
+                                日主<span className="font-bold text-cinnabar">{dayMaster}</span>（五行属{dayEl}），生于{data.month.zhi}月。
+                                {patternDesc}
+                                全局气势判定为<span className="font-bold">{isStrong ? '身旺' : '身弱'}</span>。
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【行业指引】</span>
+                                建议从事五行属<span className="font-bold text-cinnabar">{dayEl === '木' ? '火、土' : (dayEl === '火' ? '土、金' : (dayEl === '土' ? '金、水' : (dayEl === '金' ? '水、木' : '木、火')))}</span>之行业。
+                                {dayEl === '木' ? '如能源、餐饮、建筑、房地产等。' : 
+                                 dayEl === '火' ? '如房地产、农牧、五金、金融等。' :
+                                 dayEl === '土' ? '如金融、珠宝、物流、水产等。' :
+                                 dayEl === '金' ? '如水利、运输、林业、纺织等。' :
+                                 '如教育、出版、光电、IT互联网等。'}
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【发展建议】</span>
+                                {careerAdvice}
+                            </p>
+                        </div>
                     </div>
 
-                    {/* 姓名与易卦 */}
-                    <div className="vintage-border bg-white/90 p-4 relative">
-                        <h3 className="font-lishu text-xl text-indigo-900 border-b border-gold mb-3 flex items-center">
-                            <span className="w-2 h-6 bg-indigo-900 mr-2"></span>
-                            易卦姓名
+                    {/* 2. 婚姻家庭 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-indigo-900 mr-3"></span>
+                            婚姻情感剖析
                         </h3>
-                        <div className="flex items-start gap-4">
-                            <div className="text-center">
-                                <div className="text-4xl font-lishu mb-2">{yiGua.gua}</div>
-                                <div className="text-xs bg-indigo-100 px-2 py-1 rounded">五行: {yiGua.five}</div>
+                        <div className="space-y-4 text-gray-700 leading-relaxed text-justify">
+                            <p>
+                                <span className="font-bold text-indigo-900">【配偶星缘】</span>
+                                {isMale ? '乾造' : '坤造'}以<span className="font-bold text-indigo-900">{isMale ? '财星' : '官杀'}</span>为配偶星。
+                                {visibleSpouseStar ? `命局天干透出${visibleSpouseStar}，代表异性缘分较明显，感情机会多，容易早恋或早婚。` : '天干不显配偶星，感情多藏于地支或流年大运中，缘分来得较晚，或倾向于晚婚，感情生活平淡。'}
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【夫妻宫像】</span>
+                                日支夫妻宫坐<span className="font-bold text-cinnabar">{dayZhi}</span>。
+                                {marriageDesc}
+                            </p>
+                            <p>
+                                <span className="font-bold text-indigo-900">【伴侣画像】</span>
+                                {spouseChar}
+                                {['子','午','卯','酉'].includes(dayZhi) ? '且配偶多为气质佳、相貌端庄之人，桃花较旺。' : 
+                                 ['寅','申','巳','亥'].includes(dayZhi) ? '且配偶多为聪明能干、奔波劳碌或异地之人。' : 
+                                 '且配偶多为敦厚老实、相貌朴素、家庭观念重之人。'}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* 3. 易卦姓名 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-indigo-900 mr-3"></span>
+                            易卦姓名与数理
+                        </h3>
+                        <div className="flex flex-col md:flex-row gap-8">
+                            <div className="flex-shrink-0 text-center md:border-r border-indigo-100 md:pr-8">
+                                <div className="text-6xl font-lishu text-cinnabar mb-2">{yiGua.gua}</div>
+                                <div className="text-sm bg-indigo-50 px-3 py-1 rounded inline-block text-indigo-900 mb-2">五行: {yiGua.five}</div>
+                                <div className="text-xs text-gray-500">变爻: 六{yiGua.yao}</div>
                             </div>
-                            <div className="text-sm text-gray-700">
-                                <p className="mb-1"><span className="font-bold">卦辞：</span>{yiGua.desc}</p>
-                                <p className="mb-1"><span className="font-bold">变爻：</span>六{yiGua.yao}</p>
-                                <p className="mb-1">
-                                    <span className="font-bold">吉凶：</span>
-                                    <span className={yiGua.luck.includes('吉') ? 'text-cinnabar' : 'text-gray-600'}>
-                                        {yiGua.luck}
-                                    </span>
+                            <div className="flex-1 space-y-3 text-sm text-gray-700 leading-relaxed">
+                                <p><span className="font-bold text-indigo-900">【卦象辞意】</span>{yiGua.desc}</p>
+                                <p>
+                                    <span className="font-bold text-indigo-900">【五行生克】</span>
+                                    此卦五行属{yiGua.five}，与日主{dayMaster}({dayEl})形成
+                                    <span className={yiGua.luck.includes('吉') ? 'text-cinnabar font-bold' : 'text-gray-600'}>
+                                        {yiGua.luck.split(' ')[0]}
+                                    </span>关系。
+                                    {yiGua.luck.includes('吉') ? '卦气生助日主，名字能为命主带来正向的能量磁场，辅助运势提升。' : '卦气与日主相克或耗泄，名字助力稍弱，需靠后天努力补足。'}
                                 </p>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    注：依据康熙字典笔画推演 (总格: {nameTotalStrokes}画 / 日主喜用参断)
+                                <p>
+                                    <span className="font-bold text-indigo-900">【数理灵动】</span>
+                                    总格笔画<span className="font-bold text-cinnabar">{nameTotalStrokes}</span>画。
+                                    <span className="font-bold">{strokeLucky}。</span>
+                                    {strokeDesc}
                                 </p>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* 4. 未来三年运势 (扩充) */}
+                    <div className="vintage-border bg-white/90 p-6 relative">
+                        <h3 className="font-lishu text-2xl text-indigo-900 border-b border-gold mb-4 flex items-center">
+                            <span className="w-2 h-6 bg-cinnabar mr-3"></span>
+                            未来三年运势走向
+                        </h3>
+                        <div className="space-y-6">
+                            {futureYears.map(item => (
+                                <div key={item.year} className="flex flex-col md:flex-row gap-4 border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                                    <div className="md:w-32 flex-shrink-0">
+                                        <div className="font-bold text-indigo-900 font-lishu text-2xl">{item.year}</div>
+                                        <div className="flex items-center gap-2 mt-1">
+                                            <span className="bg-indigo-900 text-gold text-xs px-2 py-0.5 rounded">{item.gan}{item.zhi}年</span>
+                                            <span className="text-xs border border-cinnabar text-cinnabar px-1 rounded">流年{item.tenGod}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-sm text-gray-800 leading-relaxed">
+                                            <span className="font-bold text-indigo-900">【运程总述】</span>
+                                            {item.advice}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mt-2">
+                                            提示：流年运势仅供参考，具体应结合大运及流月综合推断。
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
             )
         }
 
-        // 新增：联系咨询组件
+        // 新增：联系方式组件
         const ContactSection = () => {
             return (
-                <div className="mt-8 vintage-border bg-white/90 p-6 flex flex-col md:flex-row items-center justify-center gap-8">
-                    <div className="text-center md:text-left">
-                        <h3 className="font-lishu text-2xl text-indigo-900 mb-3 flex items-center justify-center md:justify-start">
-                            <span className="w-2 h-8 bg-cinnabar mr-2"></span>
-                            八字详批咨询
-                        </h3>
-                        <p className="text-gray-700 leading-relaxed max-w-md">
-                            若需详细解析八字命理、大运走势、姻缘事业、起名改名等专业服务，
-                            可扫码联系扇子老师助理，获取一对一精准指导。
-                        </p>
-                        <div className="mt-4 flex justify-center md:justify-start">
-                            <span className="seal text-cinnabar">专业指导</span>
-                        </div>
+                <div className="mt-6 vintage-border bg-white/90 p-6 relative overflow-hidden">
+                     {/* 背景纹理装饰 */}
+                    <div className="absolute top-0 right-0 opacity-5 pointer-events-none transform translate-x-10 -translate-y-10">
+                        <svg width="150" height="150" viewBox="0 0 100 100" fill="var(--color-indigo)">
+                            <path d="M50 0 C20 0 0 20 0 50 C0 80 20 100 50 100 C80 100 100 80 100 50 C100 20 80 0 50 0 Z M50 90 C30 90 10 70 10 50 C10 30 30 10 50 10 C70 10 90 30 90 50 C90 70 70 90 50 90 Z" />
+                        </svg>
                     </div>
-                    <div className="bg-white p-3 rounded-lg shadow-md border border-gold/30">
-                        <img 
-                            src="https://linweijie666-123.github.io/erweima.png" 
-                            alt="联系扇子老师助理" 
-                            className="w-48 h-48 object-contain"
-                        />
-                        <p className="text-center text-xs text-gray-500 mt-2">扫码添加助理微信</p>
+
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 px-2 relative z-10">
+                        <div className="flex-1 text-center md:text-left space-y-3">
+                            <h3 className="font-lishu text-2xl text-indigo-900 flex items-center justify-center md:justify-start">
+                                <span className="w-2 h-6 bg-cinnabar mr-3 hidden md:block"></span>
+                                深度命理咨询
+                            </h3>
+                            <div className="w-16 h-[2px] bg-gold mx-auto md:mx-0 mb-2"></div>
+                            <p className="text-gray-700 text-sm leading-loose">
+                                <span className="line-through text-gray-400 hidden">电脑</span>排盘仅为数理基础，若您希望<span className="font-bold text-cinnabar">详细了解自己的八字</span>格局，
+                                或针对<span className="text-indigo-900 font-bold">流年运势、事业财运、婚姻情感</span>有具体困惑，
+                                欢迎扫码联系<span className="font-bold text-lg text-indigo-900 mx-1 border-b border-gold">扇子老师助理</span>进行一对一专业讲解。
+                            </p>
+                        </div>
+                        
+                        <div className="flex flex-col items-center group">
+                            <div className="relative p-2 border border-gold rounded bg-white shadow-md transition-all duration-300 hover:shadow-xl hover:border-cinnabar">
+                                <img 
+                                    src="https://linweijie666-123.github.io/erweima.png" 
+                                    alt="扇子老师助理二维码" 
+                                    className="w-32 h-32 object-contain rounded-sm"
+                                />
+                                {/* 四角装饰 */}
+                                <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-indigo-900"></div>
+                                <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-indigo-900"></div>
+                                <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-indigo-900"></div>
+                                <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-indigo-900"></div>
+                            </div>
+                            <span className="mt-2 text-xs font-bold text-white bg-indigo-900 px-3 py-0.5 rounded-full shadow">
+                                微信扫码咨询
+                            </span>
+                        </div>
                     </div>
                 </div>
             );
@@ -619,15 +806,13 @@
                         <div className="animate-fade-in">
                             <BaziChart data={result} userInfo={userInfo} />
                             <AnalysisSection data={result} userInfo={userInfo} />
+                            <ContactSection />
                         </div>
                     )}
 
-                    {/* 新增联系咨询区域 */}
-                    <ContactSection />
-
                     <footer className="text-center mt-12 text-xs text-gray-500 font-lishu">
-                        <p>©黑扇子八字排盘 | 真太阳时校正 | 易经数理分析</p>
-                        <p className="mt-1">Designed for Professional Numerology</p>
+                        <p>© 2025 黑扇子八字排盘系统 | 易经数理分析</p>
+                        <p className="mt-1">八字排盘仅供参考</p>
                     </footer>
                 </div>
             );
