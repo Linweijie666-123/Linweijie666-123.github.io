@@ -1,1183 +1,683 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>董洪涛先生事业深度命理剖析</title>
+    <title>三同事黑扇子 | 三元玄空九运真解</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    
-    <!-- 配置Tailwind自定义主题 -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#9D2933',    // 传统中国红
-                        secondary: '#D4AF37',  // 金色
-                        accent: '#8B4513',     // 深棕色
-                        background: '#F5F0E1', // 米黄色(古籍纸色)
-                        text: '#2D2424',       // 深褐色文字
-                        light: '#F9F5EB',      // 浅米色
-                    },
-                    fontFamily: {
-                        song: ['SimSun', 'STSong', 'serif'],       // 宋体(用于正文)
-                        kai: ['KaiTi', 'STKaiti', 'cursive'],      // 楷体(用于标题)
-                        hei: ['SimHei', 'STHeiti', 'sans-serif'],  // 黑体(用于强调文字)
-                    },
-                }
-            }
-        }
-    </script>
-    
-    <!-- 自定义工具类 -->
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .bg-texture {
-                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50L30 30M50 50L70 30M50 50L70 70M50 50L30 70' stroke='%239D2933' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
-            }
-            .border-pattern {
-                border-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm20 0a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM10 37a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm10-17h20v20H20V20zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z' fill='%239D2933' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E") 10 repeat;
-            }
-            .text-shadow {
-                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-            }
-            .scroll-smooth {
-                scroll-behavior: smooth;
-            }
-        }
-    </style>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- HTML2Canvas & jsPDF for Real PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
-        /* 全局样式 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
         body {
-            background-color: #F5F0E1;
-            color: #2D2424;
-            scroll-behavior: smooth;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f5f5f4;
+            color: #1c1917;
         }
         
-        /* 古籍风格边框动画 */
-        .ancient-border {
-            position: relative;
-        }
-        
-        .ancient-border::before {
-            content: "";
+        .serif { font-family: 'Noto Serif SC', serif; }
+
+        .ink-bg { background-color: #0f172a; }
+        .ink-text { color: #0f172a; }
+
+        /* Grid Overlay Styles */
+        .grid-overlay {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 1px solid rgba(157, 41, 51, 0.2);
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
+            border: 2px solid rgba(15, 23, 42, 0.9);
+            z-index: 10;
         }
-        
-        /* 导航栏滚动效果 */
-        .nav-scrolled {
-            background-color: rgba(245, 240, 225, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* 五行符号样式 */
-        .five-elements {
-            font-size: 1.5rem;
-            display: inline-block;
-            width: 2rem;
-            height: 2rem;
-            text-align: center;
-            line-height: 2rem;
-            border-radius: 50%;
-            margin: 0 0.25rem;
-        }
-        
-        /* 引用样式 */
-        .ancient-quote {
+        .grid-cell {
+            border: 1px dashed rgba(15, 23, 42, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.2s;
             position: relative;
-            padding: 1rem;
-            padding-left: 2rem;
-            border-left: 3px solid #9D2933;
-            font-style: italic;
+            backdrop-filter: blur(1px);
+        }
+        .grid-cell:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
         }
         
-        .ancient-quote::before {
-            content: "「";
-            position: absolute;
-            left: 0.5rem;
-            top: 0.5rem;
-            font-size: 2rem;
-            color: #9D2933;
-            opacity: 0.3;
-            font-family: 'KaiTi', 'STKaiti', cursive;
+        /* Flying Star Numbers Layout */
+        .star-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            padding: 2px;
         }
-        
-        /* 章节过渡效果 */
-        .section-content {
-            transition: all 0.3s ease;
+        .star-sitting { /* Top Left - Mountain */
+            grid-area: 1 / 1 / 2 / 2;
+            text-align: left;
+            padding-left: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #1e3a8a; /* Blue */
         }
-        
-        .section-content:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        .star-facing { /* Top Right - Facing */
+            grid-area: 1 / 2 / 2 / 3;
+            text-align: right;
+            padding-right: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #b91c1c; /* Red */
         }
-        
-        /* 平滑滚动 */
-        html {
-            scroll-padding-top: 80px;
+        .star-base { /* Center - Period */
+            grid-area: 2 / 1 / 3 / 3;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #0f172a;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0.6;
         }
+
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0f172a;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
+<body>
+    <div id="root"></div>
 
-<body class="bg-background font-song text-text bg-texture">
-    <!-- 顶部导航栏 -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/90">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center border-b border-primary/20">
-            <h1 class="text-xl md:text-2xl font-kai font-bold text-primary">
-                <i class="fa fa-book mr-2" aria-hidden="true"></i>命理剖析
-            </h1>
-            
-            <!-- 移动端菜单按钮 -->
-            <button id="menu-toggle" class="md:hidden text-primary p-2 rounded-md hover:bg-primary/10 transition-colors">
-                <i class="fa fa-bars text-xl" aria-hidden="true"></i>
-            </button>
-            
-            <!-- 桌面端导航 -->
-            <nav class="hidden md:flex space-x-1">
-                <a href="#intro" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">引言</a>
-                <a href="#mechanism" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">命理机制</a>
-                <a href="#manifestations" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">表现形式</a>
-                <a href="#timeline" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">时间规律</a>
-                <a href="#solutions" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">改善路径</a>
-                <a href="#2025" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">2025专项</a>
-                <a href="#conclusion" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">结语</a>
-            </nav>
-        </div>
-        
-        <!-- 移动端导航菜单 -->
-        <div id="mobile-menu" class="hidden md:hidden bg-light border-b border-primary/20">
-            <div class="container mx-auto px-4 py-2 flex flex-col space-y-1">
-                <a href="#intro" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">引言</a>
-                <a href="#mechanism" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">命理机制</a>
-                <a href="#manifestations" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">表现形式</a>
-                <a href="#timeline" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">时间规律</a>
-                <a href="#solutions" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">改善路径</a>
-                <a href="#2025" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">2025专项</a>
-                <a href="#conclusion" class="px-3 py-2 rounded-md hover:bg-primary/10 transition-colors text-sm font-medium">结语</a>
-            </div>
-        </div>
-    </header>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-    <!-- 主要内容区 -->
-    <main class="container mx-auto px-4 pt-24 pb-16 max-w-4xl">
-        <!-- 标题部分 -->
-        <div class="text-center mb-12 ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-kai font-bold text-primary mb-4 text-shadow">
-                董洪涛先生事业不顺深度命理剖析
-            </h1>
-            <p class="text-[clamp(1.2rem,2vw,1.5rem)] font-kai text-accent italic">
-                古籍增订版
-            </p>
-            
-            <!-- 八字信息 -->
-            <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm md:text-base">
-                <div class="bg-light p-3 rounded-lg border border-primary/20">
-                    <span class="font-kai font-bold text-primary">八字：</span>
-                    <span>乙丑年、甲申月、壬辰日、癸卯时</span>
-                </div>
-                <div class="bg-light p-3 rounded-lg border border-primary/20">
-                    <span class="font-kai font-bold text-primary">格局：</span>
-                    <span>枭神夺食、官杀混杂</span>
-                </div>
-                <div class="bg-light p-3 rounded-lg border border-primary/20">
-                    <span class="font-kai font-bold text-primary">转机：</span>
-                    <span>木火通明（2025乙巳年）</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 五行分析图表 -->
-        <div class="mb-12 ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-xl font-kai font-bold text-primary mb-4 text-center">董洪涛先生八字五行力量分析</h2>
-            <div class="w-full h-64 md:h-80">
-                <canvas id="fiveElementsChart"></canvas>
-            </div>
-            <p class="text-sm text-center mt-4 text-accent italic">
-                注：根据八字分析得出的五行强弱分布，水旺明显，木火偏弱，需调和
-            </p>
-        </div>
-        
-        <!-- 引言部分 -->
-        <section id="intro" class="mb-12 section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-bookmark-o mr-2" aria-hidden="true"></i>引言
-            </h2>
-            
-            <div class="space-y-4">
-                <p>
-                    《三命通会》有云：<span class="font-kai text-accent ancient-quote">"人生天地间，命由天定，运在人为。"</span>然世人常叹
-                    <span class="font-hei text-primary">怀才不遇</span>、<span class="font-hei text-primary">有志难伸</span>，此乃人生之大憾也。董洪涛先生八字为乙丑年、甲申月、壬辰日、癸卯时，日元壬水生于申月长生之地，看似根基深厚，实则暗藏诸多事业阻滞之机。
-                </p>
-                
-                <p>
-                    《神峰通考》载：<span class="font-kai text-accent ancient-quote">"食伤佩印宜文职，偏印食神日劫财。"</span>董先生甲木食神被偏印庚金近克，使表达能力大打折扣，难以淋漓尽致地发挥日主的才华。此乃典型的
-                    <span class="font-hei text-primary">"枭神夺食"</span>格局，正如《滴天髓》所言：<span class="font-kai text-accent ancient-quote">"何知其人贫？财星被劫；何知其人富？财气通门户。"</span>
-                </p>
-                
-                <p>
-                    今借古籍之智，深入剖析董先生事业不顺之根源，探寻<span class="font-hei text-primary">木火通明</span>之转机，为其指明事业发展之正道。
-                </p>
-                
-                <!-- 五行符号展示 -->
-                <div class="flex justify-center mt-8">
-                    <div class="five-elements bg-primary/10 text-primary">木</div>
-                    <div class="five-elements bg-secondary/10 text-secondary">火</div>
-                    <div class="five-elements bg-accent/10 text-accent">土</div>
-                    <div class="five-elements bg-blue-700/10 text-blue-700">金</div>
-                    <div class="five-elements bg-blue-500/10 text-blue-500">水</div>
-                </div>
-                <p class="text-center text-sm text-accent italic">五行调和，方成流通之局</p>
-            </div>
-        </section>
-        
-        <!-- 一、事业不顺的深层命理机制 -->
-        <section id="mechanism" class="mb-12 section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-cogs mr-2" aria-hidden="true"></i>一、事业不顺的深层命理机制
-            </h2>
-            
-            <!-- 1.1 壬水旺而无制的事业困境 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    1.1 壬水旺而无制的事业困境
-                </h3>
-                
-                <p class="mb-4">
-                    《渊海子平》曰：<span class="font-kai text-accent ancient-quote">"壬水生于申月，长生之地，水冷金寒，赖火温之。"</span>董先生壬水生于申月，得月令长生，又有癸水劫财、辰丑藏水帮身，形成<span class="font-hei text-primary">旺水泛涨</span>之局。
-                </p>
-                
-                <p class="mb-4">
-                    《三命通会》载：<span class="font-kai text-accent ancient-quote">"水旺无制，则如江河泛滥，虽有奔腾之势，却易漫无方向。"</span>此乃事业多波折、财运难聚之根源也。具体表现为：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">事业波动频繁</span>：水势无常导致职业变动频繁，缺乏稳定性，或因冲动决策失误</li>
-                    <li><span class="font-bold">决策犹豫不决</span>：水旺之人思维过于灵活，反而缺乏决断力，错失良机</li>
-                    <li><span class="font-bold">根基难以稳固</span>：水克火土，压制财星活力和事业根基，导致财运不兴、事业不稳</li>
-                </ul>
-                
-                <p>
-                    《穷通宝鉴》言：<span class="font-kai text-accent ancient-quote">"水旺需木泄、火耗，方得流通。"</span>董先生原局木火偏弱，无法有效制约旺水，形成了<span class="font-hei text-primary">"水泛木浮、火炎土焦"</span>的失衡格局。
-                </p>
-            </div>
-            
-            <!-- 1.2 枭神夺食的才华压制 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    1.2 枭神夺食的才华压制
-                </h3>
-                
-                <p class="mb-4">
-                    《神峰通考》云：<span class="font-kai text-accent ancient-quote">"偏官时遇制伏太过乃是贫儒。偏官命主人性聪明，刚强傲物。若四柱中制伏多，乃尽法无民也。"</span>董先生甲木食神被庚金偏印克制，形成典型的<span class="font-hei text-primary">"枭神夺食"</span>格局。
-                </p>
-                
-                <p class="mb-4">
-                    《渊海子平》载：<span class="font-kai text-accent ancient-quote">"食神者，我生彼之谓也。阳见阳干，阴见阴干，如甲日见丙，乙日见丁之例。"</span>食神代表才华、创造力、表达能力，被克时会导致：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">才华难以施展</span>：食神主才华、艺术、表达能力，被克时可能灵感枯竭、创作受阻，或才华难以得到认可</li>
-                    <li><span class="font-bold">思维受到束缚</span>：偏印夺食导致表达能力大打折扣，难以淋漓尽致地发挥才华</li>
-                    <li><span class="font-bold">理想与现实脱节</span>：食神格思想清高，容易自命不凡，理想丰满但与现实脱节，常有怀才不遇之感</li>
-                </ul>
-                
-                <p>
-                    《滴天髓》云：<span class="font-kai text-accent ancient-quote">"一官而不有生印者，杀助之，非混也；一杀而遇食伤者，官助之，非混也。"</span>董先生原局食神受制，无法有效生财，导致<span class="font-hei text-primary">"食伤生财"</span>的顺局无法形成。
-                </p>
-            </div>
-            
-            <!-- 1.3 官杀混杂的事业阻碍 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    1.3 官杀混杂的事业阻碍
-                </h3>
-                
-                <p class="mb-4">
-                    《渊海子平》曰：<span class="font-kai text-accent ancient-quote">"官杀混杂当寿夭，去官留杀仔细寻。"</span>董先生原局辰土为七杀，丑土为正官，形成<span class="font-hei text-primary">官杀混杂</span>之局。
-                </p>
-                
-                <p class="mb-4">
-                    《三命通会》载：<span class="font-kai text-accent ancient-quote">"官杀混杂，无去留制伏，反主贫贱。"</span>具体表现为：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">事业方向不明</span>：官杀混杂说明事业方向较多或从事行业较多，遇事容易阻滞</li>
-                    <li><span class="font-bold">职场关系复杂</span>：正官代表传统晋升通道，七杀代表竞争压力，两者混杂导致职场关系复杂</li>
-                    <li><span class="font-bold">权威压制明显</span>：七杀代表事业上的挑战与机遇，但木旺克土，意味着事业道路上始终伴随着强大的压迫感和难以逾越的权威阻碍</li>
-                </ul>
-                
-                <p>
-                    《子平真诠》云：<span class="font-kai text-accent ancient-quote">"官杀主官职变动，印星主单位或工作地域变动，但以印为贵的命格则也主官职变动。凡是冲刑合克官印的大运，一般都会引起事业变动。"</span>
-                </p>
-            </div>
-            
-            <!-- 1.4 印星过旺的思维束缚 -->
-            <div>
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    1.4 印星过旺的思维束缚
-                </h3>
-                
-                <p class="mb-4">
-                    董先生申金长生位暗藏印星，《三命通会》云：<span class="font-kai text-accent ancient-quote">"长生的地支都有印星，可以生助自己，所以在长生的大运或者流年思维特别活跃，容易有新的想法和思路。"</span>
-                </p>
-                
-                <p class="mb-4">
-                    然而，印星过旺也会带来负面影响：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">思想保守僵化</span>：印星主思想谋略、精神追求，过旺则容易陷入空想，思维僵化</li>
-                    <li><span class="font-bold">创新能力受限</span>：印星代表传统、保守的力量，抑制了食神的创新思维</li>
-                    <li><span class="font-bold">贵人助力有限</span>：虽有印星代表贵人扶持，但湿土易生惰性，需防思维僵化</li>
-                </ul>
-                
-                <p>
-                    《神峰通考》载：<span class="font-kai text-accent ancient-quote">"阳金得炼太过，变革奔波。八字得局失垣，平生不遇。若木局秋生，金局夏生，岂不失垣乎，主平生不遇。"</span>
-                </p>
-            </div>
-        </section>
-        
-        <!-- 二、事业不顺的具体表现形式 -->
-        <section id="manifestations" class="mb-12 section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-eye mr-2" aria-hidden="true"></i>二、事业不顺的具体表现形式
-            </h2>
-            
-            <!-- 2.1 才华横溢却无处施展 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    2.1 才华横溢却无处施展
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》云：<span class="font-kai text-accent ancient-quote">"有秀无官，但施巧于技艺。一归有气，遇基月定主孤穷。"</span>董先生食伤透干，本应才华横溢，却因<span class="font-hei text-primary">"枭神夺食"</span>导致：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">创意难以落地</span>：频繁更换创业项目却屡屡受挫，或在职场中眼高手低，既嫌弃基础工作琐碎，又无法驾驭高层级任务，最终沦为"空想家"</li>
-                    <li><span class="font-bold">作品难以变现</span>：自由创作者、艺术从业者常见此象——灵感丰沛却缺乏商业思维，作品难以转化为经济回报</li>
-                    <li><span class="font-bold">平台机会缺失</span>：有独门绝技或过人才华，但缺少展示平台，缺乏自信和魄力，不敢放手一搏</li>
-                </ul>
-                
-                <p>
-                    《神峰通考》言：<span class="font-kai text-accent ancient-quote">"此乃是钱雁秀才之命，月上偏官，所以伤残，目盲足跛，却有文章秀气，终身贫穷矣。"</span>
-                </p>
-            </div>
-            
-            <!-- 2.2 职场发展的天花板效应 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    2.2 职场发展的天花板效应
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》载：<span class="font-kai text-accent ancient-quote">"官杀入库时，不要跳槽。"</span>董先生官杀混杂且力量失衡，导致：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">晋升通道狭窄</span>：感觉总有一层天花板压着，想跳槽又找不到更好的机会，想创业又觉得时机未到，处处受掣肘</li>
-                    <li><span class="font-bold">权威压制严重</span>：七杀代表权威、压力，木旺克土意味着事业道路上始终伴随着强大的压迫感和难以逾越的权威阻碍</li>
-                    <li><span class="font-bold">才华被人忽视</span>：技术过硬、能力超群，但在庞大机构里做着基础工作，领导看不到闪光点</li>
-                </ul>
-                
-                <p>
-                    《渊海子平》云：<span class="font-kai text-accent ancient-quote">"官星怕行七杀运，七杀独惧正官临，官杀混杂当寿夭，去官留杀仔细寻。"</span>
-                </p>
-            </div>
-            
-            <!-- 2.3 人际关系的复杂纠葛 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    2.3 人际关系的复杂纠葛
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》曰：<span class="font-kai text-accent ancient-quote">"勾绞煞，出人连茹，事多牵缠。"</span>董先生命带勾绞煞，导致：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">职场关系紧张</span>：牵头完成项目却被排除在决策之外，加班做出的成果成了他人的功劳，信息永远滞后，机会总是绕道</li>
-                    <li><span class="font-bold">人脉链接薄弱</span>：一个有才华的人若缺乏人脉链接，其能力可能被淹没在信息差里，即便做出成果，也难被关键角色关注</li>
-                    <li><span class="font-bold">小人阻碍不断</span>：七杀太旺，管束个体的人较多，容易表现出事业不顺，小人多</li>
-                </ul>
-                
-                <p>
-                    《神峰通考》载：<span class="font-kai text-accent ancient-quote">"水不胜火，奔波而流落。火不胜金，困难而怆惶。"</span>
-                </p>
-            </div>
-            
-            <!-- 2.4 决策失误与机会错失 -->
-            <div>
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    2.4 决策失误与机会错失
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》云：<span class="font-kai text-accent ancient-quote">"身旺食伤生财，运至火地，富甲一方。"</span>董先生虽有食伤生财之格，但因五行失衡导致：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                    <li><span class="font-bold">选择困难症</span>：想法过多，难以抉择，错失最佳时机</li>
-                    <li><span class="font-bold">执行能力不足</span>：七杀过旺而食神被过度压制时，虽然心怀大志，但实施能力不足，容易陷入理想主义，缺乏实际行动力</li>
-                    <li><span class="font-bold">风险评估失误</span>：水旺之人容易因情绪波动而影响判断，做出错误决策</li>
-                </ul>
-                
-                <p>
-                    《渊海子平》言：<span class="font-kai text-accent ancient-quote">"壬水无制是指壬水过于旺盛，没有足够的制约因素来平衡和调节它的力量。在事业上，可能难以稳定发展，容易变动，缺乏持之以恒的能力。"</span>
-                </p>
-            </div>
-        </section>
-        
-        <!-- 三、时间维度的事业发展规律 -->
-        <section id="timeline" class="mb-12 section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-clock-o mr-2" aria-hidden="true"></i>三、时间维度的事业发展规律
-            </h2>
-            
-            <!-- 3.1 当前庚戌大运的事业特点 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    3.1 当前庚戌大运的事业特点（36-46岁）
-                </h3>
-                
-                <p class="mb-4">
-                    《子平真诠》云：<span class="font-kai text-accent ancient-quote">"大运管十年，前五年重视大运天干，后五年重视地支。"</span>董先生36-46岁行庚戌大运，正值人生黄金期，却面临诸多挑战：
-                </p>
-                
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">庚金偏印透干</h4>
-                        <ul class="list-disc list-inside space-y-1 pl-2 text-sm">
-                            <li>印星生助旺水，事业易陷瓶颈</li>
-                            <li>想法多但落实难，决策受干扰</li>
-                            <li>思维保守，创新能力受限</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">戌土七杀坐支</h4>
-                        <ul class="list-disc list-inside space-y-1 pl-2 text-sm">
-                            <li>戌土藏火，为财星余气</li>
-                            <li>七杀主压力和挑战，需多努力</li>
-                            <li>适合管理、军警、法律等行业</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <p>
-                    《神峰通考》载：<span class="font-kai text-accent ancient-quote">"16岁到36岁之间还有一段苦辛，36岁走入庚戌大运，事业方可有一番景向。36到46岁走庚戌大运，戌为火库，火势虽炎但有收纳，沉着稳重创业，这期间可将一生事业推向高潮。"</span>
-                </p>
-            </div>
-            
-            <!-- 3.2 近年流年的事业转机 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    3.2 近年流年的事业转机
-                </h3>
-                
-                <!-- 2025年乙巳流年 -->
-                <div class="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
-                    <h4 class="font-kai font-bold text-primary mb-3">2025年乙巳流年：木火通明的突破契机</h4>
-                    
-                    <p class="mb-3">
-                        《穷通宝鉴》言：<span class="font-kai text-accent ancient-quote">"2025乙巳年作为三元九运中'下元离火'的初启之年，天干乙木生地支巳火构成'木火通明，风火相薄'之象。"</span>
-                    </p>
-                    
-                    <p class="mb-2">对董先生而言，2025年具有特殊意义：</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 mb-3 pl-4">
-                        <li><span class="font-bold">乙木食神发力</span>：食神透干，才华得以展现，适合设计、策划、咨询等创意行业</li>
-                        <li><span class="font-bold">巳火财星引动</span>：巳火为财库，合动申金财源，正偏财皆旺</li>
-                        <li><span class="font-bold">印星受制</span>：木火相生，克制庚金偏印，"枭神夺食"格局得到缓解</li>
-                        <li><span class="font-bold">事业转机出现</span>：黎明前的至暗时刻已经过去，命宫在震巽者将得"青龙扶辇"之助</li>
-                    </ul>
-                    
-                    <p>
-                        《滴天髓》云：<span class="font-kai text-accent ancient-quote">"木火通明，非池中物；龙德既显，自有虎啸风生之变。"</span>
-                    </p>
-                </div>
-                
-                <!-- 2026年丙午流年 -->
-                <div class="mb-6 p-4 bg-secondary/5 rounded-lg border border-secondary/20">
-                    <h4 class="font-kai font-bold text-secondary mb-3">2026年丙午流年：正财大发的收获之年</h4>
-                    
-                    <p class="mb-2">2026年丙午流年，丙火正财透干，午火正财旺相：</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 mb-3 pl-4">
-                        <li><span class="font-bold">财星明透</span>：丙火为壬水正财，午火为财库，正财大发</li>
-                        <li><span class="font-bold">事业提升</span>：适合开展实体生意、投资稳健项目，工资收入亦有提升</li>
-                        <li><span class="font-bold">注意比劫</span>：需防比劫争财，合作生意需慎选伙伴，亲兄弟明算账</li>
-                    </ul>
-                </div>
-                
-                <!-- 2027年丁未流年 -->
-                <div class="p-4 bg-accent/5 rounded-lg border border-accent/20">
-                    <h4 class="font-kai font-bold text-accent mb-3">2027年丁未流年：食伤生财的持续发展</h4>
-                    
-                    <p class="mb-2">2027年丁未流年，丁火偏财透干，未土官杀藏木：</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 mb-3 pl-4">
-                        <li><span class="font-bold">偏财持续</span>：丁火偏财透干，财运延续</li>
-                        <li><span class="font-bold">职权提升</span>：未土藏木，食伤生财，事业有职权提升之象</li>
-                        <li><span class="font-bold">团队拓展</span>：可尝试管理岗、拓展业务团队，靠团队、人脉赚钱</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- 3.3 未来大运的事业展望 -->
-            <div>
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    3.3 未来大运的事业展望
-                </h3>
-                
-                <div class="space-y-4">
-                    <div class="p-4 bg-light rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">46-56岁辛亥大运</h4>
-                        <p>
-                            《三命通会》云：<span class="font-kai text-accent ancient-quote">"46岁之后走辛亥，壬子北方水运，印星受到抑制，又能调候命格，一神二用，挣钱机会比较多，做事比较顺畅，也能实现心中梦想。"</span>
-                        </p>
-                    </div>
-                    
-                    <div class="p-4 bg-light rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">56-66岁戊戌大运</h4>
-                        <p>
-                            戌土为火库，七杀制水，此运事业财运有最后一波高峰，可利用经验、人脉做顾问、投资
-                        </p>
-                    </div>
-                    
-                    <div class="p-4 bg-light rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">66岁后</h4>
-                        <p>
-                            火土运渐退，财运事业平稳，需以健康、家庭为重心，安享晚年
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 四、古籍智慧指导下的改善路径 -->
-        <section id="solutions" class="mb-12 section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-compass mr-2" aria-hidden="true"></i>四、古籍智慧指导下的改善路径
-            </h2>
-            
-            <!-- 4.1 五行流通的化解之道 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    4.1 五行流通的化解之道
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》云：<span class="font-kai text-accent ancient-quote">"五行流通乃八字命学至要法门，不拘格局贵贱，全在生化有情。"</span>董先生需构建<span class="font-hei text-primary">"木火通明"</span>的流通格局：
-                </p>
-                
-                <div class="mb-6">
-                    <h4 class="font-kai font-bold text-primary mb-3">核心策略</h4>
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <div class="bg-light p-3 rounded-lg border border-primary/20 text-center">
-                            <span class="five-elements bg-primary/10 text-primary inline-block mb-1">木</span>
-                            <i class="fa fa-arrow-right text-primary/50 mx-1" aria-hidden="true"></i>
-                            <span class="five-elements bg-secondary/10 text-secondary inline-block mb-1">火</span>
-                            <p class="text-sm">发挥才华生财</p>
-                        </div>
-                        <div class="bg-light p-3 rounded-lg border border-primary/20 text-center">
-                            <span class="five-elements bg-secondary/10 text-secondary inline-block mb-1">火</span>
-                            <i class="fa fa-arrow-right text-primary/50 mx-1" aria-hidden="true"></i>
-                            <span class="five-elements bg-accent/10 text-accent inline-block mb-1">土</span>
-                            <p class="text-sm">投资建立根基</p>
-                        </div>
-                        <div class="bg-light p-3 rounded-lg border border-primary/20 text-center">
-                            <span class="five-elements bg-accent/10 text-accent inline-block mb-1">土</span>
-                            <i class="fa fa-arrow-right text-primary/50 mx-1" aria-hidden="true"></i>
-                            <span class="five-elements bg-blue-500/10 text-blue-500 inline-block mb-1">水</span>
-                            <p class="text-sm">稳定制约水势</p>
-                        </div>
-                        <div class="bg-light p-3 rounded-lg border border-primary/20 text-center">
-                            <span class="five-elements bg-blue-500/10 text-blue-500 inline-block mb-1">水</span>
-                            <i class="fa fa-arrow-right text-primary/50 mx-1" aria-hidden="true"></i>
-                            <span class="five-elements bg-primary/10 text-primary inline-block mb-1">木</span>
-                            <p class="text-sm">滋养创造力</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <p>
-                    《三命通会》载：<span class="font-kai text-accent ancient-quote">"五行流通通过十神的相生关系体现。若十神间形成完整的流通链（如官星生印星→印星生比劫→比劫生食神→食神生财星→财星再生官星），则预示命主在事业、财运、人际关系等方面能形成良性互动，一生顺遂。"</span>
-                </p>
-            </div>
-            
-            <!-- 4.2 行业选择的五行指导 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    4.2 行业选择的五行指导
-                </h3>
-                
-                <p class="mb-4">
-                    《五行精纪》云：<span class="font-kai text-accent ancient-quote">"木火通明，智光显而躁气生，须以水润局。"</span>董先生应选择<span class="font-hei text-primary">木火属性</span>的行业：
-                </p>
-                
-                <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">1. 文化创意</h4>
-                        <p class="text-sm">木主文化、火主创意，如广告、设计、媒体、出版</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">2. 教育培训</h4>
-                        <p class="text-sm">木火通明，利文饰、技艺、教化，如培训、咨询、教育</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">3. 能源科技</h4>
-                        <p class="text-sm">火属性行业，如新能源、电子、互联网</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">4. 餐饮娱乐</h4>
-                        <p class="text-sm">火属性，如餐饮、娱乐、演艺</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20 md:col-span-2">
-                        <h4 class="font-kai font-bold text-primary mb-2">5. 金融投资</h4>
-                        <p class="text-sm">虽属金，但可通过木火间接生财</p>
-                    </div>
-                </div>
-                
-                <p>
-                    《穷通宝鉴》言：<span class="font-kai text-accent ancient-quote">"干透丁甲无壬癸，经纶满腹。支成水局无木火，愚笨不发。"</span>
-                </p>
-            </div>
-            
-            <!-- 4.3 方位调整的风水布局 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    4.3 方位调整的风水布局
-                </h3>
-                
-                <p class="mb-4">
-                    《玉照定真经》云：<span class="font-kai text-accent ancient-quote">"上克下，顺理成章，吉顺。"</span>董先生应：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-3 mb-6 pl-4">
-                    <li>
-                        <span class="font-bold">办公方位</span>：坐南朝北或坐东朝西，增加火气
-                        <div class="mt-2 p-2 bg-light rounded border border-primary/10 text-sm">
-                            <i class="fa fa-map-marker text-primary mr-1" aria-hidden="true"></i>
-                            南方属火，东方属木，有利木火通明
-                        </div>
-                    </li>
-                    <li>
-                        <span class="font-bold">居住环境</span>：选择南方或东方的房屋，避免北方
-                    </li>
-                    <li>
-                        <span class="font-bold">装饰色彩</span>：多用红色、绿色，少用黑色、蓝色
-                        <div class="mt-2 flex gap-2">
-                            <span class="w-4 h-4 inline-block bg-red-600 rounded-full" title="红色-火"></span>
-                            <span class="w-4 h-4 inline-block bg-green-600 rounded-full" title="绿色-木"></span>
-                            <span class="w-4 h-4 inline-block bg-yellow-500 rounded-full" title="黄色-土"></span>
-                            <span class="w-4 h-4 inline-block bg-gray-400 rounded-full opacity-50" title="黑色-水(避免)"></span>
-                            <span class="w-4 h-4 inline-block bg-blue-600 rounded-full opacity-50" title="蓝色-水(避免)"></span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="font-bold">办公布局</span>：在办公室南方放置红色饰品，东方放置绿植
-                    </li>
-                </ul>
-                
-                <p>
-                    《三命通会》载：<span class="font-kai text-accent ancient-quote">"寅午戌三合火局，申子辰三合水局。"</span>可在办公室布置"寅午戌"火局摆件。
-                </p>
-            </div>
-            
-            <!-- 4.4 贵人运用的策略指导 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    4.4 贵人运用的策略指导
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》曰：<span class="font-kai text-accent ancient-quote">"天乙贵人，众星之主。"</span>董先生贵人星众多，但需善加运用：
-                </p>
-                
-                <div class="grid md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">印星贵人</h4>
-                        <p class="text-sm">长辈、上级，虽有帮助但可能带来约束</p>
-                        <p class="text-xs text-accent mt-1">应对策略：尊重但不盲从，保持独立思考</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">财星贵人</h4>
-                        <p class="text-sm">合作伙伴、投资人，能带来实际利益</p>
-                        <p class="text-xs text-accent mt-1">应对策略：坦诚合作，利益共享</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">食伤贵人</h4>
-                        <p class="text-sm">志同道合的朋友，能激发创造力</p>
-                        <p class="text-xs text-accent mt-1">应对策略：多交流，共同成长</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">比劫贵人</h4>
-                        <p class="text-sm">同行、同事，需防竞争但可互助</p>
-                        <p class="text-xs text-accent mt-1">应对策略：良性竞争，互利共赢</p>
-                    </div>
-                </div>
-                
-                <p>
-                    《鬼谷子》言：<span class="font-kai text-accent ancient-quote">"智者辨人，明者辨势。"</span>对提供保守建议的贵人（印星特征）需辩证采纳，对带来创新机会的贵人（食伤特征）则可大胆追随。
-                </p>
-            </div>
-            
-            <!-- 4.5 修身养性的命理修行 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    4.5 修身养性的命理修行
-                </h3>
-                
-                <p class="mb-4">
-                    《玉照定真经》记载：<span class="font-kai text-accent ancient-quote">"唐代李虚中曾为寒门学子改命，原局七杀无制，化解方法为每日卯时抄写《道德经》（木气制杀），结果该生后来官至刺史。"</span>
-                </p>
-                
-                <p class="mb-3">董先生可借鉴此法：</p>
-                
-                <ul class="list-disc list-inside space-y-3 mb-6 pl-4">
-                    <li>
-                        <span class="font-bold">卯时修行</span>：每日卯时（5-7点）进行冥想或抄写经典，增强木气
-                        <div class="mt-2 p-2 bg-light rounded border border-primary/10 text-sm">
-                            <i class="fa fa-clock-o text-primary mr-1" aria-hidden="true"></i>
-                            卯时属木，此时修行效果最佳
-                        </div>
-                    </li>
-                    <li>
-                        <span class="font-bold">阅读策略</span>：多读木火属性的书籍，如励志、创新类
-                    </li>
-                    <li>
-                        <span class="font-bold">技能学习</span>：学习新技能，特别是与木火相关的技术
-                    </li>
-                    <li>
-                        <span class="font-bold">心态调整</span>：保持积极乐观，用热情化解水寒
-                    </li>
-                </ul>
-                
-                <p>
-                    《神峰通考》云：<span class="font-kai text-accent ancient-quote">"中和之气为福厚，偏党为福薄。"</span>
-                </p>
-            </div>
-            
-            <!-- 4.6 姓名改运的五行补救 -->
-            <div>
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    4.6 姓名改运的五行补救
-                </h3>
-                
-                <div class="mb-4">
-                    <h4 class="font-kai font-bold text-primary mb-2">董洪涛姓名分析</h4>
-                    <ul class="list-disc list-inside space-y-2 pl-4">
-                        <li><span class="font-bold">董</span>：草字头属木，助食伤之力，利才华施展</li>
-                        <li><span class="font-bold">洪</span>：三点水属水，助旺日元，易使性格固执，且水多耗财</li>
-                        <li><span class="font-bold">涛</span>：三点水属水，加重水势，比劫重叠，主财运易被争夺</li>
-                    </ul>
-                </div>
-                
-                <p class="mb-4">
-                    《三命通会》载：<span class="font-kai text-accent ancient-quote">"凡命贵中和，方为上格，太过不及者下格矣。"</span>建议：
-                </p>
-                
-                <ul class="list-disc list-inside space-y-3 mb-6 pl-4">
-                    <li>
-                        <span class="font-bold">常用别名</span>：加入火、土元素，如"董鸿韬"（鸿含火，韬含火）或"董洪垚"（垚含土）
-                    </li>
-                    <li>
-                        <span class="font-bold">签名设计</span>：签名时可加火属性笔画，如带"灬""火"旁的艺术签名
-                    </li>
-                    <li>
-                        <span class="font-bold">网络昵称</span>：使用"火"字旁的网名，增强火性
-                        <div class="mt-2 p-2 bg-light rounded border border-primary/10 text-sm">
-                            推荐：炎辉、焕章、明哲、灿阳等
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- 五、2025年乙巳流年事业财运专项论断 -->
-        <section id="2025" class="mb-12 section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-calendar-check-o mr-2" aria-hidden="true"></i>五、2025年乙巳流年事业财运专项论断
-            </h2>
-            
-            <!-- 5.1 流年运势的总体判断 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    5.1 流年运势的总体判断
-                </h3>
-                
-                <p class="mb-4">
-                    《穷通宝鉴》言：<span class="font-kai text-accent ancient-quote">"巳为丙火余气，乙巳年，乙木泄壬水之旺，巳火耗壬水之强，且巳申合，动申中庚金偏印、壬水比肩、戊土七杀。"</span>
-                </p>
-                
-                <p class="mb-3">2025年对董洪涛先生而言，是<span class="font-hei text-primary">"木火通明"</span>格局形成的关键之年：</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">格局转变</h4>
-                        <p class="text-sm">从"枭神夺食"转为"食伤生财"</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">能量流通</h4>
-                        <p class="text-sm">乙木食神透干，巳火财星引动，形成木火相生的良性循环</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">事业突破</h4>
-                        <p class="text-sm">压抑多年的才华得以释放，有机会在专业领域崭露头角</p>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-2">财运亨通</h4>
-                        <p class="text-sm">正偏财皆旺，特别是靠技术、创意获得的收入</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 5.2 具体机遇与把握策略 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    5.2 具体机遇与把握策略
-                </h3>
-                
-                <div class="mb-6">
-                    <h4 class="font-kai font-bold text-primary mb-3">事业机遇</h4>
-                    <ol class="list-decimal list-inside space-y-3 pl-4">
-                        <li>
-                            <span class="font-bold">创意变现</span>：从事设计、策划、咨询等"靠脑子赚钱"的行业，或在原有业务中加入创新服务
-                        </li>
-                        <li>
-                            <span class="font-bold">平台合作</span>：与新媒体、短视频平台合作，输出专业内容
-                        </li>
-                        <li>
-                            <span class="font-bold">技能培训</span>：利用专业技能开展培训、讲座
-                        </li>
-                        <li>
-                            <span class="font-bold">项目承接</span>：主动争取项目主导权，特别是与文化、教育相关的项目
-                        </li>
-                    </ol>
-                    
-                    <p class="mt-4">
-                        《渊海子平》云：<span class="font-kai text-accent ancient-quote">"伤官生财，这样的八字，如果进入体制内，一般也是会贪，因为想着的就是挣钱，搞钱为主。"</span>但对董先生而言，伤官生财是通过才华和能力合法致富。
-                    </p>
-                </div>
-                
-                <div>
-                    <h4 class="font-kai font-bold text-primary mb-3">财运预测</h4>
-                    <ul class="list-disc list-inside space-y-2 pl-4">
-                        <li><span class="font-bold">正财稳定</span>：本职工作收入稳定，可能有加薪机会</li>
-                        <li><span class="font-bold">偏财丰厚</span>：副业、兼职收入可观，特别是技术服务</li>
-                        <li><span class="font-bold">投资谨慎</span>：可适当投资，但需避开与水相关的项目</li>
-                        <li><span class="font-bold">合作生财</span>：与火属性的人合作，财运更佳</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- 5.3 风险防范与应对措施 -->
-            <div class="mb-8">
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    5.3 风险防范与应对措施
-                </h3>
-                
-                <p class="mb-4">
-                    《三命通会》曰：<span class="font-kai text-accent ancient-quote">"枭神夺食，主口舌争竞，疾病灾祸不断，多成多败。"</span>虽有转机，但仍需防范：
-                </p>
-                
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <h4 class="font-kai font-bold text-primary mb-3">主要风险</h4>
-                        <ul class="list-disc list-inside space-y-2 pl-4">
-                            <li>印星干扰：长辈、上级可能带来压力</li>
-                            <li>比劫争财：申中壬水比肩，需防朋友、同事分利</li>
-                            <li>决策失误：水旺易冲动，投资决策需谨慎</li>
-                            <li>健康问题：火旺需防心脑血管疾病，水旺需防肾部问题</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-kai font-bold text-primary mb-3">应对策略</h4>
-                        <ul class="list-disc list-inside space-y-2 pl-4">
-                            <li>保持清醒：时刻提醒自己理性决策，避免情绪化</li>
-                            <li>合同规范：所有合作都要签订规范合同，明确利益分配</li>
-                            <li>健康管理：定期体检，注意饮食，保持良好作息</li>
-                            <li>贵人筛选：谨慎选择合作伙伴，优先考虑火属性的人</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 5.4 全年事业发展建议 -->
-            <div>
-                <h3 class="text-xl font-kai font-bold text-accent mb-4">
-                    5.4 全年事业发展建议
-                </h3>
-                
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-3">上半年（1-6月）</h4>
-                        <ul class="list-disc list-inside space-y-2 pl-4 text-sm">
-                            <li>重点提升专业技能，为下半年发展做准备</li>
-                            <li>建立新的人脉关系，特别是文化创意领域</li>
-                            <li>尝试小规模的项目合作，积累经验</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-light p-4 rounded-lg border border-primary/20">
-                        <h4 class="font-kai font-bold text-primary mb-3">下半年（7-12月）</h4>
-                        <ul class="list-disc list-inside space-y-2 pl-4 text-sm">
-                            <li>大胆展示才华，主动争取重要项目</li>
-                            <li>可考虑跳槽或创业，但需做好充分准备</li>
-                            <li>加大投资力度，但要控制风险</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <p class="mt-6">
-                    《三命通会》云：<span class="font-kai text-accent ancient-quote">"时也，运也，命也。"</span>2025年乙巳流年，对董先生而言是<span class="font-hei text-primary">"飞龙在天"</span>的契机，望能把握天时地利，在事业财运上实现突破。
-                </p>
-            </div>
-        </section>
-        
-        <!-- 结语 -->
-        <section id="conclusion" class="section-content ancient-border p-6 bg-light rounded-lg shadow-sm">
-            <h2 class="text-2xl font-kai font-bold text-primary mb-6 pb-2 border-b border-primary/20">
-                <i class="fa fa-comment-o mr-2" aria-hidden="true"></i>结语
-            </h2>
-            
-            <div class="space-y-4">
-                <p>
-                    《易经》云：<span class="font-kai text-accent ancient-quote">"穷则变，变则通，通则久。"</span>董洪涛先生虽有<span class="font-hei text-primary">"枭神夺食"</span>、<span class="font-hei text-primary">"官杀混杂"</span>之困，但2025年乙巳流年恰逢<span class="font-hei text-primary">"木火通明"</span>之转机。
-                </p>
-                
-                <p>
-                    《滴天髓》言：<span class="font-kai text-accent ancient-quote">"道有体用，不可以一端论也。"</span>命理虽有定数，但通过后天努力可以改善。董先生应把握以下要点：
-                </p>
-                
-                <ol class="list-decimal list-inside space-y-2 mb-6 pl-4">
-                    <li><span class="font-bold">顺势而为</span>：2025-2027年木火流年，是事业发展的黄金期</li>
-                    <li><span class="font-bold">五行调和</span>：通过行业选择、方位调整、贵人运用等手段，增强木火之气</li>
-                    <li><span class="font-bold">修身养性</span>：保持积极心态，提升专业能力，等待时机成熟</li>
-                    <li><span class="font-bold">把握机遇</span>：2025年是关键之年，要勇于尝试，敢于突破</li>
-                </ol>
-                
-                <p>
-                    《神峰通考》载：<span class="font-kai text-accent ancient-quote">"大富由命，小富由勤。"</span>愿董先生在古籍智慧的指引下，<span class="font-hei text-primary">化枭为福，变杀为权</span>，在事业财运上开创崭新局面。
-                </p>
-                
-                <p class="text-center font-kai text-xl text-primary mt-8">
-                    "宝剑锋从磨砺出，梅花香自苦寒来。"
-                </p>
-                <p class="text-center text-accent italic">
-                    今日之困顿，必成明日之辉煌。
-                </p>
-            </div>
-        </section>
-    </main>
-    
-    <!-- 页脚 -->
-    <footer class="bg-accent/10 border-t border-primary/20 py-6">
-        <div class="container mx-auto px-4 text-center text-accent">
-            <p class="font-kai mb-2">董洪涛先生事业深度命理剖析</p>
-            <p class="text-sm">
-                基于《三命通会》《渊海子平》《神峰通考》《滴天髓》《穷通宝鉴》等古籍经典分析
-            </p>
-            <p class="text-xs mt-4">
-                © 2025 扇子老师 | 仅供参考，人生运势仍需后天努力
-            </p>
-        </div>
-    </footer>
-    
-    <!-- 返回顶部按钮 -->
-    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
-        <i class="fa fa-arrow-up" aria-hidden="true"></i>
-    </button>
-    
-    <!-- JavaScript -->
-    <script>
-        // 五行分析图表
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始化图表
-            const ctx = document.getElementById('fiveElementsChart').getContext('2d');
-            const fiveElementsChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['水 (旺)', '金 (相)', '土 (休)', '木 (囚)', '火 (死)'],
-                    datasets: [{
-                        label: '五行力量分布',
-                        data: [95, 75, 50, 40, 25],
-                        backgroundColor: 'rgba(157, 41, 51, 0.2)',
-                        borderColor: 'rgba(157, 41, 51, 0.8)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(157, 41, 51, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(157, 41, 51, 1)'
-                    }]
-                },
-                options: {
-                    scales: {
-                        r: {
-                            angleLines: {
-                                color: 'rgba(139, 69, 19, 0.1)'
-                            },
-                            grid: {
-                                color: 'rgba(139, 69, 19, 0.1)'
-                            },
-                            pointLabels: {
-                                font: {
-                                    family: "'KaiTi', 'STKaiti', cursive",
-                                    size: 14
-                                },
-                                color: '#8B4513'
-                            },
-                            ticks: {
-                                backdropColor: 'transparent',
-                                color: '#8B4513'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const value = context.raw;
-                                    let strength = '';
-                                    
-                                    if (value >= 80) strength = '极旺';
-                                    else if (value >= 60) strength = '旺';
-                                    else if (value >= 40) strength = '中和';
-                                    else if (value >= 20) strength = '弱';
-                                    else strength = '极弱';
-                                    
-                                    return `${context.label}: ${value} (${strength})`;
-                                }
-                            }
-                        }
-                    },
-                    elements: {
-                        line: {
-                            tension: 0.2
-                        }
-                    },
-                    maintainAspectRatio: false
-                }
-            });
-            
-            // 移动端菜单切换
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-                const icon = menuToggle.querySelector('i');
-                if (mobileMenu.classList.contains('hidden')) {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                }
-            });
-            
-            // 导航栏滚动效果
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('nav-scrolled');
-                } else {
-                    navbar.classList.remove('nav-scrolled');
-                }
-            });
-            
-            // 返回顶部按钮
-            const backToTopButton = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTopButton.classList.remove('opacity-0', 'invisible');
-                    backToTopButton.classList.add('opacity-100', 'visible');
-                } else {
-                    backToTopButton.classList.remove('opacity-100', 'visible');
-                    backToTopButton.classList.add('opacity-0', 'invisible');
-                }
-            });
-            
-            backToTopButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // 平滑滚动到锚点
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    // 关闭移动端菜单（如果打开）
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // 章节内容动画
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
+        // --- 玄空数据核心 (Period 9 Logic) ---
+
+        const PALACES = [
+            { id: "NW", name: "西北 (乾)", type: "金", base9: 1 }, 
+            { id: "N",  name: "正北 (坎)", type: "水", base9: 5 },
+            { id: "NE", name: "东北 (艮)", type: "土", base9: 3 },
+            { id: "W",  name: "正西 (兑)", type: "金", base9: 2 },
+            { id: "C",  name: "中宫",      type: "土", base9: 9 },
+            { id: "E",  name: "正东 (震)", type: "木", base9: 7 },
+            { id: "SW", name: "西南 (坤)", type: "土", base9: 6 },
+            { id: "S",  name: "正南 (离)", type: "火", base9: 4 },
+            { id: "SE", name: "东南 (巽)", type: "木", base9: 8 }
+        ];
+
+        // 24 Mountains with Updated Labels for better user experience
+        const MOUNTAINS_24 = [
+            // North (Kan)
+            { name: "坐北朝南 (壬山丙向)", period9Chart: [2, 5, 7, 3, 9, 7, 9, 4, 3, 4, 8, 2, 6, 1, 6, 1, 6, 1, 8, 2, 8, 7, 3, 5, 5, 1, 4] },
+            { name: "坐北朝南 (子山午向)", period9Chart: [1, 6, 2, 9, 5, 7, 8, 1, 9, 2, 7, 3, 6, 2, 5, 5, 9, 1, 7, 3, 4, 3, 8, 8, 4, 4, 6] },
+            { name: "坐北朝南 (癸山丁向)", period9Chart: [1, 6, 2, 9, 5, 7, 8, 1, 9, 2, 7, 3, 6, 2, 5, 5, 9, 1, 7, 3, 4, 3, 8, 8, 4, 4, 6] },
+            // NE (Gen)
+            { name: "坐东北朝西南 (丑山未向)", period9Chart: [6, 2, 3, 2, 7, 8, 4, 9, 1, 5, 3, 4, 1, 8, 6, 9, 4, 2, 8, 6, 5, 7, 5, 9, 3, 1, 7] },
+            { name: "坐东北朝西南 (艮山坤向)", period9Chart: [9, 5, 3, 5, 1, 8, 7, 6, 1, 8, 6, 4, 4, 2, 6, 3, 7, 2, 2, 9, 5, 1, 8, 9, 6, 4, 7] },
+            { name: "坐东北朝西南 (寅山申向)", period9Chart: [9, 5, 3, 5, 1, 8, 7, 6, 1, 8, 6, 4, 4, 2, 6, 3, 7, 2, 2, 9, 5, 1, 8, 9, 6, 4, 7] },
+            // East (Zhen)
+            { name: "坐东朝西 (甲山庚向)", period9Chart: [6, 1, 4, 2, 6, 9, 4, 8, 2, 5, 2, 5, 1, 5, 7, 9, 9, 3, 8, 4, 6, 7, 3, 1, 3, 7, 8] },
+            { name: "坐东朝西 (卯山酉向)", period9Chart: [5, 2, 4, 1, 7, 9, 3, 9, 2, 4, 3, 5, 9, 6, 7, 8, 1, 3, 7, 5, 6, 6, 4, 1, 2, 8, 8] },
+            { name: "坐东朝西 (乙山辛向)", period9Chart: [5, 2, 4, 1, 7, 9, 3, 9, 2, 4, 3, 5, 9, 6, 7, 8, 1, 3, 7, 5, 6, 6, 4, 1, 2, 8, 8] },
+            // SE (Xun)
+            { name: "坐东南朝西北 (辰山戌向)", period9Chart: [7, 5, 5, 3, 9, 1, 5, 7, 3, 6, 4, 6, 2, 8, 8, 1, 3, 4, 9, 1, 7, 8, 2, 2, 4, 6, 9] },
+            { name: "坐东南朝西北 (巽山乾向)", period9Chart: [4, 8, 5, 9, 4, 1, 2, 6, 3, 3, 7, 6, 8, 2, 8, 7, 9, 4, 6, 5, 7, 5, 1, 2, 1, 3, 9] },
+            { name: "坐东南朝西北 (巳山亥向)", period9Chart: [4, 8, 5, 9, 4, 1, 2, 6, 3, 3, 7, 6, 8, 2, 8, 7, 9, 4, 6, 5, 7, 5, 1, 2, 1, 3, 9] },
+            // South (Li)
+            { name: "坐南朝北 (丙山壬向)", period9Chart: [7, 4, 6, 3, 8, 2, 5, 6, 4, 6, 3, 5, 2, 7, 9, 1, 2, 1, 8, 9, 7, 9, 1, 3, 4, 5, 8] },
+            { name: "坐南朝北 (午山子向)", period9Chart: [8, 3, 7, 4, 8, 3, 6, 1, 5, 7, 2, 6, 3, 7, 9, 2, 5, 1, 1, 9, 8, 9, 4, 4, 5, 6, 2] },
+            { name: "坐南朝北 (丁山癸向)", period9Chart: [8, 3, 7, 4, 8, 3, 6, 1, 5, 7, 2, 6, 3, 7, 9, 2, 5, 1, 1, 9, 8, 9, 4, 4, 5, 6, 2] },
+            // SW (Kun)
+            { name: "坐西南朝东北 (未山丑向)", period9Chart: [3, 8, 7, 8, 4, 3, 1, 6, 5, 2, 7, 6, 6, 3, 9, 5, 1, 1, 9, 5, 8, 4, 9, 2, 7, 2, 4] },
+            { name: "坐西南朝东北 (坤山艮向)", period9Chart: [3, 8, 7, 8, 4, 3, 1, 6, 5, 2, 7, 6, 6, 3, 9, 5, 1, 1, 9, 5, 8, 4, 9, 2, 7, 2, 4] },
+            { name: "坐西南朝东北 (申山寅向)", period9Chart: [3, 8, 7, 8, 4, 3, 1, 6, 5, 2, 7, 6, 6, 3, 9, 5, 1, 1, 9, 5, 8, 4, 9, 2, 7, 2, 4] },
+            // West (Dui)
+            { name: "坐西朝东 (庚山甲向)", period9Chart: [1, 6, 8, 5, 1, 4, 3, 8, 6, 2, 5, 7, 6, 9, 2, 4, 2, 1, 8, 4, 9, 9, 7, 3, 7, 3, 5] },
+            { name: "坐西朝东 (酉山卯向)", period9Chart: [2, 5, 8, 6, 1, 4, 4, 9, 6, 3, 4, 7, 1, 8, 2, 8, 6, 1, 9, 3, 9, 5, 7, 3, 7, 2, 5] },
+            { name: "坐西朝东 (辛山乙向)", period9Chart: [2, 5, 8, 6, 1, 4, 4, 9, 6, 3, 4, 7, 1, 8, 2, 8, 6, 1, 9, 3, 9, 5, 7, 3, 7, 2, 5] },
+            // NW (Qian)
+            { name: "坐西北朝东南 (戌山辰向)", period9Chart: [5, 7, 9, 1, 3, 5, 3, 5, 7, 4, 6, 8, 9, 2, 4, 8, 1, 6, 2, 9, 2, 6, 4, 1, 7, 8, 3] },
+            { name: "坐西北朝东南 (乾山巽向)", period9Chart: [8, 4, 9, 4, 9, 5, 6, 2, 7, 7, 3, 8, 3, 8, 4, 2, 7, 6, 1, 6, 2, 9, 5, 1, 5, 1, 3] },
+            { name: "坐西北朝东南 (亥山巳向)", period9Chart: [8, 4, 9, 4, 9, 5, 6, 2, 7, 7, 3, 8, 3, 8, 4, 2, 7, 6, 1, 6, 2, 9, 5, 1, 5, 1, 3] }
+        ];
+
+        const ZODIACS = [
+            { name: "鼠", element: "水", clash: "正南 (午)", friendly: "猴、龙", noble: "西南、东南", peach: "正西", wenchang: "正东" },
+            { name: "牛", element: "土", clash: "西南 (未)", friendly: "蛇、鸡", noble: "正北、正西", peach: "正南", wenchang: "正南" },
+            { name: "虎", element: "木", clash: "西南 (申)", friendly: "马、狗", noble: "西北、正南", peach: "正东", wenchang: "正东" },
+            { name: "兔", element: "木", clash: "正西 (酉)", friendly: "猪、羊", noble: "西北、正北", peach: "正北", wenchang: "正南" },
+            { name: "龙", element: "土", clash: "西北 (戌)", friendly: "鼠、猴", noble: "正西、正北", peach: "正西", wenchang: "西南" },
+            { name: "蛇", element: "火", clash: "西北 (亥)", friendly: "鸡、牛", noble: "西南、正西", peach: "正南", wenchang: "正西" },
+            { name: "马", element: "火", clash: "正北 (子)", friendly: "虎、狗", noble: "西北、东北", peach: "正东", wenchang: "西南" },
+            { name: "羊", element: "土", clash: "东北 (丑)", friendly: "兔、猪", noble: "正南、正东", peach: "正北", wenchang: "正西" },
+            { name: "猴", element: "金", clash: "东北 (寅)", friendly: "鼠、龙", noble: "东北、东南", peach: "正西", wenchang: "正西" },
+            { name: "鸡", element: "金", clash: "正东 (卯)", friendly: "蛇、牛", noble: "东南、东北", peach: "正南", wenchang: "正北" },
+            { name: "狗", element: "土", clash: "东南 (辰)", friendly: "虎、马", noble: "正东、正南", peach: "正东", wenchang: "正北" },
+            { name: "猪", element: "水", clash: "东南 (巳)", friendly: "兔、羊", noble: "正东、正南", peach: "正北", wenchang: "正北" }
+        ];
+
+        // --- Logic Functions ---
+
+        function getStarData(chart, palaceIndex) {
+            // chart is array of 27. palaceIndex 0-8.
+            const start = palaceIndex * 3;
+            return {
+                m: chart[start],
+                f: chart[start+1],
+                b: chart[start+2]
             };
+        }
+
+        function analyzePalace(starData, palaceName) {
+            const { m, f, b } = starData;
+            let verdict = "";
+            let details = [];
+            let score = 0; // Simple scoring for color coding
+
+            // Period 9 Logic (9 is King, 1 is Future, 2 is distant future but illness, 8 is retreated)
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('opacity-100', 'translate-y-0');
-                        entry.target.classList.remove('opacity-0', 'translate-y-4');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+            // 1. Facing Star (Wealth)
+            if (f === 9) { verdict += "【财星当令】"; details.push("九紫向星飞临，财运最旺之方。宜开门、见水、活动。"); score += 2; }
+            else if (f === 1) { verdict += "【近旺财位】"; details.push("一白向星，主未来财气，利偏财、人缘。"); score += 1; }
+            else if (f === 2) { verdict += "【病符财】"; details.push("二黑虽为远旺，但本性主病，求财需防疾。"); score -= 1; }
+            else if (f === 5) { verdict += "【五黄大煞】"; details.push("五黄向星，此时为煞，不可动土，不可见流动之水，恐损财。"); score -= 2; }
+            else if (f === 7) { verdict += "【破军退财】"; details.push("七赤退气，防盗贼、口舌、破耗。"); score -= 1; }
+
+            // 2. Mountain Star (Health/People)
+            if (m === 9) { verdict += "【旺丁之位】"; details.push("九紫山星，主家人健康、贵人扶持。宜安床、置柜。"); score += 1; }
+            else if (m === 1) { verdict += "【文昌人丁】"; details.push("一白山星，利家中少男，亦主智慧。"); score += 1; }
+            else if (m === 5) { verdict += "【五黄关煞】"; details.push("五黄山星，主身体隐患。此方宜静不宜动，忌红色堆放。"); score -= 2; }
+            else if (m === 2) { verdict += "【病符山】"; details.push("二黑山星，主慢性病，老母受损。"); score -= 1; }
+
+            // 3. Special Combinations
+            if (m === 9 && f === 9) {
+                verdict = "★ 双星会聚 ★ " + verdict;
+                details.push("九九同宫，若外局山水配合得宜，则丁财两旺，为全屋最吉之位！");
+                score += 3;
+            }
+            if (m === 2 && f === 5) {
+                verdict = "!!! 二五交加 !!!";
+                details.push("二五交加必损主，此乃全屋最凶之位，必须挂铜铃化解，切忌坐卧。");
+                score -= 5;
+            }
+            if (m === 5 && f === 2) {
+                verdict = "!!! 二五交加 !!!";
+                details.push("二五交加，灾病重重。");
+                score -= 5;
+            }
+            if ((m === 1 && f === 4) || (m === 4 && f === 1)) {
+                verdict += "【文昌位】";
+                details.push("一四同宫，准发科名。最利读书、考试、文职工作。");
+                score += 1;
+            }
+            if (m === 3 && f === 7) {
+                details.push("三七叠临，穿心煞，防被盗、四肢受伤。");
+                score -= 1;
+            }
             
-            // 初始设置
-            document.querySelectorAll('.section-content').forEach(section => {
-                section.classList.add('transition-all', 'duration-700', 'ease-out', 'opacity-0', 'translate-y-4');
-                observer.observe(section);
+            // Refine score string
+            let scoreClass = "text-stone-600";
+            if (score >= 2) scoreClass = "text-red-700 font-bold";
+            if (score <= -2) scoreClass = "text-stone-900 font-bold"; // Bad luck in dark
+
+            return { verdict, details, scoreClass };
+        }
+
+        // --- App Component ---
+
+        function App() {
+            const [step, setStep] = useState(1);
+            const [formData, setFormData] = useState({
+                name: "",
+                familyZodiacs: [],
+                address: "",
+                buildYear: "",
+                orientation: "", // Name like "子山午向"
+                notes: "",
+                imageUrl: null
             });
-        });
+
+            // Init Icons
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            });
+
+            const handleAnalyze = () => {
+                if (!formData.name || !formData.orientation || !formData.imageUrl) {
+                    alert("客官，天机不可缺。请补全姓名、坐向及户型图。");
+                    return;
+                }
+                setStep(2);
+            };
+
+            const reset = () => setStep(1);
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <header className="ink-bg text-white p-4 shadow-md no-print">
+                        <div className="container mx-auto flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                                <i data-lucide="compass" className="w-6 h-6 text-stone-300"></i>
+                                <span className="text-xl font-bold serif tracking-wider">三同事黑扇子</span>
+                            </div>
+                            <nav className="text-xs md:text-sm space-x-4 text-slate-400">
+                                <span className="text-white">三元玄空 · 九运真解</span>
+                            </nav>
+                        </div>
+                    </header>
+
+                    <main className="flex-grow container mx-auto p-2 md:p-6">
+                        {step === 1 ? (
+                            <InputForm 
+                                formData={formData} 
+                                setFormData={setFormData} 
+                                onAnalyze={handleAnalyze} 
+                            />
+                        ) : (
+                            <AnalysisReport 
+                                formData={formData} 
+                                onBack={reset}
+                            />
+                        )}
+                    </main>
+
+                    <footer className="bg-stone-200 py-4 text-center text-stone-500 text-xs no-print">
+                        <p>© 2025 三同事黑扇子 | 专业风水工具</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        function InputForm({ formData, setFormData, onAnalyze }) {
+            const fileInputRef = useRef(null);
+
+            // Re-run icons when component mounts
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, []);
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({ ...prev, [name]: value }));
+            };
+
+            const toggleZodiac = (zodiacName) => {
+                setFormData(prev => {
+                    const current = prev.familyZodiacs;
+                    return current.includes(zodiacName) 
+                        ? { ...prev, familyZodiacs: current.filter(z => z !== zodiacName) }
+                        : { ...prev, familyZodiacs: [...current, zodiacName] };
+                });
+            };
+
+            const handleImageUpload = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const url = URL.createObjectURL(file);
+                    setFormData(prev => ({ ...prev, imageUrl: url }));
+                }
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded shadow-sm border border-stone-200">
+                    <h2 className="text-2xl font-bold mb-8 text-center serif ink-text border-b-2 border-slate-900 pb-3">风水勘验 · 缘起登记</h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-5">
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-1">户主雅号/姓名</label>
+                                <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full bg-stone-50 border border-stone-300 p-2 rounded focus:outline-none focus:border-slate-800 transition" placeholder="请填写" />
+                            </div>
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-1">堪舆地址</label>
+                                <input type="text" name="address" value={formData.address} onChange={handleInputChange} className="w-full bg-stone-50 border border-stone-300 p-2 rounded" placeholder="省 / 市 / 区" />
+                            </div>
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-1">房屋建成/入伙年份</label>
+                                <input type="number" name="buildYear" value={formData.buildYear} onChange={handleInputChange} className="w-full bg-stone-50 border border-stone-300 p-2 rounded" placeholder="如：2023" />
+                            </div>
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-1">精准坐向 (务必实测)</label>
+                                <select name="orientation" value={formData.orientation} onChange={handleInputChange} className="w-full bg-stone-50 border border-stone-300 p-2 rounded cursor-pointer">
+                                    <option value="">-- 请选择罗盘坐向 --</option>
+                                    {MOUNTAINS_24.map((m, i) => (
+                                        <option key={i} value={m.name}>{m.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-2">家庭成员属相</label>
+                                <div className="grid grid-cols-6 gap-2">
+                                    {ZODIACS.map((z) => (
+                                        <button key={z.name} onClick={() => toggleZodiac(z.name)} className={`text-xs p-2 rounded border transition ${formData.familyZodiacs.includes(z.name) ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-stone-500 border-stone-200 hover:border-slate-400'}`}>
+                                            {z.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-5">
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-1">上传户型图 (请务必标明北向)</label>
+                                <div onClick={() => fileInputRef.current.click()} className="h-56 border-2 border-dashed border-stone-300 rounded bg-stone-50 flex flex-col items-center justify-center cursor-pointer hover:bg-stone-100 transition relative overflow-hidden">
+                                    {formData.imageUrl ? (
+                                        <img src={formData.imageUrl} className="w-full h-full object-contain" alt="preview" />
+                                    ) : (
+                                        <>
+                                            <i data-lucide="upload-cloud" className="w-8 h-8 text-stone-400 mb-2"></i>
+                                            <span className="text-xs text-stone-500">点击上传图片 (JPG/PNG)</span>
+                                        </>
+                                    )}
+                                </div>
+                                <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
+                            </div>
+                            <div>
+                                <label className="form-label font-bold text-sm text-stone-600 block mb-1">特别诉求 / 问题描述</label>
+                                <textarea name="notes" value={formData.notes} onChange={handleInputChange} className="w-full bg-stone-50 border border-stone-300 p-2 rounded h-32 resize-none text-sm" placeholder="如：想催旺财运，家中老人身体不适..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-10 flex justify-center">
+                        <button onClick={onAnalyze} className="bg-slate-900 text-white px-12 py-3 rounded hover:bg-slate-800 transition shadow-lg text-lg serif tracking-widest flex items-center gap-2">
+                            <span>排盘演卦</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        function AnalysisReport({ formData, onBack }) {
+            const [activeCell, setActiveCell] = useState(null);
+            const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+            const reportRef = useRef(null);
+
+            useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            }, []);
+
+            // 1. Get Chart Data
+            const selectedChart = MOUNTAINS_24.find(m => m.name === formData.orientation);
+            // Default to North-South if something wrong, but validation prevents this
+            const chartData = selectedChart ? selectedChart.period9Chart : MOUNTAINS_24[1].period9Chart;
+
+            // 2. Map Data to 9 Palaces
+            const processedPalaces = PALACES.map((p, index) => {
+                const stars = getStarData(chartData, index);
+                const analysis = analyzePalace(stars, p.name);
+                return { ...p, stars, analysis };
+            });
+
+            // 3. Process Zodiacs
+            const zodiacInsights = formData.familyZodiacs.map(z => {
+                const data = ZODIACS.find(item => item.name === z);
+                return { ...data, userZodiac: z };
+            });
+
+            // 4. Handle PDF Generation - SAFE METHOD
+            const generatePDF = async () => {
+                if (isGeneratingPdf) return;
+                
+                // CRITICAL SAFETY CHECK for jsPDF
+                if (!window.jspdf || !window.jspdf.jsPDF) {
+                    alert("PDF组件尚未加载完成，请稍后重试或刷新页面。");
+                    return;
+                }
+
+                setIsGeneratingPdf(true);
+                
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const element = reportRef.current;
+                    const canvas = await html2canvas(element, {
+                        scale: 2, // High resolution
+                        useCORS: true,
+                        logging: false
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
+                    const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                    
+                    // Simple fit to width
+                    const finalImgHeight = imgHeight * (pdfWidth / imgWidth);
+                    
+                    // Add image to PDF
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, finalImgHeight);
+                    pdf.save(`三同事黑扇子风水报告_${formData.name}.pdf`);
+                } catch (err) {
+                    console.error("PDF Gen Error:", err);
+                    alert("生成PDF失败，建议直接使用浏览器打印功能（按Ctrl+P）。");
+                } finally {
+                    setIsGeneratingPdf(false);
+                }
+            };
+
+            return (
+                <div className="flex flex-col gap-6">
+                    {/* Toolbar */}
+                    <div className="flex justify-between items-center no-print px-2">
+                        <button onClick={onBack} className="text-stone-500 hover:text-slate-900 flex items-center gap-1 text-sm">
+                            <i data-lucide="arrow-left" className="w-4 h-4"></i> 返回重填
+                        </button>
+                        <button 
+                            onClick={generatePDF} 
+                            disabled={isGeneratingPdf}
+                            className={`bg-slate-900 text-white px-5 py-2 rounded text-sm hover:bg-slate-800 flex items-center gap-2 ${isGeneratingPdf ? 'opacity-70 cursor-wait' : ''}`}
+                        >
+                            {isGeneratingPdf ? <div className="loader w-4 h-4 border-2"></div> : <i data-lucide="file-down" className="w-4 h-4"></i>}
+                            {isGeneratingPdf ? "生成中..." : "下载专业PDF报告"}
+                        </button>
+                    </div>
+
+                    {/* Report Content (Target for PDF) */}
+                    <div ref={reportRef} className="bg-white p-8 md:p-12 shadow-2xl max-w-5xl mx-auto w-full text-stone-900">
+                        
+                        {/* 1. Header */}
+                        <div className="text-center border-b-4 border-slate-900 pb-6 mb-8">
+                            <h1 className="text-4xl font-bold serif text-slate-900 mb-2 tracking-widest">三同事黑扇子</h1>
+                            <div className="flex justify-center items-center gap-4 text-sm tracking-widest text-stone-500 uppercase mt-2">
+                                <span>San Yuan Xuan Kong</span>
+                                <span>•</span>
+                                <span>Period 9 Feng Shui</span>
+                            </div>
+                        </div>
+
+                        {/* 2. Info Block */}
+                        <div className="bg-stone-50 border border-stone-200 p-6 mb-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+                            <div><span className="block text-xs text-stone-400 uppercase">户主</span><span className="font-bold text-lg">{formData.name}</span></div>
+                            <div><span className="block text-xs text-stone-400 uppercase">坐向</span><span className="font-bold text-lg text-indigo-900">{formData.orientation}</span></div>
+                            <div><span className="block text-xs text-stone-400 uppercase">建成</span><span className="font-bold text-lg">{formData.buildYear}</span></div>
+                            <div><span className="block text-xs text-stone-400 uppercase">时运</span><span className="font-bold text-lg text-red-700">九运 (离火)</span></div>
+                            <div className="col-span-2 md:col-span-4 border-t border-stone-200 pt-3">
+                                <span className="block text-xs text-stone-400 uppercase mb-1">特别说明</span>
+                                <p className="italic text-stone-600">{formData.notes || "无"}</p>
+                            </div>
+                        </div>
+
+                        {/* 3. Main Chart & Grid */}
+                        <div className="flex flex-col md:flex-row gap-8 mb-12">
+                            {/* Left: Visual Map */}
+                            <div className="w-full md:w-1/2 relative">
+                                <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+                                    <span className="bg-slate-900 text-white px-2 py-0.5 text-xs rounded">图解</span>
+                                    九宫飞星排盘
+                                </h3>
+                                <div className="relative aspect-square border-2 border-slate-900 bg-stone-100 overflow-hidden">
+                                    <img src={formData.imageUrl} className="w-full h-full object-contain opacity-40 grayscale" alt="Floor Plan" />
+                                    
+                                    <div className="grid-overlay">
+                                        <GridCell palace={processedPalaces[0]} pos="1 / 1 / 2 / 2" onActive={setActiveCell} /> {/* NW */}
+                                        <GridCell palace={processedPalaces[1]} pos="1 / 2 / 2 / 3" onActive={setActiveCell} /> {/* N */}
+                                        <GridCell palace={processedPalaces[2]} pos="1 / 3 / 2 / 4" onActive={setActiveCell} /> {/* NE */}
+                                        
+                                        <GridCell palace={processedPalaces[3]} pos="2 / 1 / 2 / 2" onActive={setActiveCell} /> {/* W */}
+                                        <GridCell palace={processedPalaces[4]} pos="2 / 2 / 3 / 3" onActive={setActiveCell} /> {/* C */}
+                                        <GridCell palace={processedPalaces[5]} pos="2 / 3 / 3 / 4" onActive={setActiveCell} /> {/* E */}
+                                        
+                                        <GridCell palace={processedPalaces[6]} pos="3 / 1 / 4 / 2" onActive={setActiveCell} /> {/* SW */}
+                                        <GridCell palace={processedPalaces[7]} pos="3 / 2 / 4 / 3" onActive={setActiveCell} /> {/* S */}
+                                        <GridCell palace={processedPalaces[8]} pos="3 / 3 / 4 / 4" onActive={setActiveCell} /> {/* SE */}
+                                    </div>
+                                </div>
+                                <div className="text-xs text-center mt-2 text-stone-400">
+                                    * 默认地图方位：上北下南 * <br/>
+                                    <span className="text-blue-700 font-bold">左上:山星</span> | <span className="text-red-700 font-bold">右上:向星</span> | <span className="text-stone-800 font-bold">中间:运星</span>
+                                </div>
+                            </div>
+
+                            {/* Right: Analysis Detail */}
+                            <div className="w-full md:w-1/2 flex flex-col">
+                                <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+                                    <span className="bg-red-800 text-white px-2 py-0.5 text-xs rounded">论断</span>
+                                    方位吉凶详解
+                                </h3>
+                                <div className="flex-grow bg-stone-50 border border-stone-300 p-5 rounded-sm h-full min-h-[300px]">
+                                    {activeCell ? (
+                                        <div className="animate-fade-in">
+                                            <div className="flex justify-between items-baseline border-b border-stone-300 pb-2 mb-3">
+                                                <h4 className="text-xl font-bold serif text-slate-900">{activeCell.name}</h4>
+                                                <div className="text-xs font-mono text-stone-500">
+                                                    山{activeCell.stars.m} - 向{activeCell.stars.f} - 运{activeCell.stars.b}
+                                                </div>
+                                            </div>
+                                            <div className="space-y-4">
+                                                <div>
+                                                    <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">吉凶定性</span>
+                                                    <p className={`text-lg serif mt-1 ${activeCell.analysis.scoreClass}`}>{activeCell.analysis.verdict || "平"}</p>
+                                                </div>
+                                                <div>
+                                                    <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">黑扇子批注</span>
+                                                    <ul className="mt-2 space-y-2">
+                                                        {activeCell.analysis.details.map((detail, idx) => (
+                                                            <li key={idx} className="text-sm text-stone-700 leading-relaxed flex gap-2">
+                                                                <span className="text-slate-400">➤</span>
+                                                                {detail}
+                                                            </li>
+                                                        ))}
+                                                        {activeCell.analysis.details.length === 0 && <li className="text-sm text-stone-500 italic">此方气场平稳，无明显吉凶克应，可作常规使用。</li>}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="h-full flex flex-col items-center justify-center text-stone-400 space-y-3">
+                                            <i data-lucide="mouse-pointer-click" className="w-8 h-8 opacity-50"></i>
+                                            <p className="text-sm">点击左侧九宫格任意区域<br/>查看详细风水论断</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* 4. Zodiac Matrix */}
+                        <div className="mb-12">
+                            <h3 className="text-lg font-bold border-l-4 border-slate-900 pl-3 mb-4">命理与方位深度关联</h3>
+                            {zodiacInsights.length > 0 ? (
+                                <div className="grid grid-cols-1 gap-4">
+                                    {zodiacInsights.map((z, idx) => (
+                                        <div key={idx} className="bg-white border border-stone-200 p-4 shadow-sm flex flex-col md:flex-row md:items-center gap-4">
+                                            <div className="md:w-1/6 flex flex-col items-center justify-center border-r border-stone-100 pr-4">
+                                                <div className="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center text-xl font-serif font-bold mb-1">
+                                                    {z.userZodiac}
+                                                </div>
+                                                <span className="text-xs text-stone-500">五行属{z.element}</span>
+                                            </div>
+                                            <div className="md:w-5/6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                                <div className="bg-red-50 p-2 rounded">
+                                                    <span className="block text-xs text-red-400 font-bold mb-1">⚠️ 忌冲 (六冲方)</span>
+                                                    <span className="text-stone-800 font-medium">{z.clash}</span>
+                                                </div>
+                                                <div className="bg-blue-50 p-2 rounded">
+                                                    <span className="block text-xs text-blue-400 font-bold mb-1">✨ 贵人 (大吉方)</span>
+                                                    <span className="text-stone-800 font-medium">{z.noble}</span>
+                                                </div>
+                                                <div className="bg-pink-50 p-2 rounded">
+                                                    <span className="block text-xs text-pink-400 font-bold mb-1">🌸 桃花 (人缘方)</span>
+                                                    <span className="text-stone-800 font-medium">{z.peach}</span>
+                                                </div>
+                                                <div className="bg-emerald-50 p-2 rounded">
+                                                    <span className="block text-xs text-emerald-600 font-bold mb-1">📚 文昌 (学业方)</span>
+                                                    <span className="text-stone-800 font-medium">{z.wenchang}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="text-stone-500 text-sm italic p-4 bg-stone-50">未录入属相信息，无法进行命理方位匹配。</p>
+                            )}
+                        </div>
+
+                        {/* 5. Footer */}
+                        <div className="text-center pt-8 border-t border-stone-200">
+                            <p className="font-serif font-bold text-xl text-slate-900 mb-2">“天机已露，吉凶自担”</p>
+                            <p className="text-xs text-stone-400">报告生成时间：{new Date().toLocaleDateString()} | 三同事黑扇子系统自动演算</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Grid Cell Component
+        function GridCell({ palace, pos, onActive }) {
+            const { stars } = palace;
+            // Determine background opacity based on potential "evil" stars to visualize hotspots slightly
+            // 5 is worst.
+            const isDanger = stars.m === 5 || stars.f === 5 || (stars.m === 2 && stars.f === 5);
+            const isGood = stars.f === 9 || stars.f === 1 || (stars.m === 9 && stars.f === 9);
+
+            let bgStyle = {};
+            if (isDanger) bgStyle = { backgroundColor: 'rgba(254, 202, 202, 0.2)' }; // faint red
+            if (isGood) bgStyle = { backgroundColor: 'rgba(209, 250, 229, 0.2)' }; // faint green
+
+            return (
+                <div 
+                    className="grid-cell" 
+                    style={{ gridArea: pos, ...bgStyle }}
+                    onClick={() => onActive(palace)}
+                >
+                    <div className="star-layout">
+                        <div className="star-sitting">{stars.m}</div>
+                        <div className="star-facing">{stars.f}</div>
+                        <div className="star-base">{stars.b}</div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
