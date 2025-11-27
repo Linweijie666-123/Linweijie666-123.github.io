@@ -179,6 +179,43 @@
             { name: "猪", element: "水", clash: "东南 (巳)", friendly: "兔、羊", noble: "正东、正南", peach: "正北", wenchang: "正北" }
         ];
 
+        // --- Helper Components ---
+        
+        // Safe Lucide Icon component to prevent React DOM mismatch errors
+        function LucideIcon({ name, className, size = 24 }) {
+            const ref = useRef(null);
+            
+            useEffect(() => {
+                if (!ref.current || !window.lucide) return;
+                
+                // Convert kebab-case to PascalCase for lucide.icons lookup
+                const iconName = name
+                    .split('-')
+                    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                    .join('');
+                
+                const iconDef = window.lucide.icons ? window.lucide.icons[iconName] : null;
+
+                if (iconDef) {
+                    // Create SVG element using Lucide's API
+                    const svg = window.lucide.createElement(iconDef);
+                    
+                    // Apply attributes
+                    svg.setAttribute('width', size);
+                    svg.setAttribute('height', size);
+                    if (className) {
+                        svg.setAttribute('class', className);
+                    }
+                    
+                    // Safely update DOM
+                    ref.current.innerHTML = '';
+                    ref.current.appendChild(svg);
+                }
+            }, [name, className, size]);
+
+            return <span ref={ref} className="inline-flex items-center justify-center"></span>;
+        }
+
         // --- Logic Functions ---
 
         function getStarData(chart, palaceIndex) {
@@ -260,12 +297,8 @@
                 imageUrl: null
             });
 
-            // Init Icons
-            useEffect(() => {
-                if (window.lucide) {
-                    window.lucide.createIcons();
-                }
-            });
+            // Replaced global effect with local LucideIcon components
+            // No global init needed
 
             const handleAnalyze = () => {
                 if (!formData.name || !formData.orientation || !formData.imageUrl) {
@@ -282,7 +315,7 @@
                     <header className="ink-bg text-white p-4 shadow-md no-print">
                         <div className="container mx-auto flex justify-between items-center">
                             <div className="flex items-center gap-2">
-                                <i data-lucide="compass" className="w-6 h-6 text-stone-300"></i>
+                                <LucideIcon name="compass" className="text-stone-300" size={24} />
                                 <span className="text-xl font-bold serif tracking-wider">三同事黑扇子</span>
                             </div>
                             <nav className="text-xs md:text-sm space-x-4 text-slate-400">
@@ -315,11 +348,6 @@
 
         function InputForm({ formData, setFormData, onAnalyze }) {
             const fileInputRef = useRef(null);
-
-            // Re-run icons when component mounts
-            useEffect(() => {
-                if (window.lucide) window.lucide.createIcons();
-            }, []);
 
             const handleInputChange = (e) => {
                 const { name, value } = e.target;
@@ -389,10 +417,10 @@
                                     {formData.imageUrl ? (
                                         <img src={formData.imageUrl} className="w-full h-full object-contain" alt="preview" />
                                     ) : (
-                                        <>
-                                            <i data-lucide="upload-cloud" className="w-8 h-8 text-stone-400 mb-2"></i>
+                                        <div className="flex flex-col items-center">
+                                            <LucideIcon name="upload-cloud" className="text-stone-400 mb-2" size={32} />
                                             <span className="text-xs text-stone-500">点击上传图片 (JPG/PNG)</span>
-                                        </>
+                                        </div>
                                     )}
                                 </div>
                                 <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*" />
@@ -417,10 +445,6 @@
             const [activeCell, setActiveCell] = useState(null);
             const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
             const reportRef = useRef(null);
-
-            useEffect(() => {
-                if (window.lucide) window.lucide.createIcons();
-            }, []);
 
             // 1. Get Chart Data
             const selectedChart = MOUNTAINS_24.find(m => m.name === formData.orientation);
@@ -488,14 +512,14 @@
                     {/* Toolbar */}
                     <div className="flex justify-between items-center no-print px-2">
                         <button onClick={onBack} className="text-stone-500 hover:text-slate-900 flex items-center gap-1 text-sm">
-                            <i data-lucide="arrow-left" className="w-4 h-4"></i> 返回重填
+                            <LucideIcon name="arrow-left" size={16} /> 返回重填
                         </button>
                         <button 
                             onClick={generatePDF} 
                             disabled={isGeneratingPdf}
                             className={`bg-slate-900 text-white px-5 py-2 rounded text-sm hover:bg-slate-800 flex items-center gap-2 ${isGeneratingPdf ? 'opacity-70 cursor-wait' : ''}`}
                         >
-                            {isGeneratingPdf ? <div className="loader w-4 h-4 border-2"></div> : <i data-lucide="file-down" className="w-4 h-4"></i>}
+                            {isGeneratingPdf ? <div className="loader w-4 h-4 border-2"></div> : <LucideIcon name="file-down" size={16} />}
                             {isGeneratingPdf ? "生成中..." : "下载专业PDF报告"}
                         </button>
                     </div>
@@ -592,7 +616,7 @@
                                         </div>
                                     ) : (
                                         <div className="h-full flex flex-col items-center justify-center text-stone-400 space-y-3">
-                                            <i data-lucide="mouse-pointer-click" className="w-8 h-8 opacity-50"></i>
+                                            <LucideIcon name="mouse-pointer-click" className="opacity-50" size={32} />
                                             <p className="text-sm">点击左侧九宫格任意区域<br/>查看详细风水论断</p>
                                         </div>
                                     )}
