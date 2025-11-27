@@ -1,558 +1,675 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Upload, Move, RotateCw, BookOpen, ChevronDown, ChevronUp, Map, User, Info, Compass, FileText, Calendar, Users, MapPin, AlertCircle, MessageCircle } from 'lucide-react';
-
-/**
- * ------------------------------------------------------------------
- * 常量定义与数据字典
- * ------------------------------------------------------------------
- */
-
-// 十二生肖数据
-const ZODIAC_DATA = {
-  rat: { name: '鼠', element: '水', loc: '正北', clash: '正南', label: '坎宫' },
-  ox: { name: '牛', element: '土', loc: '东北', clash: '西南', label: '艮宫' },
-  tiger: { name: '虎', element: '木', loc: '东北', clash: '西南', label: '艮宫' },
-  rabbit: { name: '兔', element: '木', loc: '正东', clash: '正西', label: '震宫' },
-  dragon: { name: '龙', element: '土', loc: '东南', clash: '西北', label: '巽宫' },
-  snake: { name: '蛇', element: '火', loc: '东南', clash: '西北', label: '巽宫' },
-  horse: { name: '马', element: '火', loc: '正南', clash: '正北', label: '离宫' },
-  goat: { name: '羊', element: '土', loc: '西南', clash: '东北', label: '坤宫' },
-  monkey: { name: '猴', element: '金', loc: '西南', clash: '东北', label: '坤宫' },
-  rooster: { name: '鸡', element: '金', loc: '正西', clash: '正东', label: '兑宫' },
-  dog: { name: '狗', element: '土', loc: '西北', clash: '东南', label: '乾宫' },
-  pig: { name: '猪', element: '水', loc: '西北', clash: '东南', label: '乾宫' },
-};
-
-// 二十四山向
-const MOUNTAINS_24 = [
-  "子山午向 (坐北向南)", "癸山丁向 (坐北向南)", "壬山丙向 (坐北向南)",
-  "午山子向 (坐南向北)", "丁山癸向 (坐南向北)", "丙山壬向 (坐南向北)",
-  "卯山酉向 (坐东向西)", "乙山辛向 (坐东向西)", "甲山庚向 (坐东向西)",
-  "酉山卯向 (坐西向东)", "辛山乙向 (坐西向东)", "庚山甲向 (坐西向东)",
-  "乾山巽向 (坐西北向东南)", "巽山乾向 (坐东南向西北)",
-  "艮山坤向 (坐东北向西南)", "坤山艮向 (坐西南向东北)"
-];
-
-// 九宫格方位基础定义
-const PALACES = [
-  { id: 'SE', name: '东南 (巽)', baseStar: 4, element: '木' },
-  { id: 'S', name: '正南 (离)', baseStar: 9, element: '火' },
-  { id: 'SW', name: '西南 (坤)', baseStar: 2, element: '土' },
-  { id: 'E', name: '正东 (震)', baseStar: 3, element: '木' },
-  { id: 'C', name: '中宫', baseStar: 5, element: '土' },
-  { id: 'W', name: '正西 (兑)', baseStar: 7, element: '金' },
-  { id: 'NE', name: '东北 (艮)', baseStar: 8, element: '土' },
-  { id: 'N', name: '正北 (坎)', baseStar: 1, element: '水' },
-  { id: 'NW', name: '西北 (乾)', baseStar: 6, element: '金' },
-];
-
-/**
- * ------------------------------------------------------------------
- * 辅助函数：风水逻辑计算
- * ------------------------------------------------------------------
- */
-
-const calculateFlyingStars = (baseDirection) => {
-  // 模拟九运排盘数据
-  const stars = {
-    'SE': { mountain: 4, water: 3, base: 4, desc: '四绿文曲飞临，主学业功名。然见三碧蚩尤，成碧绿风魔之象，防情绪躁动，不利长女。', type: '吉带凶' },
-    'S': { mountain: 9, water: 9, base: 9, desc: '九紫右弼双星到向，火气冲天，为全宅最旺之财位，也是未来生气所在，大吉。', type: '大吉' },
-    'SW': { mountain: 2, water: 1, base: 2, desc: '二黑病符土星，见一白贪狼。土克水，防妇科疾病或肠胃之疾，此处宜静。', type: '凶' },
-    'E': { mountain: 3, water: 4, base: 3, desc: '三碧禄存星，木气过盛。若此处有缺角或形煞，易招口舌是非，官非缠身。', type: '凶' },
-    'C': { mountain: 5, water: 5, base: 5, desc: '五黄廉贞大煞入中宫。皇级大煞，动则见凶。全屋气场以此为枢纽，务必保持整洁平稳。', type: '大凶' },
-    'W': { mountain: 7, water: 6, base: 7, desc: '七赤破军星，金气肃杀。名为贼星，主破财、手术、金属之伤。', type: '凶' },
-    'NE': { mountain: 8, water: 7, base: 8, desc: '八白左辅星，虽为退气之星，但本质为吉。利于置业、守成，少壮男丁之位。', type: '小吉' },
-    'N': { mountain: 1, water: 2, base: 1, desc: '一白贪狼星，主桃花、人缘。虽受二黑土克，但总体利于文职、人际交往。', type: '小吉' },
-    'NW': { mountain: 6, water: 8, base: 6, desc: '六白武曲星，利官运、权威。为一家之主（父辈）本位，此方若受冲，不利男主人。', type: '吉' },
-  };
-  return stars;
-};
-
-/**
- * ------------------------------------------------------------------
- * 主组件
- * ------------------------------------------------------------------
- */
-const FengShuiApp = () => {
-  const [image, setImage] = useState<string | null>(null);
-  const [rotation, setRotation] = useState(0);
-  const [analyzing, setAnalyzing] = useState(false);
-  const [reportReady, setReportReady] = useState(false);
-  const [selectedPalace, setSelectedPalace] = useState<any>(null);
-  const [showReport, setShowReport] = useState(true);
-
-  // 表单状态
-  const [formData, setFormData] = useState({
-    ownerName: '',
-    familyMembers: '',
-    address: '',
-    buildYear: '',
-    notes: '',
-    zodiac: 'rat',
-    direction: MOUNTAINS_24[0]
-  });
-
-  const [starChart, setStarChart] = useState<any>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImage(event.target?.result as string);
-        setReportReady(false);
-        setAnalyzing(false);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const startAnalysis = () => {
-    if (!image) return;
-    setAnalyzing(true);
-    setReportReady(false);
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三僚黑扇子 · 玄空风水智能分析系统</title>
     
-    setTimeout(() => {
-      setStarChart(calculateFlyingStars(formData.direction));
-      setAnalyzing(false);
-      setReportReady(true);
-      setShowReport(true);
-    }, 1500);
-  };
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 React 和 ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- 引入 Babel 用于解析 JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  const handleExport = () => {
-    window.print();
-  };
+    <!-- 打印样式优化 -->
+    <style>
+        @media print {
+            @page { margin: 0; }
+            body { background: white; }
+            .no-print { display: none !important; }
+            .print-full-width { width: 100% !important; grid-column: span 12 !important; }
+            .print-border { border: 1px solid #000 !important; }
+            .print-text-black { color: #000 !important; }
+        }
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin { animation: spin 1s linear infinite; }
+    </style>
+</head>
+<body class="bg-[#F5F5F7] text-[#1F2937] font-sans selection:bg-[#CBD5E1]">
+    <div id="root"></div>
 
-  const currentZodiac = ZODIAC_DATA[formData.zodiac as keyof typeof ZODIAC_DATA];
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
 
-  return (
-    <div className="min-h-screen bg-[#F5F5F7] text-[#1F2937] font-sans selection:bg-[#CBD5E1] print:bg-white">
-      
-      {/* 顶部导航 - 打印时隐藏 */}
-      <nav className="bg-[#1a1a1a] border-b border-gray-800 sticky top-0 z-50 shadow-md print:hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <Compass className="h-8 w-8 text-white" />
-              <span className="text-xl font-bold tracking-tight text-white font-serif">三僚黑扇子</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-              <span className="cursor-pointer hover:text-white transition-colors">风水登记</span>
-              <span className="cursor-pointer hover:text-white transition-colors">九宫全解</span>
-              <span className="cursor-pointer hover:text-white transition-colors">大师直断</span>
-              <span className="bg-white text-black px-4 py-2 rounded-sm hover:bg-gray-200 transition-colors cursor-pointer text-xs tracking-wider font-bold">
-                大师版
-              </span>
-            </div>
-          </div>
-        </div>
-      </nav>
+        // --- 图标组件定义 (修复版：定义为独立组件以避免JSX解析错误) ---
+        const SvgBase = ({ children, className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                {children}
+            </svg>
+        );
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:p-0 print:max-w-none">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 print:block">
-          
-          {/* 左侧：登记表 - 打印时隐藏 */}
-          <div className="lg:col-span-4 space-y-6 print:hidden">
-            <div className="bg-white p-6 rounded-none shadow-sm border-t-4 border-black">
-              <h3 className="text-lg font-bold mb-6 flex items-center text-black border-b pb-2">
-                <FileText className="w-5 h-5 mr-2" />
-                三元玄空风水登记表
-              </h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">户主姓名</label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-                    <input 
-                      type="text"
-                      name="ownerName"
-                      value={formData.ownerName}
-                      onChange={handleInputChange}
-                      placeholder="请输入户主姓名"
-                      className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                    />
-                  </div>
-                </div>
+        const Icons = {
+            Compass: (props) => (
+                <SvgBase {...props}>
+                    <circle cx="12" cy="12" r="10"/>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                </SvgBase>
+            ),
+            Upload: (props) => (
+                <SvgBase {...props}>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </SvgBase>
+            ),
+            RotateCw: (props) => (
+                <SvgBase {...props}>
+                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+                    <path d="M21 3v5h-5"/>
+                </SvgBase>
+            ),
+            BookOpen: (props) => (
+                <SvgBase {...props}>
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </SvgBase>
+            ),
+            ChevronDown: (props) => (
+                <SvgBase {...props}>
+                    <polyline points="6 9 12 15 18 9"/>
+                </SvgBase>
+            ),
+            ChevronUp: (props) => (
+                <SvgBase {...props}>
+                    <polyline points="18 15 12 9 6 15"/>
+                </SvgBase>
+            ),
+            User: (props) => (
+                <SvgBase {...props}>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </SvgBase>
+            ),
+            Users: (props) => (
+                <SvgBase {...props}>
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </SvgBase>
+            ),
+            MapPin: (props) => (
+                <SvgBase {...props}>
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </SvgBase>
+            ),
+            Calendar: (props) => (
+                <SvgBase {...props}>
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </SvgBase>
+            ),
+            FileText: (props) => (
+                <SvgBase {...props}>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </SvgBase>
+            ),
+            AlertCircle: (props) => (
+                <SvgBase {...props}>
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </SvgBase>
+            ),
+            MessageCircle: (props) => (
+                <SvgBase {...props}>
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                </SvgBase>
+            ),
+        };
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">户主生肖 (定本命吉凶)</label>
-                  <select 
-                    name="zodiac"
-                    value={formData.zodiac}
-                    onChange={handleInputChange}
-                    className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                  >
-                    {Object.entries(ZODIAC_DATA).map(([key, data]) => (
-                      <option key={key} value={key}>{data.name} (五行属{data.element})</option>
-                    ))}
-                  </select>
-                </div>
+        // --- 数据常量 ---
+        const ZODIAC_DATA = {
+            rat: { name: '鼠', element: '水', loc: '正北', clash: '正南', label: '坎宫' },
+            ox: { name: '牛', element: '土', loc: '东北', clash: '西南', label: '艮宫' },
+            tiger: { name: '虎', element: '木', loc: '东北', clash: '西南', label: '艮宫' },
+            rabbit: { name: '兔', element: '木', loc: '正东', clash: '正西', label: '震宫' },
+            dragon: { name: '龙', element: '土', loc: '东南', clash: '西北', label: '巽宫' },
+            snake: { name: '蛇', element: '火', loc: '东南', clash: '西北', label: '巽宫' },
+            horse: { name: '马', element: '火', loc: '正南', clash: '正北', label: '离宫' },
+            goat: { name: '羊', element: '土', loc: '西南', clash: '东北', label: '坤宫' },
+            monkey: { name: '猴', element: '金', loc: '西南', clash: '东北', label: '坤宫' },
+            rooster: { name: '鸡', element: '金', loc: '正西', clash: '正东', label: '兑宫' },
+            dog: { name: '狗', element: '土', loc: '西北', clash: '东南', label: '乾宫' },
+            pig: { name: '猪', element: '水', loc: '西北', clash: '东南', label: '乾宫' },
+        };
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">家庭成员 (注明生肖)</label>
-                  <div className="relative">
-                    <Users className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-                    <input 
-                      type="text"
-                      name="familyMembers"
-                      value={formData.familyMembers}
-                      onChange={handleInputChange}
-                      placeholder="例：妻子属蛇，长子属虎"
-                      className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                    />
-                  </div>
-                </div>
+        const MOUNTAINS_24 = [
+            "子山午向 (坐北向南)", "癸山丁向 (坐北向南)", "壬山丙向 (坐北向南)",
+            "午山子向 (坐南向北)", "丁山癸向 (坐南向北)", "丙山壬向 (坐南向北)",
+            "卯山酉向 (坐东向西)", "乙山辛向 (坐东向西)", "甲山庚向 (坐东向西)",
+            "酉山卯向 (坐西向东)", "辛山乙向 (坐西向东)", "庚山甲向 (坐西向东)",
+            "乾山巽向 (坐西北向东南)", "巽山乾向 (坐东南向西北)",
+            "艮山坤向 (坐东北向西南)", "坤山艮向 (坐西南向东北)"
+        ];
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">房子地址 (省/市)</label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-                    <input 
-                      type="text"
-                      name="address"
-                      value={formData.address}
-                      onChange={handleInputChange}
-                      placeholder="例：江西省赣州市兴国县..."
-                      className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                    />
-                  </div>
-                </div>
+        const PALACES = [
+            { id: 'SE', name: '东南 (巽)', baseStar: 4, element: '木' },
+            { id: 'S', name: '正南 (离)', baseStar: 9, element: '火' },
+            { id: 'SW', name: '西南 (坤)', baseStar: 2, element: '土' },
+            { id: 'E', name: '正东 (震)', baseStar: 3, element: '木' },
+            { id: 'C', name: '中宫', baseStar: 5, element: '土' },
+            { id: 'W', name: '正西 (兑)', baseStar: 7, element: '金' },
+            { id: 'NE', name: '东北 (艮)', baseStar: 8, element: '土' },
+            { id: 'N', name: '正北 (坎)', baseStar: 1, element: '水' },
+            { id: 'NW', name: '西北 (乾)', baseStar: 6, element: '金' },
+        ];
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">房屋建成时间 (年份)</label>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-                    <input 
-                      type="text"
-                      name="buildYear"
-                      value={formData.buildYear}
-                      onChange={handleInputChange}
-                      placeholder="例：2004 (用于定元运)"
-                      className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                    />
-                  </div>
-                </div>
+        // --- 逻辑函数 ---
+        const calculateFlyingStars = (baseDirection) => {
+            return {
+                'SE': { mountain: 4, water: 3, base: 4, desc: '四绿文曲飞临，主学业功名。然见三碧蚩尤，成碧绿风魔之象，防情绪躁动，不利长女。', type: '吉带凶' },
+                'S': { mountain: 9, water: 9, base: 9, desc: '九紫右弼双星到向，火气冲天，为全宅最旺之财位，也是未来生气所在，大吉。', type: '大吉' },
+                'SW': { mountain: 2, water: 1, base: 2, desc: '二黑病符土星，见一白贪狼。土克水，防妇科疾病或肠胃之疾，此处宜静。', type: '凶' },
+                'E': { mountain: 3, water: 4, base: 3, desc: '三碧禄存星，木气过盛。若此处有缺角或形煞，易招口舌是非，官非缠身。', type: '凶' },
+                'C': { mountain: 5, water: 5, base: 5, desc: '五黄廉贞大煞入中宫。皇级大煞，动则见凶。全屋气场以此为枢纽，务必保持整洁平稳。', type: '大凶' },
+                'W': { mountain: 7, water: 6, base: 7, desc: '七赤破军星，金气肃杀。名为贼星，主破财、手术、金属之伤。', type: '凶' },
+                'NE': { mountain: 8, water: 7, base: 8, desc: '八白左辅星，虽为退气之星，但本质为吉。利于置业、守成，少壮男丁之位。', type: '小吉' },
+                'N': { mountain: 1, water: 2, base: 1, desc: '一白贪狼星，主桃花、人缘。虽受二黑土克，但总体利于文职、人际交往。', type: '小吉' },
+                'NW': { mountain: 6, water: 8, base: 6, desc: '六白武曲星，利官运、权威。为一家之主（父辈）本位，此方若受冲，不利男主人。', type: '吉' },
+            };
+        };
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">宅屋坐向 (二十四山)</label>
-                  <select 
-                    name="direction"
-                    value={formData.direction}
-                    onChange={handleInputChange}
-                    className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                  >
-                    {MOUNTAINS_24.map((m, idx) => (
-                      <option key={idx} value={m}>{m}</option>
-                    ))}
-                  </select>
-                </div>
+        // --- 主应用组件 ---
+        const FengShuiApp = () => {
+            const [image, setImage] = useState(null);
+            const [rotation, setRotation] = useState(0);
+            const [analyzing, setAnalyzing] = useState(false);
+            const [reportReady, setReportReady] = useState(false);
+            const [selectedPalace, setSelectedPalace] = useState(null);
+            const [showReport, setShowReport] = useState(true);
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">户型图 (朝向标明)</label>
-                  {!image ? (
-                    <div 
-                      onClick={() => fileInputRef.current?.click()}
-                      className="border-2 border-dashed border-gray-300 rounded-sm h-32 flex flex-col items-center justify-center cursor-pointer hover:border-black hover:bg-gray-50 transition-all group"
-                    >
-                      <Upload className="h-8 w-8 text-gray-400 group-hover:text-black mb-2" />
-                      <p className="text-xs text-gray-500">点击上传 PDF/JPG</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="relative h-32 bg-gray-100 rounded-sm overflow-hidden flex items-center justify-center border border-gray-200">
-                        <img 
-                          src={image} 
-                          alt="Floorplan" 
-                          className="max-h-full max-w-full object-contain"
-                          style={{ transform: `rotate(${rotation}deg)` }}
-                        />
-                        <button 
-                          onClick={() => setImage(null)}
-                          className="absolute top-1 right-1 bg-white p-1 rounded-full shadow hover:bg-gray-100 text-red-500"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RotateCw className="w-3 h-3 text-gray-500" />
-                        <input 
-                          type="range" 
-                          min="-45" 
-                          max="45" 
-                          value={rotation} 
-                          onChange={(e) => setRotation(parseInt(e.target.value))}
-                          className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black" 
-                        />
-                      </div>
-                    </div>
-                  )}
-                  <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*,.pdf" />
-                </div>
+            const [formData, setFormData] = useState({
+                ownerName: '',
+                familyMembers: '',
+                address: '',
+                buildYear: '',
+                notes: '',
+                zodiac: 'rat',
+                direction: MOUNTAINS_24[0]
+            });
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-500 uppercase mb-1">特别说明 (需解决的问题)</label>
-                  <textarea 
-                    name="notes"
-                    value={formData.notes}
-                    onChange={handleInputChange}
-                    placeholder="例：近期财运不佳，希望分析财位。长子身体不好..."
-                    rows={3}
-                    className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
-                  />
-                </div>
+            const [starChart, setStarChart] = useState(null);
+            const fileInputRef = useRef(null);
 
-                <button
-                  onClick={startAnalysis}
-                  disabled={!image || analyzing}
-                  className={`w-full py-3 px-4 rounded-sm text-white font-bold tracking-widest shadow-md transition-all uppercase
-                    ${!image || analyzing 
-                      ? 'bg-gray-400 cursor-not-allowed' 
-                      : 'bg-[#1a1a1a] hover:bg-black hover:shadow-lg'}`}
-                >
-                  {analyzing ? '黑扇子排盘中...' : '生成全盘论断'}
-                </button>
-              </div>
-            </div>
-          </div>
+            const handleImageUpload = (e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        setImage(event.target?.result);
+                        setReportReady(false);
+                        setAnalyzing(false);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
 
-          {/* 右侧：可视化与报告 - 打印时调整为全宽 */}
-          <div className="lg:col-span-8 space-y-8 print:col-span-12 print:w-full print:space-y-4">
-            
-            {/* 1. 可视化区域 */}
-            <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden min-h-[500px] flex flex-col print:border-none print:shadow-none print:min-h-0">
-              <div className="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50 print:bg-white print:border-none">
-                <h3 className="font-bold text-gray-700 font-serif print:text-black print:text-xl">九宫飞星排盘图</h3>
-                {reportReady && <span className="text-xs font-mono text-gray-500 print:text-black">【三僚黑扇子】九运 (2024-2043)</span>}
-              </div>
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({ ...prev, [name]: value }));
+            };
 
-              <div className="flex-1 relative bg-[#F5F5F7] flex items-center justify-center overflow-hidden print:bg-white">
-                {!image ? (
-                  <div className="text-center text-gray-400 print:hidden">
-                    <Compass className="w-16 h-16 mx-auto mb-3 opacity-10" />
-                    <p className="font-serif">请先在左侧完成登记并上传户型图</p>
-                  </div>
-                ) : (
-                  <div className="relative w-full h-full flex items-center justify-center p-8 print:p-0 print:h-auto">
-                    <div className="relative" style={{ maxWidth: '100%', maxHeight: '100%' }}>
-                       <img 
-                        src={image} 
-                        alt="Uploaded Floorplan" 
-                        className="max-w-full max-h-[500px] object-contain print:max-h-[400px]"
-                        style={{ transform: `rotate(${rotation}deg)` }}
-                      />
-                      
-                      {/* 九宫格 */}
-                      {reportReady && starChart && (
-                        <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 border-2 border-black/60 shadow-xl print:border-black print:shadow-none">
-                           {PALACES.map((palace) => {
-                             const starData = starChart[palace.id];
-                             return (
-                               <div 
-                                 key={palace.id}
-                                 onClick={() => setSelectedPalace({ ...palace, ...starData })}
-                                 className="border border-black/20 relative group cursor-pointer hover:bg-black/5 flex flex-col items-center justify-center print:border-black/30"
-                               >
-                                 <span className="absolute top-1 left-1 text-[10px] font-bold bg-white/90 px-1 border border-black/10 print:text-black">
-                                   {palace.name}
-                                 </span>
-                                 <div className="flex flex-col items-center select-none pointer-events-none">
-                                   <div className="flex space-x-3 mb-1">
-                                     <span className="text-xs font-serif font-bold text-black">{starData.mountain}</span>
-                                     <span className="text-xs font-serif font-bold text-red-700">{starData.water}</span>
-                                   </div>
-                                   <span className="text-lg font-serif font-bold text-gray-800 opacity-60 print:text-black">{starData.base}</span>
-                                 </div>
-                               </div>
-                             );
-                           })}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+            const startAnalysis = () => {
+                if (!image) return;
+                setAnalyzing(true);
+                setReportReady(false);
                 
-                {analyzing && (
-                  <div className="absolute inset-0 bg-white/95 z-20 flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p className="text-black font-serif tracking-widest animate-pulse">正在推演玄空卦气...</p>
-                  </div>
-                )}
-              </div>
-            </div>
+                setTimeout(() => {
+                    setStarChart(calculateFlyingStars(formData.direction));
+                    setAnalyzing(false);
+                    setReportReady(true);
+                    setShowReport(true);
+                }, 1500);
+            };
 
-            {/* 2. 分析报告 (纯论断) */}
-            {reportReady && (
-              <div className="bg-white rounded-sm shadow-md border border-gray-200 overflow-hidden print:shadow-none print:border-none print:mt-4">
-                <div 
-                  className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center cursor-pointer print:hidden"
-                  onClick={() => setShowReport(!showReport)}
-                >
-                  <h2 className="text-lg font-bold text-black flex items-center font-serif">
-                    <BookOpen className="w-5 h-5 mr-2" />
-                    三僚黑扇子 · 堪舆论断书
-                  </h2>
-                  <div className="flex items-center space-x-4">
-                    {showReport ? <ChevronUp className="w-5 h-5 text-gray-500" /> : <ChevronDown className="w-5 h-5 text-gray-500" />}
-                  </div>
-                </div>
+            const handleExport = () => {
+                window.print();
+            };
 
-                {/* 打印时始终显示标题 */}
-                <div className="hidden print:block mb-4 border-b border-black pb-2">
-                   <h2 className="text-2xl font-bold text-black font-serif text-center">三僚黑扇子 · 堪舆论断书</h2>
-                </div>
+            const currentZodiac = ZODIAC_DATA[formData.zodiac];
 
-                {showReport && (
-                  <div className="p-8 space-y-10 animate-fadeIn text-justify print:p-0 print:space-y-6">
-                    
-                    {/* 档案头 */}
-                    <div className="bg-gray-50 p-4 border border-gray-200 text-sm text-gray-600 grid grid-cols-2 gap-4 font-mono print:bg-white print:border-black">
-                      <div><span className="font-bold text-black">户主：</span>{formData.ownerName || '未填写'} ({currentZodiac.name})</div>
-                      <div><span className="font-bold text-black">地址：</span>{formData.address || '未填写'}</div>
-                      <div><span className="font-bold text-black">成员生肖：</span>{formData.familyMembers || '未填写'}</div>
-                      <div><span className="font-bold text-black">建成：</span>{formData.buildYear || '未填写'}</div>
-                      <div className="col-span-2 border-t pt-2 mt-1 border-gray-300 print:border-gray-400">
-                        <span className="font-bold text-black block mb-1">福主诉求 / 特别说明：</span>
-                        <span className="text-gray-800 italic">“{formData.notes || '无'}”</span>
-                      </div>
-                    </div>
-
-                    {/* 模块一：黑扇子直断 (回应用户输入) */}
-                    <section className="bg-amber-50 border border-amber-200 p-6 rounded-sm print:bg-white print:border-black print:p-4">
-                      <h3 className="text-lg font-bold text-amber-900 mb-4 font-serif flex items-center print:text-black">
-                        <AlertCircle className="w-5 h-5 mr-2" />
-                        壹 · 黑扇子直断 (福主问事)
-                      </h3>
-                      <div className="text-sm leading-relaxed text-gray-800 space-y-3">
-                        {formData.notes ? (
-                          <>
-                            <p>
-                              <span className="font-bold">针对您提到的“{formData.notes}”：</span>
-                            </p>
-                            <p>
-                              从卦象来看，若涉及<span className="font-bold">财运</span>问题，请重点审视本宅<span className="font-bold text-red-700">正南 (离宫)</span>。此方九紫当旺，若户型图上此方位缺角、有重物压制或为卫生间，则直接导致财气受损，进财无门。
-                            </p>
-                            <p>
-                              若涉及<span className="font-bold">健康或家庭成员</span>问题，请查看与该成员生肖对应的方位。例如您提到的家庭成员，若生肖位落入<span className="font-bold text-gray-600">中宫或西南</span>，受五黄二黑煞气影响，则易生病痛。
-                            </p>
-                          </>
-                        ) : (
-                          <p>
-                            您未填写具体的特别说明，黑扇子按常规全盘推演。当前九紫运，重点关注正南方的纳气情况，此乃未来二十年财运关键。
-                          </p>
-                        )}
-                        {formData.familyMembers && (
-                          <div className="mt-4 pt-4 border-t border-amber-200 print:border-gray-400">
-                            <span className="font-bold block mb-2">家庭成员方位提示：</span>
-                            <p className="text-xs text-gray-600 print:text-black">
-                              请对照下方九宫详解，检查您填写的“{formData.familyMembers}”对应生肖的方位（如属虎看艮宫，属马看离宫），若该宫位飞星为凶，则该成员运势受损。
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    </section>
-
-                    {/* 模块二：九宫全解 */}
-                    <section>
-                      <h3 className="text-lg font-bold text-black border-l-4 border-black pl-3 mb-6 font-serif">贰 · 九宫二十四山全盘论断</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 print:grid-cols-2 print:gap-4">
-                        {PALACES.map((palace) => {
-                          const data = starChart[palace.id];
-                          // 判断是否与户主生肖相关
-                          const isZodiacLoc = currentZodiac.label.includes(palace.name.split(' ')[1]);
-                          const isClashLoc = palace.name.includes(currentZodiac.clash);
-
-                          return (
-                            <div key={palace.id} className={`
-                              border p-4 relative print:break-inside-avoid print:border-black
-                              ${data.type === '大吉' ? 'border-red-200 bg-red-50/30' : 
-                                data.type === '大凶' ? 'border-gray-400 bg-gray-100' : 'border-gray-200 bg-white'}
-                              print:bg-white
-                            `}>
-                              <div className="flex justify-between items-center mb-3">
-                                <h4 className="font-bold text-black font-serif">{palace.name}</h4>
-                                <span className={`text-[10px] px-2 py-0.5 border ${
-                                  data.type.includes('吉') ? 'text-red-800 border-red-800' : 'text-gray-600 border-gray-600'
-                                } print:text-black print:border-black`}>
-                                  {data.type}
-                                </span>
-                              </div>
-                              
-                              <div className="flex space-x-4 mb-3 text-xs font-mono border-b border-dashed border-gray-200 pb-2 print:border-gray-400">
-                                <span>山星:<b className="text-black">{data.mountain}</b></span>
-                                <span>向星:<b className="text-red-700">{data.water}</b></span>
-                                <span>运星:<b className="text-gray-400 print:text-black">{data.base}</b></span>
-                              </div>
-
-                              <p className="text-xs text-gray-600 leading-relaxed mb-3 min-h-[60px] print:text-black print:min-h-0">
-                                {data.desc}
-                              </p>
-
-                              {/* 用户相关性提示 */}
-                              {(isZodiacLoc || isClashLoc) && (
-                                <div className="bg-black/5 p-2 text-[10px] text-gray-700 print:bg-transparent print:border print:border-dashed print:border-gray-400">
-                                  {isZodiacLoc && <span className="block font-bold">★ 户主本命方</span>}
-                                  {isClashLoc && <span className="block font-bold text-red-700">⚠ 户主冲煞方 (岁破)</span>}
+            return (
+                <div className="min-h-screen">
+                    {/* 顶部导航 - 打印时隐藏 */}
+                    <nav className="bg-[#1a1a1a] border-b border-gray-800 sticky top-0 z-50 shadow-md no-print">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="flex justify-between h-16">
+                                <div className="flex items-center space-x-3">
+                                    <Icons.Compass className="h-8 w-8 text-white" />
+                                    <span className="text-xl font-bold tracking-tight text-white font-serif">三僚黑扇子</span>
                                 </div>
-                              )}
+                                <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                                    <span className="cursor-pointer hover:text-white transition-colors">风水登记</span>
+                                    <span className="cursor-pointer hover:text-white transition-colors">九宫全解</span>
+                                    <span className="cursor-pointer hover:text-white transition-colors">大师直断</span>
+                                    <span className="bg-white text-black px-4 py-2 rounded-sm hover:bg-gray-200 transition-colors cursor-pointer text-xs tracking-wider font-bold">
+                                        大师版
+                                    </span>
+                                </div>
                             </div>
-                          );
-                        })}
-                      </div>
-                    </section>
-
-                    {/* 模块三：专家咨询 (新增) */}
-                    <section className="bg-gray-900 text-white p-8 rounded-sm text-center print:bg-white print:text-black print:border-t print:border-black">
-                      <h3 className="text-lg font-bold mb-6 font-serif flex items-center justify-center">
-                        <MessageCircle className="w-5 h-5 mr-2" />
-                        叁 · 深度咨询与化解方案
-                      </h3>
-                      
-                      <div className="flex flex-col items-center space-y-4">
-                        <p className="text-sm text-gray-300 max-w-lg leading-relaxed print:text-gray-700">
-                           本报告为基础理气论断。如需更深度的命理流年分析、实地峦头勘察或具体的家居风水布局指导（如鱼缸摆放、财位布局），请扫码添加【扇子老师助理】微信进行预约。
-                        </p>
-                        
-                        <div className="bg-white p-2 rounded-lg inline-block my-4 print:border print:border-black">
-                          {/* 注意：此处使用占位图片。
-                             在实际部署时，请将下方 src 替换为您上传的 "万林微信.png" 图片路径。
-                             例如：src="/images/万林微信.png" 
-                          */}
-                          <img 
-                            src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ContactMasterFanAssistant" 
-                            alt="扇子老师助理微信" 
-                            className="w-32 h-32 object-contain" 
-                          />
                         </div>
-                        
-                        <p className="text-xs text-gray-400 print:text-gray-500">
-                          扫一扫上方二维码，注明“风水咨询”
-                        </p>
-                      </div>
-                    </section>
+                    </nav>
 
-                    <div className="text-center mt-8 pt-6 border-t border-gray-200 print:border-black">
-                      <p className="text-xs text-gray-400 font-serif print:text-black">
-                        * 论断仅供参考。风水之道，形为体，理为用，建议结合实地峦头综合研判。
-                      </p>
-                    </div>
+                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:p-0 print:max-w-none">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 print:block">
+                            
+                            {/* 左侧：登记表 - 打印时隐藏 */}
+                            <div className="lg:col-span-4 space-y-6 no-print">
+                                <div className="bg-white p-6 rounded-none shadow-sm border-t-4 border-black">
+                                    <h3 className="text-lg font-bold mb-6 flex items-center text-black border-b pb-2">
+                                        <Icons.FileText className="w-5 h-5 mr-2" />
+                                        三元玄空风水登记表
+                                    </h3>
+                                    
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">户主姓名</label>
+                                            <div className="relative">
+                                                <div className="absolute left-3 top-2.5 text-gray-400"><Icons.User className="h-4 w-4"/></div>
+                                                <input 
+                                                    type="text"
+                                                    name="ownerName"
+                                                    value={formData.ownerName}
+                                                    onChange={handleInputChange}
+                                                    placeholder="请输入户主姓名"
+                                                    className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                                />
+                                            </div>
+                                        </div>
 
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-};
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">户主生肖 (定本命吉凶)</label>
+                                            <select 
+                                                name="zodiac"
+                                                value={formData.zodiac}
+                                                onChange={handleInputChange}
+                                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                            >
+                                                {Object.entries(ZODIAC_DATA).map(([key, data]) => (
+                                                    <option key={key} value={key}>{data.name} (五行属{data.element})</option>
+                                                ))}
+                                            </select>
+                                        </div>
 
-export default FengShuiApp;
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">家庭成员 (注明生肖)</label>
+                                            <div className="relative">
+                                                 <div className="absolute left-3 top-2.5 text-gray-400"><Icons.Users className="h-4 w-4"/></div>
+                                                <input 
+                                                    type="text"
+                                                    name="familyMembers"
+                                                    value={formData.familyMembers}
+                                                    onChange={handleInputChange}
+                                                    placeholder="例：妻子属蛇，长子属虎"
+                                                    className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">房子地址 (省/市)</label>
+                                            <div className="relative">
+                                                <div className="absolute left-3 top-2.5 text-gray-400"><Icons.MapPin className="h-4 w-4"/></div>
+                                                <input 
+                                                    type="text"
+                                                    name="address"
+                                                    value={formData.address}
+                                                    onChange={handleInputChange}
+                                                    placeholder="例：江西省赣州市兴国县..."
+                                                    className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">房屋建成时间 (年份)</label>
+                                            <div className="relative">
+                                                <div className="absolute left-3 top-2.5 text-gray-400"><Icons.Calendar className="h-4 w-4"/></div>
+                                                <input 
+                                                    type="text"
+                                                    name="buildYear"
+                                                    value={formData.buildYear}
+                                                    onChange={handleInputChange}
+                                                    placeholder="例：2004 (用于定元运)"
+                                                    className="w-full pl-9 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">宅屋坐向 (二十四山)</label>
+                                            <select 
+                                                name="direction"
+                                                value={formData.direction}
+                                                onChange={handleInputChange}
+                                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                            >
+                                                {MOUNTAINS_24.map((m, idx) => (
+                                                    <option key={idx} value={m}>{m}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">户型图 (朝向标明)</label>
+                                            {!image ? (
+                                                <div 
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                    className="border-2 border-dashed border-gray-300 rounded-sm h-32 flex flex-col items-center justify-center cursor-pointer hover:border-black hover:bg-gray-50 transition-all group"
+                                                >
+                                                    <Icons.Upload className="h-8 w-8 text-gray-400 group-hover:text-black mb-2" />
+                                                    <p className="text-xs text-gray-500">点击上传 PDF/JPG</p>
+                                                </div>
+                                            ) : (
+                                                <div className="space-y-2">
+                                                    <div className="relative h-32 bg-gray-100 rounded-sm overflow-hidden flex items-center justify-center border border-gray-200">
+                                                        <img 
+                                                            src={image} 
+                                                            alt="Floorplan" 
+                                                            className="max-h-full max-w-full object-contain"
+                                                            style={{ transform: `rotate(${rotation}deg)` }}
+                                                        />
+                                                        <button 
+                                                            onClick={() => setImage(null)}
+                                                            className="absolute top-1 right-1 bg-white p-1 rounded-full shadow hover:bg-gray-100 text-red-500"
+                                                        >
+                                                            ✕
+                                                        </button>
+                                                    </div>
+                                                    <div className="flex items-center space-x-2">
+                                                        <Icons.RotateCw className="w-3 h-3 text-gray-500" />
+                                                        <input 
+                                                            type="range" 
+                                                            min="-45" 
+                                                            max="45" 
+                                                            value={rotation} 
+                                                            onChange={(e) => setRotation(parseInt(e.target.value))}
+                                                            className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black" 
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <input type="file" ref={fileInputRef} onChange={handleImageUpload} className="hidden" accept="image/*,.pdf" />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">特别说明 (需解决的问题)</label>
+                                            <textarea 
+                                                name="notes"
+                                                value={formData.notes}
+                                                onChange={handleInputChange}
+                                                placeholder="例：近期财运不佳，希望分析财位。长子身体不好..."
+                                                rows={3}
+                                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-black focus:border-black block p-2"
+                                            />
+                                        </div>
+
+                                        <button
+                                            onClick={startAnalysis}
+                                            disabled={!image || analyzing}
+                                            className={`w-full py-3 px-4 rounded-sm text-white font-bold tracking-widest shadow-md transition-all uppercase
+                                                ${!image || analyzing 
+                                                ? 'bg-gray-400 cursor-not-allowed' 
+                                                : 'bg-[#1a1a1a] hover:bg-black hover:shadow-lg'}`}
+                                        >
+                                            {analyzing ? '黑扇子排盘中...' : '生成全盘论断'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* 右侧：可视化与报告 - 打印时调整为全宽 */}
+                            <div className="lg:col-span-8 space-y-8 print:col-span-12 print-full-width print:space-y-4">
+                                
+                                {/* 1. 可视化区域 */}
+                                <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden min-h-[500px] flex flex-col print:border-none print:shadow-none print:min-h-0">
+                                    <div className="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50 print:bg-white print:border-none">
+                                        <h3 className="font-bold text-gray-700 font-serif print-text-black print:text-xl">九宫飞星排盘图</h3>
+                                        {reportReady && <span className="text-xs font-mono text-gray-500 print-text-black">【三僚黑扇子】九运 (2024-2043)</span>}
+                                    </div>
+
+                                    <div className="flex-1 relative bg-[#F5F5F7] flex items-center justify-center overflow-hidden print:bg-white">
+                                        {!image ? (
+                                            <div className="text-center text-gray-400 no-print">
+                                                <Icons.Compass className="w-16 h-16 mx-auto mb-3 opacity-10" />
+                                                <p className="font-serif">请先在左侧完成登记并上传户型图</p>
+                                            </div>
+                                        ) : (
+                                            <div className="relative w-full h-full flex items-center justify-center p-8 print:p-0 print:h-auto">
+                                                <div className="relative" style={{ maxWidth: '100%', maxHeight: '100%' }}>
+                                                <img 
+                                                    src={image} 
+                                                    alt="Uploaded Floorplan" 
+                                                    className="max-w-full max-h-[500px] object-contain print:max-h-[400px]"
+                                                    style={{ transform: `rotate(${rotation}deg)` }}
+                                                />
+                                                
+                                                {/* 九宫格 */}
+                                                {reportReady && starChart && (
+                                                    <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 border-2 border-black/60 shadow-xl print-border print:shadow-none">
+                                                    {PALACES.map((palace) => {
+                                                        const starData = starChart[palace.id];
+                                                        return (
+                                                        <div 
+                                                            key={palace.id}
+                                                            onClick={() => setSelectedPalace({ ...palace, ...starData })}
+                                                            className="border border-black/20 relative group cursor-pointer hover:bg-black/5 flex flex-col items-center justify-center print:border-black/30"
+                                                        >
+                                                            <span className="absolute top-1 left-1 text-[10px] font-bold bg-white/90 px-1 border border-black/10 print-text-black">
+                                                            {palace.name}
+                                                            </span>
+                                                            <div className="flex flex-col items-center select-none pointer-events-none">
+                                                            <div className="flex space-x-3 mb-1">
+                                                                <span className="text-xs font-serif font-bold text-black">{starData.mountain}</span>
+                                                                <span className="text-xs font-serif font-bold text-red-700">{starData.water}</span>
+                                                            </div>
+                                                            <span className="text-lg font-serif font-bold text-gray-800 opacity-60 print-text-black">{starData.base}</span>
+                                                            </div>
+                                                        </div>
+                                                        );
+                                                    })}
+                                                    </div>
+                                                )}
+                                                </div>
+                                            </div>
+                                        )}
+                                        
+                                        {analyzing && (
+                                            <div className="absolute inset-0 bg-white/95 z-20 flex flex-col items-center justify-center">
+                                                <div className="w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin mb-4"></div>
+                                                <p className="text-black font-serif tracking-widest animate-pulse">正在推演玄空卦气...</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* 2. 分析报告 (纯论断) */}
+                                {reportReady && (
+                                    <div className="bg-white rounded-sm shadow-md border border-gray-200 overflow-hidden print:shadow-none print:border-none print:mt-4">
+                                        <div 
+                                            className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center cursor-pointer no-print"
+                                            onClick={() => setShowReport(!showReport)}
+                                        >
+                                            <h2 className="text-lg font-bold text-black flex items-center font-serif">
+                                                <Icons.BookOpen className="w-5 h-5 mr-2" />
+                                                三僚黑扇子 · 堪舆论断书
+                                            </h2>
+                                            <div className="flex items-center space-x-4">
+                                                <button onClick={handleExport} className="flex items-center text-sm text-gray-600 hover:text-black">
+                                                    打印论断书 (PDF)
+                                                </button>
+                                                {showReport ? <Icons.ChevronUp className="w-5 h-5 text-gray-500" /> : <Icons.ChevronDown className="w-5 h-5 text-gray-500" />}
+                                            </div>
+                                        </div>
+
+                                        {/* 打印时始终显示标题 */}
+                                        <div className="hidden print:block mb-4 border-b border-black pb-2">
+                                            <h2 className="text-2xl font-bold text-black font-serif text-center">三僚黑扇子 · 堪舆论断书</h2>
+                                        </div>
+
+                                        {showReport && (
+                                            <div className="p-8 space-y-10 animate-fadeIn text-justify print:p-0 print:space-y-6">
+                                                
+                                                {/* 档案头 */}
+                                                <div className="bg-gray-50 p-4 border border-gray-200 text-sm text-gray-600 grid grid-cols-2 gap-4 font-mono print:bg-white print-border">
+                                                    <div><span className="font-bold text-black">户主：</span>{formData.ownerName || '未填写'} ({currentZodiac.name})</div>
+                                                    <div><span className="font-bold text-black">地址：</span>{formData.address || '未填写'}</div>
+                                                    <div><span className="font-bold text-black">成员生肖：</span>{formData.familyMembers || '未填写'}</div>
+                                                    <div><span className="font-bold text-black">建成：</span>{formData.buildYear || '未填写'}</div>
+                                                    <div className="col-span-2 border-t pt-2 mt-1 border-gray-300 print:border-gray-400">
+                                                        <span className="font-bold text-black block mb-1">福主诉求 / 特别说明：</span>
+                                                        <span className="text-gray-800 italic">“{formData.notes || '无'}”</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* 模块一：黑扇子直断 */}
+                                                <section className="bg-amber-50 border border-amber-200 p-6 rounded-sm print:bg-white print-border print:p-4">
+                                                    <h3 className="text-lg font-bold text-amber-900 mb-4 font-serif flex items-center print-text-black">
+                                                        <Icons.AlertCircle className="w-5 h-5 mr-2" />
+                                                        壹 · 黑扇子直断 (福主问事)
+                                                    </h3>
+                                                    <div className="text-sm leading-relaxed text-gray-800 space-y-3">
+                                                        {formData.notes ? (
+                                                        <>
+                                                            <p>
+                                                                <span className="font-bold">针对您提到的“{formData.notes}”：</span>
+                                                            </p>
+                                                            <p>
+                                                                从卦象来看，若涉及<span className="font-bold">财运</span>问题，请重点审视本宅<span className="font-bold text-red-700">正南 (离宫)</span>。此方九紫当旺，若户型图上此方位缺角、有重物压制或为卫生间，则直接导致财气受损，进财无门。
+                                                            </p>
+                                                            <p>
+                                                                若涉及<span className="font-bold">健康或家庭成员</span>问题，请查看与该成员生肖对应的方位。例如您提到的家庭成员，若生肖位落入<span className="font-bold text-gray-600">中宫或西南</span>，受五黄二黑煞气影响，则易生病痛。
+                                                            </p>
+                                                        </>
+                                                        ) : (
+                                                        <p>
+                                                            您未填写具体的特别说明，黑扇子按常规全盘推演。当前九紫运，重点关注正南方的纳气情况，此乃未来二十年财运关键。
+                                                        </p>
+                                                        )}
+                                                        {formData.familyMembers && (
+                                                        <div className="mt-4 pt-4 border-t border-amber-200 print:border-gray-400">
+                                                            <span className="font-bold block mb-2">家庭成员方位提示：</span>
+                                                            <p className="text-xs text-gray-600 print-text-black">
+                                                                请对照下方九宫详解，检查您填写的“{formData.familyMembers}”对应生肖的方位（如属虎看艮宫，属马看离宫），若该宫位飞星为凶，则该成员运势受损。
+                                                            </p>
+                                                        </div>
+                                                        )}
+                                                    </div>
+                                                </section>
+
+                                                {/* 模块二：九宫全解 */}
+                                                <section>
+                                                    <h3 className="text-lg font-bold text-black border-l-4 border-black pl-3 mb-6 font-serif">贰 · 九宫二十四山全盘论断</h3>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 print:grid-cols-2 print:gap-4">
+                                                        {PALACES.map((palace) => {
+                                                        const data = starChart[palace.id];
+                                                        const isZodiacLoc = currentZodiac.label.includes(palace.name.split(' ')[1]);
+                                                        const isClashLoc = palace.name.includes(currentZodiac.clash);
+
+                                                        return (
+                                                            <div key={palace.id} className={`
+                                                                border p-4 relative print:break-inside-avoid print-border
+                                                                ${data.type === '大吉' ? 'border-red-200 bg-red-50/30' : 
+                                                                    data.type === '大凶' ? 'border-gray-400 bg-gray-100' : 'border-gray-200 bg-white'}
+                                                                print:bg-white
+                                                            `}>
+                                                                <div className="flex justify-between items-center mb-3">
+                                                                    <h4 className="font-bold text-black font-serif">{palace.name}</h4>
+                                                                    <span className={`text-[10px] px-2 py-0.5 border ${
+                                                                    data.type.includes('吉') ? 'text-red-800 border-red-800' : 'text-gray-600 border-gray-600'
+                                                                    } print-text-black print-border`}>
+                                                                    {data.type}
+                                                                    </span>
+                                                                </div>
+                                                                
+                                                                <div className="flex space-x-4 mb-3 text-xs font-mono border-b border-dashed border-gray-200 pb-2 print:border-gray-400">
+                                                                    <span>山星:<b className="text-black">{data.mountain}</b></span>
+                                                                    <span>向星:<b className="text-red-700">{data.water}</b></span>
+                                                                    <span>运星:<b className="text-gray-400 print-text-black">{data.base}</b></span>
+                                                                </div>
+
+                                                                <p className="text-xs text-gray-600 leading-relaxed mb-3 min-h-[60px] print-text-black print:min-h-0">
+                                                                    {data.desc}
+                                                                </p>
+
+                                                                {(isZodiacLoc || isClashLoc) && (
+                                                                    <div className="bg-black/5 p-2 text-[10px] text-gray-700 print:bg-transparent print:border print:border-dashed print:border-gray-400">
+                                                                    {isZodiacLoc && <span className="block font-bold">★ 户主本命方</span>}
+                                                                    {isClashLoc && <span className="block font-bold text-red-700">⚠ 户主冲煞方 (岁破)</span>}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                        })}
+                                                    </div>
+                                                </section>
+
+                                                {/* 模块三：专家咨询 */}
+                                                <section className="bg-gray-900 text-white p-8 rounded-sm text-center print:bg-white print-text-black print:border-t print-border">
+                                                    <h3 className="text-lg font-bold mb-6 font-serif flex items-center justify-center">
+                                                        <Icons.MessageCircle className="w-5 h-5 mr-2" />
+                                                        叁 · 深度咨询与化解方案
+                                                    </h3>
+                                                    
+                                                    <div className="flex flex-col items-center space-y-4">
+                                                        <p className="text-sm text-gray-300 max-w-lg leading-relaxed print:text-gray-700">
+                                                            本报告为基础理气论断。如需更深度的命理流年分析、实地峦头勘察或具体的家居风水布局指导（如鱼缸摆放、财位布局），请扫码添加【扇子老师助理】微信进行预约。
+                                                        </p>
+                                                        
+                                                        <div className="bg-white p-2 rounded-lg inline-block my-4 print-border">
+                                                            {/* 请将此链接替换为您的二维码图片链接，或确保图片与html在同一目录下并修改src */}
+                                                            <img 
+                                                                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ContactMasterFanAssistant" 
+                                                                alt="扇子老师助理微信" 
+                                                                className="w-32 h-32 object-contain" 
+                                                            />
+                                                        </div>
+                                                        
+                                                        <p className="text-xs text-gray-400 print:text-gray-500">
+                                                        扫一扫上方二维码，注明“风水咨询”
+                                                        </p>
+                                                    </div>
+                                                </section>
+
+                                                <div className="text-center mt-8 pt-6 border-t border-gray-200 print-border">
+                                                    <p className="text-xs text-gray-400 font-serif print-text-black">
+                                                        * 论断仅供参考。风水之道，形为体，理为用，建议结合实地峦头综合研判。
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<FengShuiApp />);
+    </script>
+</body>
+</html>
